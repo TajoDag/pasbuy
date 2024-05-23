@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig, Method } from "axios";
+import axios from "axios";
 const axiosInstance = axios.create({
   timeout: 60000,
 });
@@ -30,7 +30,6 @@ axiosInstance.interceptors.response.use(
     };
   },
   (error) => {
-    console.log(error);
     let errorMessage = "Lỗi hệ thống";
     if (error?.message?.includes("Network Error")) {
       errorMessage = "";

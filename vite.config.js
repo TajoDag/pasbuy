@@ -16,6 +16,7 @@ export default defineConfig({
       { find: "@assets", replacement: "/src/assets" },
       { find: "@utils", replacement: "/src/utils" },
       { find: "@scss", replacement: "/src/scss" },
+      { find: "@redux", replacement: "/src/redux/reducers" },
     ],
   },
   build: {
