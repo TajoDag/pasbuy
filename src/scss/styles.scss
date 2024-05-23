@@ -1,0 +1,22 @@
+//
+@import "./components/color.scss";
+@import "./components/antdCustom.scss";
+//layout//
+@import "./components/layouts/topbar.scss";
+@import "./components/layouts/header.scss";
+@import "./components/layouts/footer.scss";
+@import "./components/layouts/menu_footer.scss";
+@import "./components/layouts/service.scss";
+
+//page//
+@import "./components/pages/home.scss";
+@import "./components/pages/productDetail.scss";
+@import "./components/pages/categories.scss";
+
+//components/
+@import "./components/components/home_banner.scss";
+@import "./components/components/home_banner_ads.scss";
+@import "./components/components/home_list_product_for_type.scss";
+@import "./components/components/home_top10_grid.scss";
+
+@import "./components/global.scss";

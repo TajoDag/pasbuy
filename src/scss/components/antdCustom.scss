@@ -1,0 +1,12 @@
+.ant-dropdown-menu-item-selected {
+  color: $white !important;
+  background-color: #e62e05 !important;
+}
+
+.ant-dropdown-menu-item {
+  margin: 5px 0px !important;
+  &:hover {
+    color: $white !important;
+    background-color: #e62e05 !important;
+  }
+}

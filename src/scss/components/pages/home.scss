@@ -1,0 +1,21 @@
+.homepage {
+  width: 100%;
+  padding: 20px 55px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  @media (max-width: 990px) {
+    padding: 30px 25px;
+  }
+  .dw_top10 {
+    max-width: 1400px;
+    width: 100%;
+    display: flex;
+    gap: 25px;
+    @media (max-width: 991px) {
+      flex-wrap: wrap;
+    }
+  }
+}

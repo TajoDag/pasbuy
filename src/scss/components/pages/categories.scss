@@ -1,0 +1,273 @@
+.categories_container {
+  width: 100%;
+  padding: 20px 55px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 25px;
+  .menu {
+    width: 25%;
+    @media (min-width: 768px) and (max-width: 1023px) {
+      display: none;
+    }
+    @media (max-width: 767px) {
+      display: none;
+    }
+    .menu_detail {
+      padding: 10px 40px 10px 10px;
+      div {
+        padding: 0px 0px 12px 0px;
+        cursor: pointer;
+      }
+      div:hover {
+        color: #d32811;
+        text-decoration: underline;
+      }
+    }
+    .filter_price {
+      margin-top: 15px;
+      padding-bottom: 15px;
+      .range-price {
+        display: flex;
+        justify-content: space-between;
+        padding: 0px 10px;
+        p {
+          font-size: 1.2rem;
+          color: #807b7b;
+        }
+      }
+    }
+    .filter_size {
+      margin-top: 15px;
+      padding-bottom: 15px;
+      .size_wrap {
+        display: flex;
+        flex-direction: column;
+        padding-left: 10px;
+        .ant-checkbox-wrapper {
+          margin-top: 10px;
+        }
+      }
+    }
+  }
+  .product_wrap {
+    width: 100%;
+    .header_filter {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      @media (max-width: 767px) {
+        flex-direction: column;
+        align-items: start;
+      }
+      @media (min-width: 768px) and (max-width: 1023px) {
+        flex-direction: column;
+        align-items: start;
+      }
+    }
+
+    .select_wrap {
+      display: flex;
+      gap: 10px;
+      // @media (max-width: 767px) {
+      //   display: none;
+      // }
+      width: 100%;
+      p {
+        color: #807b7b;
+      }
+      div {
+        flex-direction: column;
+        width: 100%;
+
+        .ant-select {
+          height: 40px;
+          width: 100%;
+        }
+      }
+    }
+
+    .product_grid {
+      display: grid;
+      margin-top: 10px;
+      width: 100%;
+      grid-template-columns: 24% 24% 24% 24%;
+      gap: 1.4%;
+      @media (min-width: 768px) and (max-width: 1023px) {
+        grid-template-columns: 49% 49%;
+        gap: 15px;
+      }
+      @media (max-width: 767px) {
+        grid-template-columns: 100%;
+        gap: 10px;
+      }
+      .grid_item {
+        border-radius: 5px;
+        background-color: #fff;
+        img {
+          width: 100%;
+          border-radius: 5px;
+        }
+        .infor_item {
+          padding: 15px 10px;
+          position: relative;
+          span {
+            color: red;
+            font-size: 1.2rem;
+            font-weight: 600;
+          }
+          div {
+            margin-top: 5px;
+          }
+          div:nth-child(3) {
+            cursor: pointer;
+          }
+        }
+      }
+      .fast_button {
+        position: absolute;
+        flex-direction: column;
+        margin: 5px;
+        button {
+          background-color: #fff;
+          border: none;
+          box-shadow: 0 6px 6px rgba(0, 0, 0, 0.05);
+          border-radius: 50%;
+          width: 35px;
+          height: 35px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          transition: opacity 0.3s ease, transform 0.3s ease;
+          transform: translateX(-100%);
+          opacity: 0;
+        }
+        :hover {
+          background-color: #d32811;
+          color: #fff;
+        }
+      }
+    }
+  }
+}
+.product_wrap .product_grid .grid_item:hover .fast_button button {
+  opacity: 1;
+  transform: translateX(0%);
+}
+
+.product_wrap .product_grid .grid_item .fast_button button:nth-child(1) {
+  transition-delay: 0s; /* Nút đầu tiên không có độ trễ */
+}
+
+.product_wrap .product_grid .grid_item .fast_button button:nth-child(2) {
+  transition-delay: 0.1s; /* Nút thứ hai xuất hiện một chút sau nút đầu tiên */
+}
+
+.product_wrap .product_grid .grid_item .fast_button button:nth-child(3) {
+  transition-delay: 0.2s; /* Nút thứ ba xuất hiện sau cùng */
+}
+
+.menu {
+  width: 100%;
+  .menu_detail {
+    padding: 10px 40px 10px 10px;
+    div {
+      padding: 0px 0px 12px 0px;
+      cursor: pointer;
+    }
+    div:hover {
+      color: #d32811;
+      text-decoration: underline;
+    }
+  }
+  .filter_price {
+    margin-top: 15px;
+    padding-bottom: 15px;
+    .range-price {
+      display: flex;
+      justify-content: space-between;
+      padding: 0px 10px;
+      p {
+        font-size: 1.2rem;
+        color: #807b7b;
+      }
+    }
+  }
+  .filter_size {
+    margin-top: 15px;
+    padding-bottom: 15px;
+    .size_wrap {
+      display: flex;
+      flex-direction: column;
+      padding-left: 10px;
+      .ant-checkbox-wrapper {
+        margin-top: 10px;
+      }
+    }
+  }
+}
+.button_filter {
+  display: none;
+  font-size: 25px;
+  cursor: pointer;
+  @media (max-width: 767px) {
+    display: flex;
+  }
+  @media (min-width: 768px) and (max-width: 1023px) {
+    display: flex;
+  }
+}
+
+.pagination {
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .ant-pagination-options {
+    display: none;
+  }
+  .ant-pagination-item-active {
+    background-color: #e52e04 !important;
+    border: 1px solid #e52e04;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+    a {
+      color: #fff !important;
+    }
+    a:hover {
+      color: #fff;
+    }
+  }
+  .ant-pagination-item-active:hover {
+    border: 1px solid #e52e04;
+  }
+  .ant-pagination-item {
+    background-color: #fff;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+    a {
+      color: #000;
+    }
+    a:hover {
+      color: #fff;
+    }
+  }
+  .ant-pagination-item:hover {
+    background-color: #e52e04 !important;
+    border: 1px solid #e52e04;
+    a {
+      color: #fff;
+    }
+  }
+}

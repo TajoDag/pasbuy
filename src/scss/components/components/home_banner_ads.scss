@@ -1,0 +1,25 @@
+.banner_ads {
+  max-width: 1400px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+
+  .image {
+    display: block;
+    unicode-bidi: isolate;
+
+    img {
+      width: 100%;
+      vertical-align: middle;
+      border-style: none;
+      height: auto;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .banner_ads {
+    grid-template-columns: 1fr;
+  }
+}

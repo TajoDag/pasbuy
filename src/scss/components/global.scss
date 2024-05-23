@@ -1,0 +1,69 @@
+html,
+body,
+h1,
+p,
+div {
+  margin: 0;
+  padding: 0;
+}
+.container,
+.header,
+.main {
+  margin: 0;
+  padding: 0;
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+body {
+  font-family: "cairo-regular";
+  src: url(../assets/fonts/Cairo-Regular.ttf) format("truetype");
+  background-color: $background_main;
+}
+
+.error-message {
+  color: $color_error;
+  font-size: 1em;
+  margin-top: 0.25rem;
+}
+p {
+  margin-bottom: 0px !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-bottom: 0rem !important;
+}
+
+.background_white {
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.06);
+}
+/* Kiểu cho toàn bộ scroll bar */
+::-webkit-scrollbar {
+  width: 10px; /* Độ rộng của scroll bar */
+  height: 10px;
+}
+
+/* Kiểu cho phần track (phần nền của scroll bar) */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Màu nền */
+}
+
+/* Kiểu cho phần thumb (phần có thể di chuyển của scroll bar) */
+::-webkit-scrollbar-thumb {
+  background: #ccc; /* Màu của thumb */
+  border-radius: 10px;
+}
+
+/* Kiểu cho phần thumb khi hover hoặc click vào */
+::-webkit-scrollbar-thumb:hover {
+  background: #9d9b9b; /* Màu của thumb khi hover */
+}

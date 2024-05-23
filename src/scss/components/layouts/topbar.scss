@@ -1,0 +1,50 @@
+.topbar {
+  width: 100%;
+  background-color: $white;
+  padding: 2px 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @media (max-width: 767px) {
+    padding: 10px 50px;
+  }
+  .content {
+    max-width: 1400px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    opacity: 0.6;
+    color: $black;
+    font-size: 15px;
+    .language-currency {
+      display: flex;
+      gap: 10px;
+
+      .selected-language {
+        display: flex;
+        cursor: pointer;
+        span {
+          color: $black;
+          font-size: 15px;
+          
+        }
+      }
+
+    }
+
+    .auth-buttons {
+      display: flex;
+      align-items: center;
+      .ant-btn-link {
+        color: $black;
+      }
+      .divider {
+        height: 20px;
+        width: 1.5px;
+        opacity: 0.6;
+        background-color: $black;
+      }
+    }
+  }
+}
