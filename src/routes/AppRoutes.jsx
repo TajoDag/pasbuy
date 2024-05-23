@@ -19,24 +19,19 @@ export default function AppRoutes() {
       <React.Fragment>
         <ScrollTop />
         <Routes>
-          {/* ================= All Routes ================ */}
-          {routes_here.map((route, key) =>
-            !isAuthenticated ? (
-              <Route key={key} path="/login" element={<Login />} />
-            ) : (
-              <Route
-                key={key}
-                path={route.path}
-                element={
-                  <Layout>
-                    <Suspense fallback={<h1>Loading....</h1>}>
-                      {renderRoute(route, isAuthenticated)}
-                    </Suspense>
-                  </Layout>
-                }
-              />
-            )
-          )}
+          {routes_here.map((route, key) => (
+            <Route
+              key={key}
+              path={route.path}
+              element={
+                <Layout>
+                  <Suspense fallback={<h1>Loading....</h1>}>
+                    {renderRoute(route, isAuthenticated)}
+                  </Suspense>
+                </Layout>
+              }
+            />
+          ))}
         </Routes>
       </React.Fragment>
     </Suspense>
