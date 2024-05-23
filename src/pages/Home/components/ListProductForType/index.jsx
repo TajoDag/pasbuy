@@ -5,20 +5,22 @@ import "slick-carousel/slick/slick-theme.css";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { splitText } from "../../../../utils";
 import {
-    getProductByIdC,
+  getProductByIdC,
   getProductFeatured,
   getProductNew,
 } from "../../../../api/utils/products";
+import { useNavigate } from "react-router-dom";
 const ListProductForType = ({ title, typeUrl, typeFil, idC }) => {
   const [data, setData] = useState([]);
-//   getProductNew;
+  const navigate = useNavigate();
+  //   getProductNew;
   useEffect(() => {
     if (typeFil === "ul" && typeUrl === "isNew") {
       const getData = async () => {
         try {
           const rp = await getProductNew();
           setData(rp.result.products);
-        } catch (error) {}
+        } catch (error) { }
       };
       getData();
     }
@@ -27,19 +29,19 @@ const ListProductForType = ({ title, typeUrl, typeFil, idC }) => {
         try {
           const rp = await getProductFeatured();
           setData(rp.result.products);
-        } catch (error) {}
+        } catch (error) { }
       };
       getData();
     }
     if (typeFil === "filById" && idC) {
-        const getData = async () => {
-          try {
-            const rp = await getProductByIdC(idC);
-            setData(rp.result.products);
-          } catch (error) {}
-        };
-        getData();
-      }
+      const getData = async () => {
+        try {
+          const rp = await getProductByIdC(idC);
+          setData(rp.result.products);
+        } catch (error) { }
+      };
+      getData();
+    }
   }, [typeUrl, typeFil, idC]);
   const NextArrow = (props) => {
     const { className, style, onClick } = props;
@@ -109,18 +111,18 @@ const ListProductForType = ({ title, typeUrl, typeFil, idC }) => {
   };
 
   return (
-    <section className="list_product_for_type">
+    <section className="list_product_for_type" >
       <div className="div_title">
         <h3>
           <span>{title}</span>
         </h3>
-        <div className="div_btn">
+        <div className="div_btn" onClick={() => navigate("/products")}>
           <span>View more</span>
         </div>
       </div>
       <Slider {...settings} className="list_product_slider">
         {data.map((item, index) => (
-          <div key={index} className="product_card">
+          <div key={index} className="product_card" onClick={() => navigate(`/detail/${item._id}`)}>
             <img src={item.images[0].url} alt={item.name} />
             <div className="product_info">
               <span>{item.price}</span>

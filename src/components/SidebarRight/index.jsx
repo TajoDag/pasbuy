@@ -1,13 +1,10 @@
-import sp1 from "@assets/images/card_deals/sp1.png";
-import sp2 from "@assets/images/card_deals/sp2.png";
-import sp3 from "@assets/images/card_deals/sp3.png";
-import sp4 from "@assets/images/card_deals/sp4.png";
-import sp5 from "@assets/images/card_deals/sp5.png";
-import sp6 from "@assets/images/card_deals/sp6.png";
+
+import { useNavigate } from "react-router-dom";
 import { getProductTodayDeal } from "../../api/utils/products";
 import { useEffect, useState } from "react";
 
 const SidebarRight = () => {
+  const navigate = useNavigate()
   const [deals, setDeals] = useState([]);
   useEffect(() => {
     const getProducts = async () => {
@@ -19,7 +16,7 @@ const SidebarRight = () => {
         setDeals(rp.result.products);
         if (rp.status) {
         }
-      } catch (error) {}
+      } catch (error) { }
     };
     getProducts();
   }, []);
@@ -31,7 +28,7 @@ const SidebarRight = () => {
       </div>
       <div className="list_card_deal">
         {deals?.map((item, index) => (
-          <div key={index} className="card_deal">
+          <div key={index} className="card_deal" style={{ cursor: 'pointer' }} onClick={() => navigate(`/detail/${item._id}`)} >
             <div className="img">
               <img src={item.images[0].url} />
             </div>

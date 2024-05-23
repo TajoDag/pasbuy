@@ -5,6 +5,24 @@ import { useNavigate } from "react-router-dom";
 const HeaderL = () => {
   const [showInput, setShowInput] = useState(false);
   const navigate = useNavigate();
+  const [search, setSearch] = useState()
+  const handleInputChange = (e) => {
+    setSearch(e.target.value);
+  };
+
+  const onSearch = () => {
+    if (search.trim() !== "") {
+      navigate("/products", {
+        state: { query: search }
+      });
+    }
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      onSearch();
+    }
+  };
   return (
     <header className="header_shop">
       {showInput ? (
@@ -21,6 +39,7 @@ const HeaderL = () => {
                 type="text"
                 placeholder="I am shopping for..."
                 className="search-input"
+
               />
             </div>
           </div>

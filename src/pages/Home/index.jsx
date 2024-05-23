@@ -115,7 +115,7 @@ export default function Home() {
           return category;
         });
         setCategories(updatedCategories);
-      } catch (error) {}
+      } catch (error) { }
     };
     getCategories();
   }, []);
@@ -124,7 +124,7 @@ export default function Home() {
       try {
         const rp = await getBrandSidebarBanner();
         setBrands(rp.result);
-      } catch (error) {}
+      } catch (error) { }
     };
     getCategories();
   }, []);
@@ -155,8 +155,9 @@ export default function Home() {
           data={categories}
           title="Top 10 Categories"
           btn="View All Categories"
+          type="categories"
         />
-        <Top10Grid data={brands} title="Top 10 Brands" btn="View All Brands" />
+        <Top10Grid data={brands} title="Top 10 Brands" btn="View All Brands" type="brands" />
       </section>
     </div>
   );

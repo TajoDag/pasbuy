@@ -1,10 +1,12 @@
+import { useNavigate } from "react-router-dom";
 import TranslateTing from "../../../components/Common/TranslateTing";
 
 const HeaderNav = () => {
+  const navigate = useNavigate()
   const navs = [
     {
       title: "homepage",
-      path: "#",
+      path: "/",
     },
     {
       title: "flashSales",
@@ -16,11 +18,11 @@ const HeaderNav = () => {
     },
     {
       title: "allBrands",
-      path: "#",
+      path: "/all-brands",
     },
     {
       title: "allCategories",
-      path: "#",
+      path: "/all-categories",
     },
   ];
   return (

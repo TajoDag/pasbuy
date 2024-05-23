@@ -7,9 +7,24 @@ import { FaLinkedin } from "react-icons/fa";
 import { FaPhoneSquare } from "react-icons/fa";
 import { MdOutlineShoppingBag } from "react-icons/md";
 import { IoCartOutline } from "react-icons/io5";
+import CrispWidget from "../../utils/CrispWidget";
 export const InforProduct = ({ detail }) => {
   const [quantity, setQuantity] = React.useState(1);
   let price = detail.price;
+
+  // const { openChatAndSendMessage } = CrispWidget();
+
+  // const handleMessageSeller = () => {
+  //   const currentURL = window.location.href;
+  //   openChatAndSendMessage(`I'm interested in this product: ${currentURL}`);
+  // };
+  const handleMessageSeller = () => {
+    const currentURL = window.location.href;
+    if (window.$crisp) {
+      window.$crisp.push(["do", "chat:open"]);
+      window.$crisp.push(["do", "message:send", ["text", `I'm interested in this product: ${currentURL}`]]);
+    }
+  };
   return (
     <div>
       <div className="border_bottom">
@@ -93,7 +108,7 @@ export const InforProduct = ({ detail }) => {
             <MdOutlineShoppingBag />
             Add to cart
           </button>
-          <button className="button_custom">
+          <button className="button_custom" onClick={handleMessageSeller}>
             <IoCartOutline />
             Message Seller
           </button>
@@ -144,6 +159,7 @@ export const InforProduct = ({ detail }) => {
           </div>
         </div>
       </div>
+      {/* <CrispWidget /> */}
     </div>
   );
 };

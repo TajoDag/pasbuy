@@ -11,8 +11,10 @@ import anh10 from "@assets/images/ic_category/home.png";
 import anh11 from "@assets/images/ic_category/toy2.png";
 import { useEffect, useState } from "react";
 import { getCateSidebarBanner } from "../../api/utils/category";
+import { useNavigate } from 'react-router-dom';
 
 const SidebarLeft = () => {
+  const navigate = useNavigate()
   const [categories, setCategories] = useState([
     {
       img: anh1,
@@ -72,10 +74,13 @@ const SidebarLeft = () => {
           return category;
         });
         setCategories(updatedCategories);
-      } catch (error) {}
+      } catch (error) { }
     };
     getCategories();
   }, []);
+  const handleNavigate = () => {
+
+  };
   return (
     <div className="sidebarLeft">
       <div className="sidebar_title">
@@ -83,7 +88,7 @@ const SidebarLeft = () => {
       </div>
       <div className="list_categories">
         {categories.map((item, index) => (
-          <div key={index} className="category">
+          <div key={index} className="category" onClick={() => navigate('/products')} >
             <div className="img">
               <img src={item.img} />
             </div>

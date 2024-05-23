@@ -1,19 +1,20 @@
 import React from "react";
-const Top10Grid = ({ title, btn, data }) => {
-
+import { useNavigate } from "react-router-dom";
+const Top10Grid = ({ title, btn, data, type }) => {
+  const navigate = useNavigate()
   return (
     <div className="top_10_grid">
       <div className="div_title">
         <h3>
           <span>{title}</span>
         </h3>
-        <div className="div_btn">
+        <div className="div_btn" onClick={() => navigate(`/all-${type}`)}>
           <span>{btn}</span>
         </div>
       </div>
       <div className="list_categories_top10">
         {data.map((item, index) => (
-          <div key={index} className="category">
+          <div key={index} className="category" onClick={() => navigate(`/products`)}>
             <div className="img_cate">
               <img src={item.img} alt={item.name} />
             </div>
