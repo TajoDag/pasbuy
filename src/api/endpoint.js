@@ -7,29 +7,29 @@ export const endpoints = {
   },
   product: {
     list: `products/all`,
-    create: `admin/products`,
+    create: `products`,
     delete: `product`,
-    getDetail: `product`
+    getDetail: `product`,
   },
   category: {
     getAll: `categories/all`,
   },
   productType: {
-    getAll: `admin/product-type/all`,
-    create: `admin/product-type/create`,
-    delete: `admin/product-type/delete`,
-    update: `admin/product-type/edit`,
+    getAll: `product-type/all`,
+    create: `product-type/create`,
+    delete: `product-type/delete`,
+    update: `product-type/edit`,
   },
   brand: {
     getAll: `brand/all`,
-    create: `admin/brand/create`,
-    delete: `admin/brand/delete`,
-    update: `admin/brand/edit`,
+    create: `brand/create`,
+    delete: `brand/delete`,
+    update: `brand/edit`,
   },
   size: {
-    getAll: `admin/size/all`,
-    create: `admin/size/create`,
-    delete: `admin/size/delete`,
-    update: `admin/size/edit`,
+    getAll: `size/all`,
+    create: `size/create`,
+    delete: `size/delete`,
+    update: `size/edit`,
   },
 };

@@ -1,20 +1,24 @@
 import { Button, Select, Tooltip } from "antd";
-import React from "react";
-import { product } from "../utils/product";
+import React, { useState } from "react";
 import ToolTipLongText from "../../../utils/Longtext";
 import { RenderRate } from "../../../utils/renderRate";
 import { IoMdStar } from "react-icons/io";
 import { CiHeart } from "react-icons/ci";
 import { IoMdSync } from "react-icons/io";
 import { MdOutlineShoppingCart } from "react-icons/md";
-import { brands } from "../utils/brand";
 import { FiFilter } from "react-icons/fi";
 import { Drawer } from "antd";
 import FilterSide from "./FilterSide";
 import { Pagination } from "antd";
+import { Brands } from "../utils/brand";
+import { useNavigate } from "react-router-dom";
 
-export default () => {
+export default ({ setBodyFilter, total, products, bodyFilter }) => {
+  const navigate = useNavigate();
   const [open, setOpen] = React.useState(false);
+
+  const { brands } = Brands();
+
   return (
     <div className="product_wrap">
       <div className="header_filter">
@@ -38,6 +42,13 @@ export default () => {
               placeholder={"All Brands"}
               options={brands}
               defaultValue={"1"}
+              onChange={(v) => {
+                setBodyFilter({
+                  ...bodyFilter,
+                  brand: v,
+                  page: 1,
+                });
+              }}
             />
           </div>
           <div>
@@ -70,8 +81,8 @@ export default () => {
         </div> */}
       </div>
       <div className="product_grid">
-        {product.map((item) => (
-          <div key={item.id} className="grid_item">
+        {products.map((item) => (
+          <div key={item.key} className="grid_item">
             <div className="fast_button">
               <Tooltip title="Add to Wishlist" placement="left">
                 <button>
@@ -89,17 +100,30 @@ export default () => {
                 </button>
               </Tooltip>
             </div>
-            <img src={item.image} alt="" />
+            <img src={item.images[0].url} alt="" />
             <div className="infor_item">
               <span>${item.price}</span>
-              <div>{RenderRate(item.rate)}</div>
-              <ToolTipLongText value={item.name} textLength={60} />
+              <div>{RenderRate(item.ratings)}</div>
+              <div
+                onClick={() => {
+                  navigate(`/detail/${item._id}`);
+                }}
+              >
+                <ToolTipLongText value={item.name} textLength={60} />
+              </div>
             </div>
           </div>
         ))}
       </div>
       <div className="pagination">
-        <Pagination defaultCurrent={1} total={500} />
+        <Pagination
+          defaultCurrent={1}
+          total={total}
+          onChange={(page) => {
+            setBodyFilter({ ...bodyFilter, page: page });
+          }}
+          current={bodyFilter.page}
+        />
       </div>
       <Drawer
         title={<h3>Filters</h3>}

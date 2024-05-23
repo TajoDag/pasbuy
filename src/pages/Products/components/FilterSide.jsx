@@ -1,63 +1,54 @@
 import React from "react";
 import { Checkbox, Slider } from "antd";
-import { size } from "../utils/size";
-export const menu = [
-  {
-    key: "1",
-    name: "Women's Clothing & Fashion",
-  },
-  {
-    key: "2",
-    name: "Men's Clothing & Fashion",
-  },
-  {
-    key: "3",
-    name: "Computer & Accessories",
-  },
-  {
-    key: "4",
-    name: "Kkeys & Toy",
-  },
-  {
-    key: "5",
-    name: "Sports & Outdoor",
-  },
+import { Categories } from "../utils/categories";
+import { Sizes } from "../utils/size";
 
-  {
-    key: "6",
-    name: "Automobile & Motorcycle",
-  },
-  {
-    key: "7",
-    name: "Watches",
-  },
-  {
-    key: "8",
-    name: "Phone Accessories",
-  },
-  {
-    key: "9",
-    name: "Home Decoration & Appliance",
-  },
-  {
-    key: "10",
-    name: "Beauty, Health & Hair",
-  },
-];
-export default () => {
+export default ({ setBodyFilter, bodyFilter }) => {
   const range = [20, 50];
   const [min, setMin] = React.useState(range[0]);
   const [max, setMax] = React.useState(range[1]);
   const [sizeFilter, setSizeFilter] = React.useState([]);
+  const { categories } = Categories();
+  // const { size } = Sizes();
+
   return (
     <div className="menu">
       <div className="background_white">
         <div className="border_bottom">
-          <h2>Categories</h2>
+          <h2
+            className="category_all"
+            onClick={() =>
+              setBodyFilter({
+                page: 1,
+                size: 12,
+              })
+            }
+          >
+            Categories
+          </h2>
         </div>
         <div className="menu_detail">
-          {menu.map((item) => (
-            <div key={item.key}>{item.name}</div>
+          {categories.map((item) => (
+            <div
+              key={item.key}
+              onClick={() =>
+                setBodyFilter({
+                  page: 1,
+                  size: 12,
+                  category: item.key,
+                })
+              }
+              style={
+                item.key === bodyFilter.category
+                  ? {
+                      color: "blue",
+                      textDecoration: "underline",
+                    }
+                  : {}
+              }
+            >
+              {item.name}
+            </div>
           ))}
         </div>
       </div>
