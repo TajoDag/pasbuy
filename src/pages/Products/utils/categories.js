@@ -8,7 +8,7 @@ export const Categories = () => {
   const dispatch = useDispatch();
   const [categories, setCategories] = React.useState([]);
   useEffect(() => {
-    dispatch(startLoading());
+    // dispatch(startLoading());
     getAllCategory()
       .then((res) => {
         setCategories(
@@ -19,7 +19,7 @@ export const Categories = () => {
         );
       })
       .finally(() => {
-        dispatch(stopLoading());
+        // dispatch(stopLoading());
       });
   }, []);
   return { categories };

@@ -1,5 +1,5 @@
 import { Button, Select, Tooltip } from "antd";
-import React from "react";
+import React, { useState } from "react";
 import ToolTipLongText from "../../../utils/Longtext";
 import { RenderRate } from "../../../utils/renderRate";
 import { IoMdStar } from "react-icons/io";
@@ -11,12 +11,13 @@ import { Drawer } from "antd";
 import FilterSide from "./FilterSide";
 import { Pagination } from "antd";
 import { Brands } from "../utils/brand";
-import { Products } from "../utils/product";
+import { useNavigate } from "react-router-dom";
 
-export default () => {
+export default ({ setBodyFilter, total, products, bodyFilter }) => {
+  const navigate = useNavigate();
   const [open, setOpen] = React.useState(false);
+
   const { brands } = Brands();
-  const { products } = Products();
 
   return (
     <div className="product_wrap">
@@ -41,6 +42,13 @@ export default () => {
               placeholder={"All Brands"}
               options={brands}
               defaultValue={"1"}
+              onChange={(v) => {
+                setBodyFilter({
+                  ...bodyFilter,
+                  brand: v,
+                  page: 1,
+                });
+              }}
             />
           </div>
           <div>
@@ -96,13 +104,26 @@ export default () => {
             <div className="infor_item">
               <span>${item.price}</span>
               <div>{RenderRate(item.ratings)}</div>
-              <ToolTipLongText value={item.name} textLength={60} />
+              <div
+                onClick={() => {
+                  navigate(`/detail/${item._id}`);
+                }}
+              >
+                <ToolTipLongText value={item.name} textLength={60} />
+              </div>
             </div>
           </div>
         ))}
       </div>
       <div className="pagination">
-        <Pagination defaultCurrent={1} total={500} />
+        <Pagination
+          defaultCurrent={1}
+          total={total}
+          onChange={(page) => {
+            setBodyFilter({ ...bodyFilter, page: page });
+          }}
+          current={bodyFilter.page}
+        />
       </div>
       <Drawer
         title={<h3>Filters</h3>}

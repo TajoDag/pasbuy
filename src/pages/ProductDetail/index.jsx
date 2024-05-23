@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { SlickSlider } from "./SlickSlider";
 import { ImgProduct } from "./ImgProduct";
 import { InforProduct } from "./InforProduct";
@@ -7,6 +7,9 @@ import {
   useIsMobile,
   useIsTablet,
 } from "../../utils/responsive";
+import { useDispatch } from "react-redux";
+import { startLoading } from "@redux/loadingReducer";
+import { stopLoading } from "@redux/loadingReducer";
 
 import { Tabs } from "antd";
 import { Reviews } from "./Reviews";
@@ -14,27 +17,48 @@ import { Descriptions } from "./Descriptions";
 import { Recomend } from "./Recomend";
 import { RelatedProduct } from "./RelatedProduct";
 import { ProductQuries } from "./ProductQuries";
+import { getDetailProduct } from "./utils/service";
+import { useParams } from "react-router-dom";
 
-const items = [
-  {
-    key: "1",
-    label: <h3>Descriptions</h3>,
-    children: <Descriptions />,
-  },
-  {
-    key: "2",
-    label: <h3>Reviews</h3>,
-    children: <Reviews />,
-  },
-];
 export default () => {
-  const [srcImg, setSrcImg] = React.useState(
-    "https://s-cf-tw.shopeesz.com/file/59ad6855d8088686cb6f1b9969b353d0"
-  );
-
+  const dispatch = useDispatch();
+  const [imgSlick, setImgSlick] = React.useState([]);
+  const [srcImg, setSrcImg] = React.useState("");
+  const [detail, setDetail] = React.useState({});
   const isLaptopOrDesktop = useIsLaptopOrDesktop();
   const isTablet = useIsTablet();
   const isMobile = useIsMobile();
+  const params = useParams();
+  const id = params._id;
+  const items = [
+    {
+      key: "1",
+      label: <h3>Descriptions</h3>,
+      children: <Descriptions detail={detail} />,
+    },
+    {
+      key: "2",
+      label: <h3>Reviews</h3>,
+      children: <Reviews detail={detail} />,
+    },
+  ];
+  useEffect(() => {
+    dispatch(startLoading());
+    getDetailProduct(id)
+      .then((res) => {
+        setDetail(res.result);
+        setImgSlick(
+          res.result.images.map((item) => ({
+            ...item,
+            key: item.public_id,
+          }))
+        );
+        setSrcImg(res.result.images[0].url);
+      })
+      .finally(() => {
+        dispatch(stopLoading());
+      });
+  }, [id]);
   return (
     <div className="wrapper">
       <div
@@ -45,7 +69,7 @@ export default () => {
           className="slide_slick"
           style={{ display: `${isTablet || isMobile ? "none" : "flex"}` }}
         >
-          <SlickSlider setSrcImg={setSrcImg} />
+          <SlickSlider setSrcImg={setSrcImg} imgSlick={imgSlick} />
         </div>
         <div
           className="wrapper_infor"
@@ -68,7 +92,7 @@ export default () => {
                 : { display: "none" }
             }
           >
-            <SlickSlider setSrcImg={setSrcImg} />
+            <SlickSlider setSrcImg={setSrcImg} imgSlick={imgSlick} />
           </div>
           <div
             className="infor"
@@ -76,7 +100,7 @@ export default () => {
               isTablet || isMobile ? { display: "block", width: "100%" } : {}
             }
           >
-            <InforProduct />
+            <InforProduct detail={detail} />
           </div>
         </div>
       </div>
@@ -88,7 +112,7 @@ export default () => {
           className="recommend"
           style={isTablet || isMobile ? { display: "none" } : {}}
         >
-          <Recomend />
+          <Recomend detail={detail} />
         </div>
         <div className="decription">
           <div className=" detail_decription">

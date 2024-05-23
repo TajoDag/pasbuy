@@ -1,12 +1,19 @@
 import React from "react";
-import FilterSide from "./components/FilterSide";
-import ProductGrid from "./components/ProductGrid";
+import { Categories } from "./utils/categories";
 
 export default () => {
+  const { categories } = Categories();
+
   return (
-    <div className="categories_container">
-      <FilterSide />
-      <ProductGrid />
+    <div className="category_container">
+      <h1>All Categories</h1>
+      {categories.map((item) => (
+        <div key={item.key} className="background_white item_categories">
+          <div className="border_bottom">
+            <h3>{item.name}</h3>
+          </div>
+        </div>
+      ))}
     </div>
   );
 };

@@ -1,0 +1,38 @@
+.brands_container {
+  width: 100%;
+  padding: 20px 120px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 25px;
+  .brand_grid {
+    padding: 20px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 19% 19% 19% 19% 19%;
+    gap: 1.2%;
+    row-gap: 12px;
+    @media (min-width: 768px) and (max-width: 1023px) {
+      grid-template-columns: 49% 49%;
+      gap: 15px;
+      row-gap: 12px;
+    }
+    @media (max-width: 767px) {
+      grid-template-columns: 100%;
+      gap: 10px;
+      row-gap: 10px;
+    }
+    .item {
+      display: flex;
+      align-items: center;
+      border: 1px solid #f3eaea;
+      border-radius: 5px;
+      height: 180px;
+      img {
+        width: 100%;
+        border-radius: 5px;
+        height: 100%;
+      }
+    }
+  }
+}

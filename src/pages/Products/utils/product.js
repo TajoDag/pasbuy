@@ -86,18 +86,30 @@
 // ];
 import React, { useEffect } from "react";
 import { getAllProducts } from "./service";
-export const Products = () => {
+import { useDispatch } from "react-redux";
+import { startLoading } from "@redux/loadingReducer";
+import { stopLoading } from "@redux/loadingReducer";
+import { checkNull } from "../../../utils/checkNull";
+
+export const Products = ({ bodyFilter, setTotal }) => {
+  const dispatch = useDispatch();
   const [products, setProducts] = React.useState([]);
+  const body = checkNull(bodyFilter);
   useEffect(() => {
-    getAllProducts().then((res) => {
-      console.log(res);
-      setProducts(
-        res.result.products.map((item) => ({
-          ...item,
-          key: item._id,
-        }))
-      );
-    });
-  }, []);
+    dispatch(startLoading());
+    getAllProducts({ ...body, page: body.page - 1 })
+      .then((res) => {
+        setProducts(
+          res.result.products.map((item) => ({
+            ...item,
+            key: item._id,
+          }))
+        );
+        setTotal(res.result.pagination.total);
+      })
+      .finally(() => {
+        dispatch(stopLoading());
+      });
+  }, [bodyFilter]);
   return { products };
 };

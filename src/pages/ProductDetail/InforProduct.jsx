@@ -7,13 +7,13 @@ import { FaLinkedin } from "react-icons/fa";
 import { FaPhoneSquare } from "react-icons/fa";
 import { MdOutlineShoppingBag } from "react-icons/md";
 import { IoCartOutline } from "react-icons/io5";
-export const InforProduct = () => {
+export const InforProduct = ({ detail }) => {
   const [quantity, setQuantity] = React.useState(1);
-  let price = 1000;
+  let price = detail.price;
   return (
     <div>
       <div className="border_bottom">
-        <h2>Dyson V8 Slim ™ Fluffy Cordless Vacuum Cleaner</h2>
+        <h2>{detail.name}</h2>
         <div style={{ display: "flex", gap: "3px" }}>
           <span>
             <IoMdStar className="star_icon" />
@@ -49,7 +49,7 @@ export const InforProduct = () => {
         <div style={{ display: "flex", gap: "70px", alignItems: "center" }}>
           <p>Price:</p>
           <p style={{ fontSize: "2rem", color: "red", fontWeight: "600" }}>
-            ${price}
+            ${detail.price}
           </p>
           /
         </div>
@@ -95,7 +95,7 @@ export const InforProduct = () => {
           </button>
           <button className="button_custom">
             <IoCartOutline />
-            Buy now
+            Message Seller
           </button>
         </div>
         <div className="button_group" style={{ gap: "50px" }}>

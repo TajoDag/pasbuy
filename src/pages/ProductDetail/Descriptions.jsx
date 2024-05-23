@@ -1,30 +1,3 @@
-export const Descriptions = () => {
-  return (
-    <div>
-      <img
-        src="https://s-cf-tw.shopeesz.com/file/59ad6855d8088686cb6f1b9969b353d0"
-        alt=""
-      />
-      <img
-        src="https://s-cf-tw.shopeesz.com/file/ab4d9bf7275405b278628110d1199a80"
-        alt=""
-      />
-      <img
-        src="https://s-cf-tw.shopeesz.com/file/75cf85b69f731f581c94266336e5ef66"
-        alt=""
-      />
-      <img
-        src="https://s-cf-tw.shopeesz.com/file/56a763fe110a8ae6c9519bcf8155b8ac"
-        alt=""
-      />
-      <img
-        src="https://s-cf-tw.shopeesz.com/file/f6b8f0b0a6487b769de300245e3963c9"
-        alt=""
-      />
-      <img
-        src="https://s-cf-tw.shopeesz.com/file/0c09d92f9136329b3202cc2628514407"
-        alt=""
-      />
-    </div>
-  );
+export const Descriptions = ({ detail }) => {
+  return <div dangerouslySetInnerHTML={{ __html: detail.description }} />;
 };

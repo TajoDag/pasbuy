@@ -1,17 +1,17 @@
 import React, { useEffect } from "react";
-import { getAllCategory } from "./service";
+import { getAllBrands } from "./service";
 import { useDispatch } from "react-redux";
 import { startLoading } from "@redux/loadingReducer";
 import { stopLoading } from "@redux/loadingReducer";
-
-export const Categories = () => {
+export const Brands = () => {
   const dispatch = useDispatch();
-  const [categories, setCategories] = React.useState([]);
+
+  const [brands, setBrands] = React.useState([]);
   useEffect(() => {
     dispatch(startLoading());
-    getAllCategory()
+    getAllBrands()
       .then((res) => {
-        setCategories(
+        setBrands(
           res.result.map((item) => ({
             ...item,
             key: item._id,
@@ -22,5 +22,5 @@ export const Categories = () => {
         dispatch(stopLoading());
       });
   }, []);
-  return { categories };
+  return { brands };
 };

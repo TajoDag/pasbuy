@@ -1,23 +1,54 @@
 import React from "react";
 import { Checkbox, Slider } from "antd";
-import { size } from "../utils/size";
 import { Categories } from "../utils/categories";
+import { Sizes } from "../utils/size";
 
-export default () => {
+export default ({ setBodyFilter, bodyFilter }) => {
   const range = [20, 50];
   const [min, setMin] = React.useState(range[0]);
   const [max, setMax] = React.useState(range[1]);
   const [sizeFilter, setSizeFilter] = React.useState([]);
   const { categories } = Categories();
+  // const { size } = Sizes();
+
   return (
     <div className="menu">
       <div className="background_white">
         <div className="border_bottom">
-          <h2>Categories</h2>
+          <h2
+            className="category_all"
+            onClick={() =>
+              setBodyFilter({
+                page: 1,
+                size: 12,
+              })
+            }
+          >
+            Categories
+          </h2>
         </div>
         <div className="menu_detail">
           {categories.map((item) => (
-            <div key={item.key}>{item.name}</div>
+            <div
+              key={item.key}
+              onClick={() =>
+                setBodyFilter({
+                  page: 1,
+                  size: 12,
+                  category: item.key,
+                })
+              }
+              style={
+                item.key === bodyFilter.category
+                  ? {
+                      color: "blue",
+                      textDecoration: "underline",
+                    }
+                  : {}
+              }
+            >
+              {item.name}
+            </div>
           ))}
         </div>
       </div>

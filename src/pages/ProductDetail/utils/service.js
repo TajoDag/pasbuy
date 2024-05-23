@@ -1,5 +1,5 @@
 import { API, endpoints } from "../../../api/endpoint";
 import { request } from "../../../api/request";
 
-export const getAllCategory = () =>
-  request("get", `${API}/${endpoints.category.getAll}`);
+export const getDetailProduct = (id) =>
+  request("get", `${API}/${endpoints.product.getDetail}/${id}`);
