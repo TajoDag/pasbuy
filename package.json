@@ -26,6 +26,7 @@
     "sass": "^1.77.2",
     "slick-carousel": "^1.8.1",
     "swiper": "^11.1.3",
+    "vercel": "^34.2.0",
     "vite-plugin-svgr": "^4.2.0"
   },
   "devDependencies": {
