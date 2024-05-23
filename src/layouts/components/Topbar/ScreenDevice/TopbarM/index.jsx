@@ -6,8 +6,11 @@ import { useLocalization } from "../../../../../context/LocalizationWrapper";
 import { useState } from "react";
 import { DownOutlined } from "@ant-design/icons";
 import TranslateTing from "../../../../../components/Common/TranslateTing";
+import { useNavigate } from "react-router-dom";
 
 const TopbarM = () => {
+  const isAuthenticated = localStorage.getItem("isLogin");
+  const navigate = useNavigate();
   const { switchLocale } = useLocalization();
   const [language, setLanguage] = useState("en");
   const [currency, setCurrency] = useState("USD");
@@ -58,6 +61,10 @@ const TopbarM = () => {
     />
   );
   const getLabel = (list, key) => list.find((item) => item.key === key)?.label;
+  const handleLogout = () => {
+    window.localStorage.clear();
+    navigate("/");
+  };
   return (
     <header className="topbar">
       <div className="content">
@@ -98,11 +105,27 @@ const TopbarM = () => {
             </Dropdown>
           </Space>
         </div>
-        <div className="auth-buttons">
-          <Button type="link"><TranslateTing text='login' /></Button>
-          <span className="divider"></span>
-          <Button type="link"><TranslateTing text='register' /></Button>
-        </div>
+        {isAuthenticated ? (
+          <div className="auth-buttons">
+            <Button onClick={() => navigate("/user")} type="link">
+              <TranslateTing text="myPanel" />
+            </Button>
+            <span className="divider"></span>
+            <Button onClick={handleLogout} type="link">
+              <TranslateTing text="logout" />
+            </Button>
+          </div>
+        ) : (
+          <div className="auth-buttons">
+            <Button onClick={() => navigate("/login")} type="link">
+              <TranslateTing text="login" />
+            </Button>
+            <span className="divider"></span>
+            <Button onClick={() => navigate("/register")} type="link">
+              <TranslateTing text="register" />
+            </Button>
+          </div>
+        )}
       </div>
     </header>
   );

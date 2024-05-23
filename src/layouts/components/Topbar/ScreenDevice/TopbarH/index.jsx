@@ -62,7 +62,10 @@ const TopbarH = () => {
     />
   );
   const getLabel = (list, key) => list.find((item) => item.key === key)?.label;
-
+  const handleLogout = () => {
+    window.localStorage.clear();
+    navigate("/");
+  };
   return (
     <header className="topbar">
       <div className="content">
@@ -105,12 +108,12 @@ const TopbarH = () => {
         </div>
         {isAuthenticated ? (
           <div className="auth-buttons">
-            <Button onClick={() => navigate("/login")} type="link">
-              <TranslateTing text="My Panel" />
+            <Button onClick={() => navigate("/user")} type="link">
+              <TranslateTing text="myPanel" />
             </Button>
             <span className="divider"></span>
-            <Button type="link">
-              <TranslateTing text="register" />
+            <Button onClick={handleLogout} type="link">
+              <TranslateTing text="logout" />
             </Button>
           </div>
         ) : (
@@ -119,7 +122,7 @@ const TopbarH = () => {
               <TranslateTing text="login" />
             </Button>
             <span className="divider"></span>
-            <Button type="link">
+            <Button onClick={() => navigate("/register")} type="link">
               <TranslateTing text="register" />
             </Button>
           </div>

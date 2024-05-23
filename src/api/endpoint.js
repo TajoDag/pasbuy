@@ -3,18 +3,16 @@ export const API = import.meta.env.VITE_API_BASE_URL;
 export const endpoints = {
   auth: {
     login: `login`,
+    register: `register`
   },
   product: {
-    list: `admin/products/all`,
+    list: `products/all`,
     create: `admin/products`,
     delete: `product`,
     getDetail: `product`
   },
   category: {
-    getAll: `admin/categories/all`,
-    create: `admin/categories/create`,
-    delete: `admin/categories/delete`,
-    update: `admin/categories/edit`,
+    getAll: `categories/all`,
   },
   productType: {
     getAll: `admin/product-type/all`,
@@ -23,7 +21,7 @@ export const endpoints = {
     update: `admin/product-type/edit`,
   },
   brand: {
-    getAll: `admin/brand/all`,
+    getAll: `brand/all`,
     create: `admin/brand/create`,
     delete: `admin/brand/delete`,
     update: `admin/brand/edit`,

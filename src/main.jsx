@@ -10,6 +10,7 @@ import { LocalizationProvider } from "./context/LocalizationWrapper";
 import AppRoutes from "./routes/AppRoutes";
 import { Provider } from "react-redux";
 import store from "./stores";
+import CrispWidget from "./utils/CrispWidget";
 
 const queryClient = new QueryClient();
 
@@ -20,6 +21,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <LocalizationProvider>
         <BrowserRouter>
           <AppRoutes />
+          <CrispWidget />
         </BrowserRouter>
       </LocalizationProvider>
     </QueryClientProvider>

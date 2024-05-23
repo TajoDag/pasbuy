@@ -5,8 +5,11 @@ import flagEn from "@assets/images/flags/en.png";
 import flagCn from "@assets/images/flags/cn.png";
 import flagVn from "@assets/images/flags/vn.png";
 import { useLocalization } from "../../../../../context/LocalizationWrapper";
+import { useNavigate } from "react-router-dom";
 
 const TopbarL = () => {
+  const isAuthenticated = localStorage.getItem("isLogin");
+  const navigate = useNavigate();
   const { switchLocale } = useLocalization();
   const [language, setLanguage] = useState("en");
   const [currency, setCurrency] = useState("USD");
@@ -58,6 +61,10 @@ const TopbarL = () => {
     />
   );
   const getLabel = (list, key) => list.find((item) => item.key === key)?.label;
+  const handleLogout = () => {
+    window.localStorage.clear();
+    navigate("/");
+  };
   return (
     <header className="topbar">
       <div className="content">

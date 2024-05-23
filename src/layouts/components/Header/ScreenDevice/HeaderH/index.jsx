@@ -7,15 +7,16 @@ import {
   SyncOutlined,
 } from "@ant-design/icons";
 import TranslateTing from "../../../../../components/Common/TranslateTing";
+import { useNavigate } from "react-router-dom";
 const HeaderH = () => {
-
+  const navigate = useNavigate()
   return (
     <>
       <header className="header_shop">
         <div className="header_content">
           <div className="header_left">
             <div className="header_logo">
-              <img src={logo} className="logo" />
+              <img src={logo} className="logo" onClick={() => navigate("/") }/>
             </div>
           </div>
           <div className="header_right">

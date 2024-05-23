@@ -9,16 +9,18 @@ import anh8 from "@assets/images/ic_category/watch.png";
 import anh9 from "@assets/images/ic_category/phone.png";
 import anh10 from "@assets/images/ic_category/home.png";
 import anh11 from "@assets/images/ic_category/toy2.png";
+import { useEffect, useState } from "react";
+import { getCateSidebarBanner } from "../../api/utils/category";
 
 const SidebarLeft = () => {
-  const categoriesR = [
+  const [categories, setCategories] = useState([
     {
       img: anh1,
       name: "Women's Fashion Bag",
     },
     {
       img: anh2,
-      name: "WWomen's Clothing & Fashion",
+      name: "Women's Clothing & Fashion",
     },
     {
       img: anh3,
@@ -56,14 +58,31 @@ const SidebarLeft = () => {
       img: anh11,
       name: "Toy",
     },
-  ];
+  ]);
+
+  useEffect(() => {
+    const getCategories = async () => {
+      try {
+        const rp = await getCateSidebarBanner();
+        const updatedCategories = categories.map((category) => {
+          const matchedItem = rp.result.find((item) => item.name === category.name);
+          if (matchedItem) {
+            return { ...category, id: matchedItem._id };
+          }
+          return category;
+        });
+        setCategories(updatedCategories);
+      } catch (error) {}
+    };
+    getCategories();
+  }, []);
   return (
     <div className="sidebarLeft">
       <div className="sidebar_title">
         <div className="title">Categories</div>
       </div>
       <div className="list_categories">
-        {categoriesR.map((item, index) => (
+        {categories.map((item, index) => (
           <div key={index} className="category">
             <div className="img">
               <img src={item.img} />

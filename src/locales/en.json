@@ -1,5 +1,7 @@
 {
   "login": "Login",
+  "myPanel": "my Panel",
+  "logout": "Logout",
   "register": "Registration",
   "compare": "Compare",
   "wishlist": "ishlist",

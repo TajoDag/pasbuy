@@ -1,14 +1,19 @@
 import { SearchOutlined, ArrowLeftOutlined } from "@ant-design/icons";
 import logo from "@assets/images/logo.png";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 const HeaderL = () => {
   const [showInput, setShowInput] = useState(false);
+  const navigate = useNavigate();
   return (
     <header className="header_shop">
       {showInput ? (
         <div className="header_content onSearch">
           <div className="header_left">
-            <ArrowLeftOutlined className="icon_back" onClick={() => setShowInput(!showInput)} />
+            <ArrowLeftOutlined
+              className="icon_back"
+              onClick={() => setShowInput(!showInput)}
+            />
           </div>
           <div className="header_right">
             <div className="search-bar">
@@ -23,7 +28,7 @@ const HeaderL = () => {
       ) : (
         <div className="header_content">
           <div className="header_logo">
-            <img src={logo} className="logo" />
+            <img src={logo} className="logo" onClick={() => navigate("/")} />
           </div>
           <div className="search-bar-mobile">
             <button
