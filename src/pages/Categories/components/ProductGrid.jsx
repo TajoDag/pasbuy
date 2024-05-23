@@ -1,20 +1,23 @@
 import { Button, Select, Tooltip } from "antd";
 import React from "react";
-import { product } from "../utils/product";
 import ToolTipLongText from "../../../utils/Longtext";
 import { RenderRate } from "../../../utils/renderRate";
 import { IoMdStar } from "react-icons/io";
 import { CiHeart } from "react-icons/ci";
 import { IoMdSync } from "react-icons/io";
 import { MdOutlineShoppingCart } from "react-icons/md";
-import { brands } from "../utils/brand";
 import { FiFilter } from "react-icons/fi";
 import { Drawer } from "antd";
 import FilterSide from "./FilterSide";
 import { Pagination } from "antd";
+import { Brands } from "../utils/brand";
+import { Products } from "../utils/product";
 
 export default () => {
   const [open, setOpen] = React.useState(false);
+  const { brands } = Brands();
+  const { products } = Products();
+
   return (
     <div className="product_wrap">
       <div className="header_filter">
@@ -70,8 +73,8 @@ export default () => {
         </div> */}
       </div>
       <div className="product_grid">
-        {product.map((item) => (
-          <div key={item.id} className="grid_item">
+        {products.map((item) => (
+          <div key={item.key} className="grid_item">
             <div className="fast_button">
               <Tooltip title="Add to Wishlist" placement="left">
                 <button>
@@ -89,10 +92,10 @@ export default () => {
                 </button>
               </Tooltip>
             </div>
-            <img src={item.image} alt="" />
+            <img src={item.images[0].url} alt="" />
             <div className="infor_item">
               <span>${item.price}</span>
-              <div>{RenderRate(item.rate)}</div>
+              <div>{RenderRate(item.ratings)}</div>
               <ToolTipLongText value={item.name} textLength={60} />
             </div>
           </div>

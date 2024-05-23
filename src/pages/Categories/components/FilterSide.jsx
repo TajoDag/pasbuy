@@ -1,54 +1,14 @@
 import React from "react";
 import { Checkbox, Slider } from "antd";
 import { size } from "../utils/size";
-export const menu = [
-  {
-    key: "1",
-    name: "Women's Clothing & Fashion",
-  },
-  {
-    key: "2",
-    name: "Men's Clothing & Fashion",
-  },
-  {
-    key: "3",
-    name: "Computer & Accessories",
-  },
-  {
-    key: "4",
-    name: "Kkeys & Toy",
-  },
-  {
-    key: "5",
-    name: "Sports & Outdoor",
-  },
+import { Categories } from "../utils/categories";
 
-  {
-    key: "6",
-    name: "Automobile & Motorcycle",
-  },
-  {
-    key: "7",
-    name: "Watches",
-  },
-  {
-    key: "8",
-    name: "Phone Accessories",
-  },
-  {
-    key: "9",
-    name: "Home Decoration & Appliance",
-  },
-  {
-    key: "10",
-    name: "Beauty, Health & Hair",
-  },
-];
 export default () => {
   const range = [20, 50];
   const [min, setMin] = React.useState(range[0]);
   const [max, setMax] = React.useState(range[1]);
   const [sizeFilter, setSizeFilter] = React.useState([]);
+  const { categories } = Categories();
   return (
     <div className="menu">
       <div className="background_white">
@@ -56,7 +16,7 @@ export default () => {
           <h2>Categories</h2>
         </div>
         <div className="menu_detail">
-          {menu.map((item) => (
+          {categories.map((item) => (
             <div key={item.key}>{item.name}</div>
           ))}
         </div>
