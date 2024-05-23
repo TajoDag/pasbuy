@@ -4,13 +4,16 @@ import { DownOutlined } from "@ant-design/icons";
 import flagEn from "@assets/images/flags/en.png";
 import flagCn from "@assets/images/flags/cn.png";
 import flagVn from "@assets/images/flags/vn.png";
-import { useLocalization } from './../../../../../context/LocalizationWrapper';
+import { useLocalization } from "./../../../../../context/LocalizationWrapper";
 import TranslateTing from "../../../../../components/Common/TranslateTing";
+import { useNavigate } from "react-router-dom";
 
 const TopbarH = () => {
+  const isAuthenticated = localStorage.getItem("isLogin");
   const { switchLocale } = useLocalization();
   const [language, setLanguage] = useState("en");
   const [currency, setCurrency] = useState("USD");
+  const navigate = useNavigate();
   const languages = [
     {
       key: "en",
@@ -40,7 +43,7 @@ const TopbarH = () => {
     },
   ];
   const handleChangeLanguages = (value) => {
-    setLanguage(value)
+    setLanguage(value);
     switchLocale(value);
   };
   const languageMenu = (
@@ -76,7 +79,7 @@ const TopbarH = () => {
               >
                 <Space>
                   <span>
-                    {languages.find(lang => lang.key === language).icon}
+                    {languages.find((lang) => lang.key === language).icon}
                     {getLabel(languages, language)}
                   </span>
                   <DownOutlined
@@ -100,11 +103,27 @@ const TopbarH = () => {
             </Dropdown>
           </Space>
         </div>
-        <div className="auth-buttons">
-          <Button type="link"><TranslateTing text='login' /></Button>
-          <span className="divider"></span>
-          <Button type="link"><TranslateTing text='register' /></Button>
-        </div>
+        {isAuthenticated ? (
+          <div className="auth-buttons">
+            <Button onClick={() => navigate("/login")} type="link">
+              <TranslateTing text="My Panel" />
+            </Button>
+            <span className="divider"></span>
+            <Button type="link">
+              <TranslateTing text="register" />
+            </Button>
+          </div>
+        ) : (
+          <div className="auth-buttons">
+            <Button onClick={() => navigate("/login")} type="link">
+              <TranslateTing text="login" />
+            </Button>
+            <span className="divider"></span>
+            <Button type="link">
+              <TranslateTing text="register" />
+            </Button>
+          </div>
+        )}
       </div>
     </header>
   );

@@ -30,7 +30,6 @@ axiosInstance.interceptors.response.use(
     };
   },
   (error) => {
-    console.log(error);
     let errorMessage = "Lỗi hệ thống";
     if (error?.message?.includes("Network Error")) {
       errorMessage = "";

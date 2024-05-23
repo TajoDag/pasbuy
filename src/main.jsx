@@ -8,11 +8,14 @@ import "antd/dist/reset.css";
 import "swiper/css";
 import { LocalizationProvider } from "./context/LocalizationWrapper";
 import AppRoutes from "./routes/AppRoutes";
+import { Provider } from "react-redux";
+import store from "./stores";
 
 const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
+     <Provider store={store}>
     <QueryClientProvider client={queryClient}>
       <LocalizationProvider>
         <BrowserRouter>
@@ -20,5 +23,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         </BrowserRouter>
       </LocalizationProvider>
     </QueryClientProvider>
+    </Provider>
   </React.StrictMode>
 );

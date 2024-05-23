@@ -1,0 +1,94 @@
+$white: #fff;
+$primary-color: #E62E05;
+$link-color: #A9A9AE;
+$background-color: #f0f2f5;
+$input-hover-focus-color: #E62E05; 
+
+.login_page {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  padding: 50px 0;
+  background-color: $background-color;
+
+  .login_page_container {
+    background-color: $white;
+    padding: 32px 23px;
+    border-radius: 5px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+
+    h1 {
+      text-align: center;
+      margin-bottom: 24px;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .login_page_form {
+    margin-top: 30px;
+      display: flex;
+      flex-direction: column;
+
+      .ant-form-item {
+        margin-bottom: 16px;
+      }
+
+      .use_phone_instead,
+      .forgot_password {
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 16px;
+
+        a {
+          color: $link-color;
+        }
+      }
+
+      .ant-form-item-checkbox {
+        .ant-checkbox-wrapper {
+          display: flex;
+          align-items: center;
+        }
+      }
+
+      .ant-input,
+      .ant-input-password {
+        &:hover {
+          border-color: $input-hover-focus-color;
+        }
+
+        &:focus {
+          border-color: $input-hover-focus-color;
+          box-shadow: 0 0 0 2px rgba($input-hover-focus-color, 0.2);
+        }
+      }
+
+      .ant-form-item {
+        button {
+          width: 100%;
+        }
+      }
+    }
+
+    .register_now {
+      text-align: center;
+      margin-top: 16px;
+
+      p {
+        margin: 0;
+        color: #A9A9AE;
+
+        a {
+          color: $primary-color;
+          text-decoration: none;
+        }
+      }
+    }
+  }
+}
+
+.login_input{
+    height: 55px;
+}
