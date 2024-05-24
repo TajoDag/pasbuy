@@ -7,13 +7,15 @@ import { useState } from "react";
 import { DownOutlined } from "@ant-design/icons";
 import TranslateTing from "../../../../../components/Common/TranslateTing";
 import { useNavigate } from "react-router-dom";
+import { useCurrency } from "../../../../../context/CurrencyContext";
 
 const TopbarM = () => {
   const isAuthenticated = localStorage.getItem("isLogin");
   const navigate = useNavigate();
+  const storedLanguage = localStorage.getItem("locale") || "en";
   const { switchLocale } = useLocalization();
-  const [language, setLanguage] = useState("en");
-  const [currency, setCurrency] = useState("USD");
+  const { currency, switchCurrency } = useCurrency();
+  const [language, setLanguage] = useState(storedLanguage);
   const languages = [
     {
       key: "en",
@@ -34,16 +36,19 @@ const TopbarM = () => {
   const currencys = [
     {
       key: "USD",
-      label: "United States Dollar $",
+      label:  <TranslateTing text="dolla" />,
     },
     {
-      key: "EURO",
-      label: "Euro €",
+      key: "VND",
+      label:  <TranslateTing text="vnd" />,
     },
   ];
   const handleChangeLanguages = (value) => {
-    setLanguage(value)
+    setLanguage(value);
     switchLocale(value);
+  };
+  const handleChangeCurrencys = (value) => {
+    switchCurrency(value);
   };
   const languageMenu = (
     <Menu
@@ -55,7 +60,7 @@ const TopbarM = () => {
 
   const currencyMenu = (
     <Menu
-      onClick={(e) => setCurrency(e.key)}
+      onClick={(e) => handleChangeCurrencys(e.key)}
       items={currencys}
       selectedKeys={[currency]}
     />
@@ -81,7 +86,7 @@ const TopbarM = () => {
               >
                 <Space>
                   <span>
-                    {languages.find(lang => lang.key === language).icon}
+                    {languages.find((lang) => lang.key === language).icon}
                     {getLabel(languages, language)}
                   </span>
                   <DownOutlined

@@ -2,8 +2,12 @@ import { IoMdStar } from "react-icons/io";
 import { GrPrevious } from "react-icons/gr";
 import { GrNext } from "react-icons/gr";
 import React from "react";
+import TranslateTing from "../../components/Common/TranslateTing";
+import { formatPrice } from "../../utils";
+import { useCurrency } from "../../context/CurrencyContext";
 
 export const RelatedProduct = () => {
+  const { currency } = useCurrency();
   const array = [
     {
       id: 1,
@@ -57,7 +61,7 @@ export const RelatedProduct = () => {
   return (
     <div style={{ width: "100%" }}>
       <div className="border_bottom">
-        <h2>Related Products</h2>
+        <h2><TranslateTing text="Related Products"/></h2>
       </div>
       <div className="related_wrap" ref={carousel}>
         {/* <div className="button_slide">
@@ -71,7 +75,7 @@ export const RelatedProduct = () => {
         {array.map((item) => (
           <div key={item.id} className="item">
             <img src={item.src} alt="" />
-            <h4 style={{ color: "red", fontWeight: "600" }}>60$</h4>
+            <h4 style={{ color: "red", fontWeight: "600" }}>{formatPrice(60, currency)}</h4>
             <div>
               <IoMdStar className="star_icon" />
               <IoMdStar className="star_icon" />

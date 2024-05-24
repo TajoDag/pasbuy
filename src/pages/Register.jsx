@@ -6,28 +6,28 @@ import { showNotification } from "../redux/reducers/notificationReducer";
 import { Button, Form, Input } from "antd";
 
 const Register = () => {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const location = useLocation();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
 
-    const onFinish = async (values) => {
-        if (location.pathname === "/register") {
-          dispatch(startLoading());
-          const response = await registerUser(values);
-          if (response.status) {
-            dispatch(
-              showNotification({ message: response.message, type: "success" })
-            );
-            navigate("/login");
-            dispatch(stopLoading());
-          } else {
-            dispatch(
-              showNotification({ message: response.message, type: "error" })
-            );
-            dispatch(stopLoading());
-          }
-        }
-      };
+  const onFinish = async (values) => {
+    if (location.pathname === "/register") {
+      dispatch(startLoading());
+      const response = await registerUser(values);
+      if (response.status) {
+        dispatch(
+          showNotification({ message: response.message, type: "success" })
+        );
+        navigate("/login");
+        dispatch(stopLoading());
+      } else {
+        dispatch(
+          showNotification({ message: response.message, type: "error" })
+        );
+        dispatch(stopLoading());
+      }
+    }
+  };
   return (
     <div className="login_page">
       {location.pathname === "/register" && (
@@ -41,12 +41,12 @@ const Register = () => {
               autoComplete="off"
             >
               <Form.Item
-                name="email"
+                name="username"
                 rules={[
-                  { required: true, message: "Please input your email!" },
+                  { required: true, message: "Please input your username!" },
                 ]}
               >
-                <Input className="login_input" placeholder="Email" />
+                <Input className="login_input" placeholder="Username" />
               </Form.Item>
 
               <Form.Item
@@ -74,13 +74,8 @@ const Register = () => {
               >
                 <Input className="login_input" placeholder="Phone" />
               </Form.Item>
-              <Form.Item
-                name="address"
-                rules={[
-                  { required: true, message: "Please input your address!" },
-                ]}
-              >
-                <Input className="login_input" placeholder="Address" />
+              <Form.Item name="importInviteCode">
+                <Input className="login_input" placeholder="Invite code" />
               </Form.Item>
               <Form.Item>
                 <Button
@@ -102,6 +97,6 @@ const Register = () => {
         </div>
       )}
     </div>
-  )
-}
-export default Register
+  );
+};
+export default Register;

@@ -1,4 +1,9 @@
+import { useIntl } from "react-intl";
+import TranslateTing from "../../../components/Common/TranslateTing";
+
 const Footer = () => {
+  const intl = useIntl();
+  const placeholderText = intl.formatMessage({ id: "Your Email Address" });
   const contactInfo = [
     {
       title: "Address:",
@@ -23,7 +28,7 @@ const Footer = () => {
   ];
   const myAccount = ["Login", "Order History", "My Wishlist", "Track Order"];
   return (
-    <footer >
+    <footer>
       <div className="footer">
         <div className="footer-section">
           <img
@@ -33,9 +38,9 @@ const Footer = () => {
             className="footer-logo"
           />
           <p style={{ marginTop: 20 }}>
-            Contact customer service for free admission
+            <TranslateTing text="Contact customer service for free admission" />
           </p>
-          <input type="email" placeholder="Your Email Address" />
+          <input type="email" placeholder={placeholderText} />
           <button>Subscribe</button>
           <div className="app-links">
             <a href="/detail">
@@ -53,47 +58,65 @@ const Footer = () => {
           </div>
         </div>
         <div className="footer-section">
-          <h4>CONTACT INFO</h4>
+          <h4>
+            {" "}
+            <TranslateTing text="CONTACT INFO" />
+          </h4>
           <div className="content-contact">
             {contactInfo.map((item, index) => (
               <div key={index}>
-                <span>{item.title}</span>
+                <span>
+                  <TranslateTing text={item.title} />
+                </span>
                 <p>{item.content}</p>
               </div>
             ))}
           </div>
         </div>
         <div className="footer-section">
-          <h4>QUICK LINKS</h4>
+          <h4>
+            <TranslateTing text="QUICK LINKS" />
+          </h4>
           <div className="content-quick-link">
             {quickLinks.map((item, index) => (
               <div key={index}>
-                <p>{item}</p>
+                <p>
+                  <TranslateTing text={item} />
+                </p>
               </div>
             ))}
           </div>
         </div>
         <div className="footer-section">
-          <h4>MY ACCOUNT</h4>
+          <h4>
+            <TranslateTing text="MY ACCOUNT" />
+          </h4>
           <div className="content-quick-link">
             {myAccount.map((item, index) => (
               <div key={index}>
-                <p>{item}</p>
+                <p>
+                  <TranslateTing text={item} />
+                </p>
               </div>
             ))}
           </div>
           <div className="footer-section-bottom">
-            <h4>BE A SELLER</h4>
+            <h4>
+              <TranslateTing text="BE A SELLER" />
+            </h4>
             <div>
-              <button>Apply Now</button>
+              <button>
+                <TranslateTing text="Apply Now" />
+              </button>
             </div>
             <div>
-              <button>Seller Login</button>
+              <button>
+                <TranslateTing text="Seller Login" />
+              </button>
             </div>
           </div>
         </div>
       </div>
-
     </footer>
   );
 };

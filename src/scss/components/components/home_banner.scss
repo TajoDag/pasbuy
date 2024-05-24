@@ -203,6 +203,8 @@
       }
     }
     p {
+      width: 130px;
+      flex-flow: column;
       font-weight: 400;
     }
     &:hover {

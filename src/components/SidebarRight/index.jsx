@@ -2,10 +2,15 @@
 import { useNavigate } from "react-router-dom";
 import { getProductTodayDeal } from "../../api/utils/products";
 import { useEffect, useState } from "react";
+import TranslateTing from "../Common/TranslateTing";
+import { formatPrice } from "../../utils";
+import { useCurrency } from "../../context/CurrencyContext";
 
 const SidebarRight = () => {
   const navigate = useNavigate()
   const [deals, setDeals] = useState([]);
+  const { currency } = useCurrency();
+
   useEffect(() => {
     const getProducts = async () => {
       try {
@@ -20,10 +25,11 @@ const SidebarRight = () => {
     };
     getProducts();
   }, []);
+
   return (
     <div className="sidebarRight">
       <div className="sidebar_title">
-        <div className="title">Todays Deal</div>
+        <div className="title"><TranslateTing text="today_Deal" /></div>
         <div className="title_span">Hot</div>
       </div>
       <div className="list_card_deal">
@@ -33,8 +39,7 @@ const SidebarRight = () => {
               <img src={item.images[0].url} />
             </div>
             <div className="card_deal_info">
-              {/* <p className="name">{item.name}</p> */}
-              <span className="price">{item.price}</span>
+              <span className="price">{formatPrice(item.price, currency)}</span>
             </div>
           </div>
         ))}

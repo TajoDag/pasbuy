@@ -11,10 +11,11 @@ import anh10 from "@assets/images/ic_category/home.png";
 import anh11 from "@assets/images/ic_category/toy2.png";
 import { useEffect, useState } from "react";
 import { getCateSidebarBanner } from "../../api/utils/category";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import TranslateTing from "../Common/TranslateTing";
 
 const SidebarLeft = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [categories, setCategories] = useState([
     {
       img: anh1,
@@ -67,32 +68,40 @@ const SidebarLeft = () => {
       try {
         const rp = await getCateSidebarBanner();
         const updatedCategories = categories.map((category) => {
-          const matchedItem = rp.result.find((item) => item.name === category.name);
+          const matchedItem = rp.result.find(
+            (item) => item.name === category.name
+          );
           if (matchedItem) {
             return { ...category, id: matchedItem._id };
           }
           return category;
         });
         setCategories(updatedCategories);
-      } catch (error) { }
+      } catch (error) {}
     };
     getCategories();
   }, []);
-  const handleNavigate = () => {
-
-  };
+  const handleNavigate = () => {};
   return (
     <div className="sidebarLeft">
       <div className="sidebar_title">
-        <div className="title">Categories</div>
+        <div className="title">
+          <TranslateTing text="title_categories" />
+        </div>
       </div>
       <div className="list_categories">
         {categories.map((item, index) => (
-          <div key={index} className="category" onClick={() => navigate('/products')} >
+          <div
+            key={index}
+            className="category"
+            onClick={() => navigate("/products")}
+          >
             <div className="img">
               <img src={item.img} />
             </div>
-            <p>{item.name}</p>
+            <p>
+              <TranslateTing text={item.name} />
+            </p>
           </div>
         ))}
       </div>

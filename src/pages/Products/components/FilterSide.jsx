@@ -2,6 +2,7 @@ import React from "react";
 import { Checkbox, Slider } from "antd";
 import { Categories } from "../utils/categories";
 import { Sizes } from "../utils/size";
+import TranslateTing from "../../../components/Common/TranslateTing";
 
 export default ({ setBodyFilter, bodyFilter }) => {
   const range = [20, 50];
@@ -24,7 +25,7 @@ export default ({ setBodyFilter, bodyFilter }) => {
               })
             }
           >
-            Categories
+            <TranslateTing text="title_categories" />
           </h2>
         </div>
         <div className="menu_detail">
@@ -47,7 +48,7 @@ export default ({ setBodyFilter, bodyFilter }) => {
                   : {}
               }
             >
-              {item.name}
+              <TranslateTing text={item.name} />
             </div>
           ))}
         </div>

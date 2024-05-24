@@ -2,6 +2,7 @@ import { SearchOutlined, ArrowLeftOutlined } from "@ant-design/icons";
 import logo from "@assets/images/logo.png";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useIntl } from "react-intl";
 const HeaderL = () => {
   const [showInput, setShowInput] = useState(false);
   const navigate = useNavigate();
@@ -23,6 +24,8 @@ const HeaderL = () => {
       onSearch();
     }
   };
+  const intl = useIntl();
+  const placeholderText = intl.formatMessage({ id: "placeholderSearch" });
   return (
     <header className="header_shop">
       {showInput ? (
@@ -37,7 +40,7 @@ const HeaderL = () => {
             <div className="search-bar">
               <input
                 type="text"
-                placeholder="I am shopping for..."
+                placeholder={placeholderText}
                 className="search-input"
 
               />

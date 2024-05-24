@@ -32,3 +32,11 @@ export const useLocalStorage = (keyName, defaultValue) => {
 
   return { value: storedValue, setValue };
 };
+
+export const formatPrice = (price, currency) => {
+  const exchangeRate = 25000;
+  if (currency === "VND") {
+    return `${(price * exchangeRate).toLocaleString()} ₫`;
+  }
+  return `$ ${price}`;
+};

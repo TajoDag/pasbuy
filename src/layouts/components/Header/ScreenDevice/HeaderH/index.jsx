@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import logo from "@assets/images/logo.png";
 import {
   HeartOutlined,
@@ -8,9 +8,10 @@ import {
 } from "@ant-design/icons";
 import TranslateTing from "../../../../../components/Common/TranslateTing";
 import { useNavigate } from "react-router-dom";
+import { useIntl } from "react-intl";
 const HeaderH = () => {
   const navigate = useNavigate();
-  const [search, setSearch] = useState()
+  const [search, setSearch] = useState();
   const handleInputChange = (e) => {
     setSearch(e.target.value);
   };
@@ -18,16 +19,19 @@ const HeaderH = () => {
   const onSearch = () => {
     if (search.trim() !== "") {
       navigate("/products", {
-        state: { query: search }
+        state: { query: search },
       });
     }
   };
 
   const handleKeyDown = (e) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       onSearch();
     }
   };
+
+  const intl = useIntl();
+  const placeholderText = intl.formatMessage({ id: "placeholderSearch" });
   return (
     <>
       <header className="header_shop">
@@ -41,7 +45,7 @@ const HeaderH = () => {
             <div className="search-bar">
               <input
                 type="text"
-                placeholder="I am shopping for..."
+                placeholder={placeholderText}
                 className="search-input"
                 value={search}
                 onChange={handleInputChange}
@@ -56,21 +60,27 @@ const HeaderH = () => {
                 <SyncOutlined className="icon" />
                 <div className="toolbar_item">
                   <div className="total">0</div>
-                  <div className="title"><TranslateTing text='compare' /></div>
+                  <div className="title">
+                    <TranslateTing text="compare" />
+                  </div>
                 </div>
               </div>
               <div className="toolbar">
                 <HeartOutlined className="icon" />
                 <div className="toolbar_item">
                   <div className="total">0</div>
-                  <div className="title"><TranslateTing text='wishlist' /></div>
+                  <div className="title">
+                    <TranslateTing text="wishlist" />
+                  </div>
                 </div>
               </div>
               <div className="toolbar">
                 <ShoppingCartOutlined className="icon" />
                 <div className="toolbar_item">
                   <div className="total">0</div>
-                  <div className="title"><TranslateTing text='cart' /></div>
+                  <div className="title">
+                    <TranslateTing text="cart" />
+                  </div>
                 </div>
               </div>
             </div>
