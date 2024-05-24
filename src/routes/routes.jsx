@@ -8,6 +8,7 @@ const ProductDetail = lazy(() => import("../pages/ProductDetail"));
 const Products = lazy(() => import("../pages/Products"));
 const Brands = lazy(() => import("../pages/Brands"));
 const Categories = lazy(() => import("../pages/Categories"));
+const User = lazy(() => import("../pages/User"));
 
 export const routes_here = [
   {
@@ -23,6 +24,11 @@ export const routes_here = [
   {
     path: "/register",
     element: <Register />,
+    isPrivate: false,
+  },
+  {
+    path: "/user",
+    element: <User />,
     isPrivate: false,
   },
   {
