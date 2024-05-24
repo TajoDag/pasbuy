@@ -11,6 +11,7 @@ import AppRoutes from "./routes/AppRoutes";
 import { Provider } from "react-redux";
 import store from "./stores";
 import CrispWidget from "./utils/CrispWidget";
+import { CurrencyProvider } from "./context/CurrencyContext";
 
 const queryClient = new QueryClient();
 
@@ -19,10 +20,12 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <Provider store={store}>
       <QueryClientProvider client={queryClient}>
         <LocalizationProvider>
+        <CurrencyProvider>
           <BrowserRouter>
             <AppRoutes />
             <CrispWidget />
           </BrowserRouter>
+          </CurrencyProvider>
         </LocalizationProvider>
       </QueryClientProvider>
     </Provider>

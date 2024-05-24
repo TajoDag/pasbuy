@@ -12,11 +12,14 @@ import FilterSide from "./FilterSide";
 import { Pagination } from "antd";
 import { Brands } from "../utils/brand";
 import { useNavigate } from "react-router-dom";
+import TranslateTing from "../../../components/Common/TranslateTing";
+import { useCurrency } from "../../../context/CurrencyContext";
+import { formatPrice } from "../../../utils";
 
 export default ({ setBodyFilter, total, products, bodyFilter }) => {
   const navigate = useNavigate();
   const [open, setOpen] = React.useState(false);
-
+  const { currency } = useCurrency();
   const { brands } = Brands();
 
   return (
@@ -30,14 +33,19 @@ export default ({ setBodyFilter, total, products, bodyFilter }) => {
             width: "100%",
           }}
         >
-          <h2>All Products</h2>
+          <h2>
+            {" "}
+            <TranslateTing text="All Products" />
+          </h2>
           <div className="button_filter" onClick={() => setOpen(true)}>
             <FiFilter />
           </div>
         </div>
         <div className="select_wrap">
           <div>
-            <p>Brands</p>
+            <p>
+              <TranslateTing text="Brands" />
+            </p>
             <Select
               placeholder={"All Brands"}
               options={brands}
@@ -52,25 +60,27 @@ export default ({ setBodyFilter, total, products, bodyFilter }) => {
             />
           </div>
           <div>
-            <p>Sort by</p>
+            <p>
+              <TranslateTing text="Sort by" />
+            </p>
             <Select
-              placeholder={"Newest"}
+              placeholder={<TranslateTing text="Newest" />}
               options={[
                 {
                   value: "1",
-                  label: "Newest",
+                  label: <TranslateTing text="Newest" />,
                 },
                 {
                   value: "2",
-                  label: "Oldest",
+                  label: <TranslateTing text="Oldest" />,
                 },
                 {
                   value: "3",
-                  label: "Price Low to High",
+                  label:  <TranslateTing text="Price Low to High" />,
                 },
                 {
                   value: "4",
-                  label: "Price High to Low",
+                  label: <TranslateTing text="Price High to Low" />,
                 },
               ]}
             />
@@ -84,17 +94,17 @@ export default ({ setBodyFilter, total, products, bodyFilter }) => {
         {products.map((item) => (
           <div key={item.key} className="grid_item">
             <div className="fast_button">
-              <Tooltip title="Add to Wishlist" placement="left">
+              <Tooltip title={<TranslateTing text="Add to Wishlist" />} placement="left">
                 <button>
                   <CiHeart />
                 </button>
               </Tooltip>
-              <Tooltip title="Add to Compare" placement="left">
+              <Tooltip title={<TranslateTing text="Add to Compare" />} placement="left">
                 <button>
                   <IoMdSync />
                 </button>
               </Tooltip>
-              <Tooltip title="Add to Cart" placement="left">
+              <Tooltip title={<TranslateTing text="Add to Cart" />} placement="left">
                 <button>
                   <MdOutlineShoppingCart />
                 </button>
@@ -102,7 +112,7 @@ export default ({ setBodyFilter, total, products, bodyFilter }) => {
             </div>
             <img src={item.images[0].url} alt="" />
             <div className="infor_item">
-              <span>${item.price}</span>
+              <span>{formatPrice(item.price, currency)}</span>
               <div>{RenderRate(item.ratings)}</div>
               <div
                 onClick={() => {

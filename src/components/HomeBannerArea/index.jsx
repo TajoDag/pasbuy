@@ -14,8 +14,8 @@ import anh6 from "@assets/images/img_category/car.png";
 import anh7 from "@assets/images/img_category/watch.png";
 import anh8 from "@assets/images/img_category/phone.jpg";
 import anh9 from "@assets/images/img_category/home.png";
-import { splitText } from './../../utils/index';
-
+import { splitText } from "./../../utils/index";
+import TranslateTing from "../Common/TranslateTing";
 
 const contentStyle = {
   height: "315px",
@@ -25,7 +25,6 @@ const contentStyle = {
 
 const HomeBannerArea = () => {
   const categoriesR = [
-
     {
       img: anh1,
       name: "Women's Clothing & Fashion",
@@ -89,7 +88,6 @@ const HomeBannerArea = () => {
     );
   };
 
-  let ab = "Women's Clothing & Fashion"
   return (
     <div className="home_banner_area">
       <SidebarLeft />
@@ -103,7 +101,11 @@ const HomeBannerArea = () => {
         >
           <div>
             <div
-              style={{ ...contentStyle, backgroundImage: `url(${banner1})`, backgroundSize: 'cover' }}
+              style={{
+                ...contentStyle,
+                backgroundImage: `url(${banner1})`,
+                backgroundSize: "cover",
+              }}
             />
           </div>
           <div>
@@ -124,11 +126,10 @@ const HomeBannerArea = () => {
                 <img src={item.img} alt="" />
               </div>
               <div className="name_cate">
-                <p>{splitText(item.name, 5)}</p>
+              <TranslateTing text={`${item.name}`} />
               </div>
             </div>
           ))}
-
         </div>
       </div>
       <SidebarRight />

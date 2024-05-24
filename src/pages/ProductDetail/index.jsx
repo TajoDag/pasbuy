@@ -19,6 +19,7 @@ import { RelatedProduct } from "./RelatedProduct";
 import { ProductQuries } from "./ProductQuries";
 import { getDetailProduct } from "./utils/service";
 import { useParams } from "react-router-dom";
+import TranslateTing from "../../components/Common/TranslateTing";
 
 export default () => {
   const dispatch = useDispatch();
@@ -33,12 +34,12 @@ export default () => {
   const items = [
     {
       key: "1",
-      label: <h3>Descriptions</h3>,
+      label: <h3><TranslateTing text="Descriptions" /></h3>,
       children: <Descriptions detail={detail} />,
     },
     {
       key: "2",
-      label: <h3>Reviews</h3>,
+      label: <h3><TranslateTing text="Reviews" /></h3>,
       children: <Reviews detail={detail} />,
     },
   ];

@@ -15,7 +15,7 @@ export default function Login() {
   const { setValue: setIsLogin } = useLocalStorage("isLogin", false);
   const { setValue: setUserData } = useLocalStorage("userData", "");
   const onFinish = async (values) => {
-    if (location.pathname === "/login") {
+    try {
       const response = await loginUser(values);
       if (response.status) {
         setToken(response.result.token);
@@ -31,6 +31,9 @@ export default function Login() {
           showNotification({ message: response.message, type: "error" })
         );
       }
+    } catch (err) {
+      setIsLogin(false);
+      dispatch(showNotification({ message: "Có lỗi xảy ra", type: "error" }));
     }
   };
 
@@ -47,12 +50,12 @@ export default function Login() {
               autoComplete="off"
             >
               <Form.Item
-                name="email"
+                name="username"
                 rules={[
-                  { required: true, message: "Please input your email!" },
+                  { required: true, message: "Please input your username!" },
                 ]}
               >
-                <Input className="login_input" placeholder="Email" />
+                <Input className="login_input" placeholder="Username" />
               </Form.Item>
 
               <div className="use_phone_instead">

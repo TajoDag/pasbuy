@@ -1,25 +1,36 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import TranslateTing from "../../../../components/Common/TranslateTing";
 const Top10Grid = ({ title, btn, data, type }) => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   return (
     <div className="top_10_grid">
       <div className="div_title">
         <h3>
-          <span>{title}</span>
+          <span>
+            <TranslateTing text={title} />
+          </span>
         </h3>
         <div className="div_btn" onClick={() => navigate(`/all-${type}`)}>
-          <span>{btn}</span>
+          <span>
+            <TranslateTing text={btn} />
+          </span>
         </div>
       </div>
       <div className="list_categories_top10">
         {data.map((item, index) => (
-          <div key={index} className="category" onClick={() => navigate(`/products`)}>
+          <div
+            key={index}
+            className="category"
+            onClick={() => navigate(`/products`)}
+          >
             <div className="img_cate">
               <img src={item.img} alt={item.name} />
             </div>
             <div className="name_cate">
-              <p>{item.name}</p>
+              <p>
+                <TranslateTing text={item.name} />
+              </p>
             </div>
           </div>
         ))}

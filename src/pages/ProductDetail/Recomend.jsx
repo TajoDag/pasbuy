@@ -4,6 +4,9 @@ import { TfiGoogle } from "react-icons/tfi";
 import { FaTwitter } from "react-icons/fa6";
 import { FiYoutube } from "react-icons/fi";
 import { GiRibbonMedal } from "react-icons/gi";
+import { formatPrice } from "../../utils";
+import { useCurrency } from "../../context/CurrencyContext";
+import TranslateTing from "../../components/Common/TranslateTing";
 const array = [
   {
     id: 1,
@@ -27,6 +30,7 @@ const array = [
   },
 ];
 export const Recomend = () => {
+  const { currency } = useCurrency();
   return (
     <div>
       <div className="detail_decription">
@@ -35,7 +39,10 @@ export const Recomend = () => {
             className="border_bottom"
             style={{ display: "flex", justifyContent: "space-between" }}
           >
-            <span>Sold By</span>
+            <span>
+              {" "}
+              <TranslateTing text="Sold By" />
+            </span>
             <div>
               <GiRibbonMedal
                 style={{ color: "yellow", fontSize: "50px", margin: "-20px" }}
@@ -63,7 +70,9 @@ export const Recomend = () => {
             <IoMdStar className="star_icon" />
             <IoMdStar className="star_icon" />
           </div>
-          <div>(0 Customer Reviews)</div>
+          <div>
+            (0) <TranslateTing text="Customer Reviews" />
+          </div>
         </div>
         <div style={{ display: "flex" }}>
           <div
@@ -75,7 +84,7 @@ export const Recomend = () => {
               padding: "10px",
             }}
           >
-            Visit Store
+            <TranslateTing text="Visit Store" />
           </div>
           <div
             style={{
@@ -105,7 +114,9 @@ export const Recomend = () => {
       <div className="detail_decription">
         <div style={{ marginBottom: "10px" }}>
           <div className="border_bottom">
-            <h3>Top Selling Products</h3>
+            <h3>
+              <TranslateTing text="Top Selling Products" />
+            </h3>
           </div>
         </div>
         <div>
@@ -124,7 +135,9 @@ export const Recomend = () => {
                   <IoMdStar className="star_icon" />
                   <IoMdStar className="star_icon" />
                 </div>
-                <h3 style={{ color: "red", fontWeight: "600" }}>60$</h3>
+                <h3 style={{ color: "red", fontWeight: "600" }}>
+                  {formatPrice(60, currency)}
+                </h3>
               </div>
             </div>
           ))}
