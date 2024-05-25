@@ -67,3 +67,18 @@ h6 {
 ::-webkit-scrollbar-thumb:hover {
   background: #9d9b9b; /* Màu của thumb khi hover */
 }
+
+:where(.css-dev-only-do-not-override-17seli4).ant-form-item
+  .ant-form-item-label {
+  text-align: start;
+}
+
+// button
+.button_red {
+  color: #fff;
+  background-color: #e62e04;
+  border: 1px solid #fbe0da;
+  border-radius: 5px;
+  padding: 10px 20px 10px 20px;
+  cursor: pointer;
+}

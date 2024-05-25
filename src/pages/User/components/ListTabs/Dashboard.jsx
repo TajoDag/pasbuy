@@ -1,12 +1,20 @@
 import React from "react";
+import TranslateTing from "../../../../components/Common/TranslateTing";
+
 export const Dashboard = () => {
   return (
     <div className="tab_layout">
-      <h2>Dashboard</h2>
+      <h2>
+        <TranslateTing text="Dashboard" />
+      </h2>
       <div className="card_wrap">
         <div className="bg_1">
-          <p>0 Products</p>
-          <p>in your Cart</p>
+          <p>
+            0 <TranslateTing text="Products" />
+          </p>
+          <p>
+            <TranslateTing text="in your Cart" />
+          </p>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
             <path
               fill="rgba(255,255,255,0.3)"
@@ -16,8 +24,12 @@ export const Dashboard = () => {
           </svg>
         </div>
         <div className="bg_2">
-          <p>0 Products</p>
-          <p>in your Wishlist</p>
+          <p>
+            0 <TranslateTing text="Products" />
+          </p>
+          <p>
+            <TranslateTing text="in your Wishlist" />
+          </p>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
             <path
               fill="rgba(255,255,255,0.3)"
@@ -27,8 +39,12 @@ export const Dashboard = () => {
           </svg>
         </div>
         <div className="bg_3">
-          <p>0 Products</p>
-          <p>in your Order</p>
+          <p>
+            0 <TranslateTing text="Products" />
+          </p>
+          <p>
+            <TranslateTing text="in your Order" />
+          </p>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
             <path
               fill="rgba(255,255,255,0.3)"
@@ -40,7 +56,10 @@ export const Dashboard = () => {
       </div>
       <div className="background_white" style={{ marginTop: "20px" }}>
         <div className="border_bottom">
-          <h2>Default Shipping Address</h2>
+          <h2>
+            {" "}
+            <TranslateTing text="Default Shipping Address" />
+          </h2>
         </div>
         <div>Ha Noi City</div>
       </div>

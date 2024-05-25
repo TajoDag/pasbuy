@@ -7,6 +7,7 @@ import flagVn from "@assets/images/flags/vn.png";
 import { useLocalization } from "../../../../../context/LocalizationWrapper";
 import { useNavigate } from "react-router-dom";
 import TranslateTing from "../../../../../components/Common/TranslateTing";
+import { useCurrency } from "../../../../../context/CurrencyContext";
 
 const TopbarL = () => {
   const navigate = useNavigate();
@@ -35,15 +36,15 @@ const TopbarL = () => {
   const currencys = [
     {
       key: "USD",
-      label:  <TranslateTing text="dolla" />,
+      label: <TranslateTing text="dolla" />,
     },
     {
       key: "VND",
-      label:  <TranslateTing text="vnd" />,
+      label: <TranslateTing text="vnd" />,
     },
   ];
   const handleChangeLanguages = (value) => {
-    setLanguage(value)
+    setLanguage(value);
     switchLocale(value);
   };
   const handleChangeCurrencys = (value) => {

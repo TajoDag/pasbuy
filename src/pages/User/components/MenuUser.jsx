@@ -11,12 +11,19 @@ import { CiBadgeDollar } from "react-icons/ci";
 import { IoTicketOutline } from "react-icons/io5";
 import { GrTransaction } from "react-icons/gr";
 import { FiUser } from "react-icons/fi";
+import TranslateTing from "../../../components/Common/TranslateTing";
+import {
+  useIsLaptopOrDesktop,
+  useIsMobile,
+  useIsTablet,
+} from "../../../utils/responsive";
+
 const menu = [
   { key: "1", name: "Dashboard", icon: <IoHomeOutline /> },
   { key: "2", name: "Purchase History", icon: <MdHistory /> },
   { key: "3", name: "Download", icon: <AiOutlineDownload /> },
   { key: "4", name: "Sent Refund Request", icon: <VscSend /> },
-  { key: "5", name: "Wish List", icon: <IoMdHeartEmpty /> },
+  { key: "5", name: "Wishlist", icon: <IoMdHeartEmpty /> },
   { key: "6", name: "Compare", icon: <IoIosGitCompare /> },
   { key: "7", name: "Conversations", icon: <BiConversation /> },
   { key: "8", name: "My Wallet", icon: <IoWalletOutline /> },
@@ -25,9 +32,12 @@ const menu = [
   { key: "11", name: "Transaction Password", icon: <GrTransaction /> },
   { key: "12", name: "Manage Profile", icon: <FiUser /> },
 ];
-export const Menu = ({ setActiveMenu, activeMenu }) => {
+export const MenuUser = ({ setActiveMenu, activeMenu }) => {
+  const isLaptopOrDesktop = useIsLaptopOrDesktop();
+  const isTablet = useIsTablet();
+  const isMobile = useIsMobile();
   return (
-    <div className="menu_wrap background_white">
+    <div className={`menu_wrap ${isLaptopOrDesktop && "background_white"}`}>
       <div className="user_infor">
         <img
           src="https://www.pasbuy.cyou/public/assets/img/avatar-place.png"
@@ -46,7 +56,9 @@ export const Menu = ({ setActiveMenu, activeMenu }) => {
             }
           >
             <span>{item.icon}</span>
-            <span>{item.name}</span>
+            <span>
+              <TranslateTing text={item.name} />
+            </span>
           </div>
         ))}
       </div>

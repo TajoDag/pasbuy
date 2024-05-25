@@ -26,7 +26,7 @@ export const Tabs = ({ activeMenu }) => {
       {activeMenu === "9" && <EarningPoint />}
       {activeMenu === "10" && <Support />}
       {activeMenu === "11" && <Transaction />}
-      {activeMenu === "12s" && <Manage />}
+      {activeMenu === "12" && <Manage />}
     </div>
   );
 };

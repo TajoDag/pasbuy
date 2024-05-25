@@ -5,6 +5,12 @@
   justify-content: center;
   gap: 15px;
   margin-bottom: 25px;
+  @media (min-width: 768px) and (max-width: 1023px) {
+    padding: 20px 10px;
+  }
+  @media (max-width: 767px) {
+    padding: 20px 10px;
+  }
   .menu {
     width: 25%;
     @media (min-width: 768px) and (max-width: 1023px) {
