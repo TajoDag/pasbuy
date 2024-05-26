@@ -41,7 +41,6 @@ export const Tabs = ({ activeMenu }) => {
     }
     getAgency();
   }, [user._id])
-  console.log(dataAgency)
   return (
     <div className="tab_container">
       {activeMenu === "1" && <Dashboard data={dataAgency} />}

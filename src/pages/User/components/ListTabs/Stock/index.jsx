@@ -1,8 +1,11 @@
 import React from "react";
 import TranslateTing from "../../../../../components/Common/TranslateTing";
 import { Button, Table } from "antd";
+import { useCurrency } from "../../../../../context/CurrencyContext";
+import { formatPrice } from "../../../../../utils";
 
 const Stock = ({ data }) => {
+    const { currency } = useCurrency();
     const columns = [
         {
             title: "#",
@@ -38,7 +41,7 @@ const Stock = ({ data }) => {
             dataIndex: "product",
             align: "center",
             width: 90,
-            render: (text) => <>{text.price}</>,
+            render: (text) => <>{formatPrice(text.price, currency)}</>,
         },
         {
             title: <TranslateTing text="Stock" />,
@@ -54,7 +57,7 @@ const Stock = ({ data }) => {
                 <h2>
                     <TranslateTing text="Applied Refund Request" />
                 </h2>
-                <Button>New order</Button>
+                <Button>  <TranslateTing text="New order" /></Button>
             </div>
             <div style={{ marginTop: "10px" }}>
                 <Table
