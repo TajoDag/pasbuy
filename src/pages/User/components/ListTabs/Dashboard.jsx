@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import TranslateTing from "../../../../components/Common/TranslateTing";
+import { useDispatch } from "react-redux";
+import { showNotification } from "../../../../redux/reducers/notificationReducer";
+import { getAgencyByHomeAgentId } from "../../../../api/utils/agency";
 
-export const Dashboard = () => {
+export const Dashboard = ({ data }) => {
   return (
     <div className="tab_layout">
       <h2>
@@ -10,10 +13,10 @@ export const Dashboard = () => {
       <div className="card_wrap">
         <div className="bg_1">
           <p>
-            0 <TranslateTing text="Products" />
+            {data?.length}  <TranslateTing text="Products" />
           </p>
           <p>
-            <TranslateTing text="in your Cart" />
+            <TranslateTing text="in your Stock" />
           </p>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
             <path

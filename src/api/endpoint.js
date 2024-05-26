@@ -3,7 +3,7 @@ export const API = import.meta.env.VITE_API_BASE_URL;
 export const endpoints = {
   auth: {
     login: `login`,
-    register: `register`
+    register: `register`,
   },
   product: {
     list: `products/all`,
@@ -31,5 +31,8 @@ export const endpoints = {
     create: `size/create`,
     delete: `size/delete`,
     update: `size/edit`,
+  },
+  agency: {
+    get: `agency/homeAgent`,
   },
 };

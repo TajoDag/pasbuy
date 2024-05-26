@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Dashboard } from "../components/ListTabs/Dashboard";
 import { Compare } from "../components/ListTabs/Compare";
 import { Conversations } from "../components/ListTabs/Conversations";
@@ -11,11 +11,41 @@ import { Support } from "../components/ListTabs/Support";
 import { Transaction } from "../components/ListTabs/Transaction";
 import { Wallet } from "../components/ListTabs/Wallet";
 import { WishList } from "../components/ListTabs/WishList";
+import Stock from "./ListTabs/Stock";
+import { useDispatch } from "react-redux";
+import { getAgencyByHomeAgentId } from "../../../api/utils/agency";
+import { showNotification } from "../../../redux/reducers/notificationReducer";
 
 export const Tabs = ({ activeMenu }) => {
+  const user = JSON.parse(localStorage.getItem("userData"));
+  const dispatch = useDispatch()
+  const [dataAgency, setAgency] = useState()
+  useEffect(() => {
+    const getAgency = async () => {
+      try {
+        const response = await getAgencyByHomeAgentId(user._id);
+        if (response.status) {
+          const updatedProducts = response.result.products.map(
+            (item, i) => ({
+              ...item,
+              stt: i + 1
+            })
+          );
+          setAgency(updatedProducts)
+        } else {
+          dispatch(showNotification({ message: response.message, type: "error" }));
+        }
+      } catch (err) {
+        dispatch(showNotification({ message: "Có lỗi xảy ra", type: "error" }));
+      }
+    }
+    getAgency();
+  }, [user._id])
+  console.log(dataAgency)
   return (
     <div className="tab_container">
-      {activeMenu === "1" && <Dashboard />}
+      {activeMenu === "1" && <Dashboard data={dataAgency} />}
+      {activeMenu === "13" && <Stock data={dataAgency} />}
       {activeMenu === "2" && <PurchaseHistory />}
       {activeMenu === "3" && <Download />}
       {activeMenu === "4" && <SentRequest />}
