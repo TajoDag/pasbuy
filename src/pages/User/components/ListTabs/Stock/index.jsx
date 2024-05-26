@@ -55,7 +55,7 @@ const Stock = ({ data }) => {
         <div className="background_white">
             <div className="border_bottom">
                 <h2>
-                    <TranslateTing text="Applied Refund Request" />
+                    <TranslateTing text="Your warehouse" />
                 </h2>
                 <Button>  <TranslateTing text="New order" /></Button>
             </div>
