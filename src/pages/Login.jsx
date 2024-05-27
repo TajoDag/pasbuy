@@ -6,6 +6,8 @@ import { loginUser, registerUser } from "../api/utils/auth";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import { showNotification } from "../redux/reducers/notificationReducer";
 import { startLoading, stopLoading } from "../redux/reducers/loadingReducer";
+import TranslateTing from "../components/Common/TranslateTing";
+import { useIntl } from "react-intl";
 
 export default function Login() {
   const dispatch = useDispatch();
@@ -36,12 +38,14 @@ export default function Login() {
       dispatch(showNotification({ message: "Có lỗi xảy ra", type: "error" }));
     }
   };
-
+  const intl = useIntl();
+  const placeholderUsername = intl.formatMessage({ id: "Username" });
+  const placeholderPassword = intl.formatMessage({ id: "Password" });
   return (
     <div className="login_page">
       {location.pathname === "/login" && (
         <div className="login_page_container">
-          <h1>Login to your account.</h1>
+          <h1> <TranslateTing text="Login to your account." /></h1>
           <div className="login_page_form">
             <Form
               name="login"
@@ -52,10 +56,10 @@ export default function Login() {
               <Form.Item
                 name="username"
                 rules={[
-                  { required: true, message: "Please input your username!" },
+                  { required: true, message: <TranslateTing text="Please input your username!" /> },
                 ]}
               >
-                <Input className="login_input" placeholder="Username" />
+                <Input className="login_input" placeholder={placeholderUsername} />
               </Form.Item>
 
               <div className="use_phone_instead">
@@ -65,22 +69,22 @@ export default function Login() {
               <Form.Item
                 name="password"
                 rules={[
-                  { required: true, message: "Please input your password!" },
+                  { required: true, message: <TranslateTing text="Please input your password!" /> },
                 ]}
               >
                 <Input.Password
                   className="login_input"
-                  placeholder="Password"
+                  placeholder={placeholderPassword}
                 />
               </Form.Item>
 
               <div className="forgot_password">
-                <a href="#">Forgot password?</a>
+                <a href="#"><TranslateTing text="Forgot password?" /></a>
               </div>
 
               <Form.Item name="remember" valuePropName="checked">
                 <Checkbox>
-                  <p style={{ color: "#A9A9AE" }}>Remember Me</p>
+                  <p style={{ color: "#A9A9AE" }}><TranslateTing text="Remember Me" /></p>
                 </Checkbox>
               </Form.Item>
 
@@ -91,13 +95,14 @@ export default function Login() {
                   block
                   style={{ background: "#E62E05", height: 45, fontSize: 20 }}
                 >
-                  Login
+                  <TranslateTing text="login" />
+
                 </Button>
               </Form.Item>
             </Form>
             <div className="register_now">
               <p>
-                Don't have an account? <a href="/register">Register Now</a>
+                <TranslateTing text="Don't have an account?" />   <a href="/register">  <TranslateTing text="Register Now" /></a>
               </p>
             </div>
           </div>

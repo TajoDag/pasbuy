@@ -151,5 +151,26 @@
   "Save": "Lưu",
   "Your Email": "Email của bạn",
   "Verify": "Xác thực",
-  "Update Email": "Cập nhật Email"
+  "Invite Code": "Mã giới thiệu",
+  "Image": "Hình ảnh",
+  "Warehouse": "Kho hàng",
+  "Stock" : "Số lượng tồn",
+  "Update Email": "Cập nhật Email",
+  "Register Now": "Đăng ký ngay",
+  "Don't have an account?": "Bạn chưa có tài khoản?",
+  "Remember Me": "Lưu tài khoản",
+  "Forgot password?": "Quên mật khẩu",
+  "Username": "Tên đăng nhập",
+  "Password": "Mật khẩu",
+  "Please input your username!": "Vui lòng nhập tên đăng nhập!",
+  "Please input your password!" : "Vui lòng nhập mật khẩu!",
+  "Login to your account.": "Đăng nhập tài khoản",
+  "Create an account.": "Đăng ký tài khoản mới",
+  "Already have an account?": "Bạn đã có tài khoản?",
+  "Invite code": "Mã giới thiệu",
+  "Please input your name!": "Vui lòng nhập tên của bạn!",
+  "Please input your phone!": "Vui lòng nhập số điện thoại của bạn!",
+  "New order": "Tạo đơn hàng mới",
+  "Your warehouse": "Kho hàng của bạn"
+
 }

@@ -1,6 +1,6 @@
 import React from "react";
 import { IoHomeOutline } from "react-icons/io5";
-import { MdHistory } from "react-icons/md";
+import { MdHistory, MdOutlineProductionQuantityLimits } from "react-icons/md";
 import { AiOutlineDownload } from "react-icons/ai";
 import { VscSend } from "react-icons/vsc";
 import { IoMdHeartEmpty } from "react-icons/io";
@@ -20,6 +20,7 @@ import {
 
 const menu = [
   { key: "1", name: "Dashboard", icon: <IoHomeOutline /> },
+  { key: "13", name: "Warehouse", icon: <MdOutlineProductionQuantityLimits /> },
   { key: "2", name: "Purchase History", icon: <MdHistory /> },
   { key: "3", name: "Download", icon: <AiOutlineDownload /> },
   { key: "4", name: "Sent Refund Request", icon: <VscSend /> },
@@ -31,11 +32,16 @@ const menu = [
   { key: "10", name: "Support Ticket", icon: <IoTicketOutline /> },
   { key: "11", name: "Transaction Password", icon: <GrTransaction /> },
   { key: "12", name: "Manage Profile", icon: <FiUser /> },
+
 ];
 export const MenuUser = ({ setActiveMenu, activeMenu }) => {
   const isLaptopOrDesktop = useIsLaptopOrDesktop();
+  const user = JSON.parse(localStorage.getItem("userData"));
   const isTablet = useIsTablet();
   const isMobile = useIsMobile();
+  const filteredMenu = user.isShop
+    ? menu
+    : menu.filter(item => item.key !== "1" && item.key !== "13");
   return (
     <div className={`menu_wrap ${isLaptopOrDesktop && "background_white"}`}>
       <div className="user_infor">
@@ -43,11 +49,14 @@ export const MenuUser = ({ setActiveMenu, activeMenu }) => {
           src="https://www.pasbuy.cyou/public/assets/img/avatar-place.png"
           alt=""
         />
-        <h3>USER</h3>
-        <p>user@gmail.com</p>
+        <h3>{user.name}</h3>
+        <p>{user.email && user.email}</p>
+        {user.isShop && <p>
+          <TranslateTing text="Invite Code" /> :  {user.inviteCode && user.inviteCode}</p>}
+
       </div>
       <div className="menu_item">
-        {menu.map((item) => (
+        {filteredMenu.map((item) => (
           <div
             key={item.key}
             onClick={() => setActiveMenu(item.key)}
