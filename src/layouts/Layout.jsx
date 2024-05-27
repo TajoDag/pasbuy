@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Topbar from "./components/Topbar";
 import Footer from "./components/Footer";
 import BottomNav from "./components/BottomNav";
@@ -10,6 +10,9 @@ import Service from "./components/ServiceSection";
 export default function Layout({ children }) {
   const isTablet = useIsTablet();
   const isMobile = useIsMobile();
+  useEffect(() => {
+
+  }, []);
   return (
     <>
       <Topbar />

@@ -1,10 +1,9 @@
-
 import React, { useEffect } from "react";
 
-const CrispWidget = () => {
+const CrispWidget = ({ keyChat }) => {
   useEffect(() => {
     window.$crisp = [];
-    window.CRISP_WEBSITE_ID = "53744e9b-2ccf-4378-b4a2-e6f6e2d7be58";
+    window.CRISP_WEBSITE_ID = keyChat;
 
     (function () {
       const d = document;

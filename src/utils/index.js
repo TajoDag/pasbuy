@@ -34,9 +34,24 @@ export const useLocalStorage = (keyName, defaultValue) => {
 };
 
 export const formatPrice = (price, currency) => {
-  const exchangeRate = 25000;
+  const exchangeRates = {
+    USD: 1,
+    VND: 25000,
+    CNY: 6.5,
+  };
+
+  const symbols = {
+    USD: "$",
+    VND: "₫",
+    CNY: "¥",
+  };
+
+  const convertedPrice = price * (exchangeRates[currency] || 1);
+  const symbol = symbols[currency] || "$";
+
   if (currency === "VND") {
-    return `${(price * exchangeRate).toLocaleString()} ₫`;
+    return `${convertedPrice.toLocaleString()} ${symbol}`;
+  } else {
+    return `${symbol} ${convertedPrice.toLocaleString()}`;
   }
-  return `$ ${price}`;
 };

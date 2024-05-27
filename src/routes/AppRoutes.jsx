@@ -12,7 +12,6 @@ import { getLiveChat } from "../api/utils/livechat";
 export default function AppRoutes() {
   const loading = useSelector((state) => state.loading.loading);
   const notificationProps = useSelector((state) => state.notification);
-  let key ="665461c54715f752a552f7a2";
   const [keyLiveChat, setKeyLiveChat] = useState("");
   const isAuthenticated = true;
 
@@ -22,21 +21,20 @@ export default function AppRoutes() {
     }
   };
 
-  // useEffect(() => {
-  //   const getKey = async () => {
-  //     try {
-  //       const rp = await getLiveChat("665461c54715f752a552f7a2");
-  //       if (rp && rp) {
-  //         console.log(rp)
-  //         // setKeyLiveChat(rp.data.keyLive); 
-  //       }
-  //     } catch (error) {
-  //       console.error("Error fetching live chat key:", error);
-  //     }
-  //   };
+  useEffect(() => {
+    const getKey = async () => {
+      try {
+        const rp = await getLiveChat("665461c54715f752a552f7a2");
+        if (rp && rp) {
+          setKeyLiveChat(rp.result.keyLive);
+        }
+      } catch (error) {
+        console.error("Error fetching live chat key:", error);
+      }
+    };
 
-  //   getKey();
-  // }, []); 
+    getKey();
+  }, []);
   return (
     <Suspense fallback={<h1>Loading....</h1>}>
       <ScrollTop />
@@ -57,7 +55,7 @@ export default function AppRoutes() {
           />
         ))}
       </Routes>
-      <CrispWidget />
+      <CrispWidget keyChat={keyLiveChat} />
     </Suspense>
   );
 }

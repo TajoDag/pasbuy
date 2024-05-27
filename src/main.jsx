@@ -20,11 +20,11 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <Provider store={store}>
       <QueryClientProvider client={queryClient}>
         <LocalizationProvider>
-        <CurrencyProvider>
-          <BrowserRouter>
-            <AppRoutes />
-            {/* <CrispWidget /> */}
-          </BrowserRouter>
+          <CurrencyProvider>
+            <BrowserRouter>
+              <AppRoutes />
+              {/* <CrispWidget /> */}
+            </BrowserRouter>
           </CurrencyProvider>
         </LocalizationProvider>
       </QueryClientProvider>

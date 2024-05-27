@@ -36,6 +36,6 @@ export const endpoints = {
     get: `agency/homeAgent`,
   },
   livechat: {
-    get: `admin/configLiveChat`,
+    get: `configLiveChat`,
   },
 };
