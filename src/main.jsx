@@ -23,7 +23,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <CurrencyProvider>
           <BrowserRouter>
             <AppRoutes />
-            <CrispWidget />
+            {/* <CrispWidget /> */}
           </BrowserRouter>
           </CurrencyProvider>
         </LocalizationProvider>
