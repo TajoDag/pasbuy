@@ -6,21 +6,14 @@ import ScrollTop from "@components/ScrollTop";
 import AppNotification from "../components/AppNotification/index";
 import AppLoading from "../components/AppLoading/index";
 import { useSelector } from "react-redux";
-import CrispWidget from "../utils/CrispWidget";
 import { getLiveChat } from "../api/utils/livechat";
+import CrispWidget from "../utils/CrispWidget";
 
 export default function AppRoutes() {
   const loading = useSelector((state) => state.loading.loading);
   const notificationProps = useSelector((state) => state.notification);
   const [keyLiveChat, setKeyLiveChat] = useState("");
   const isAuthenticated = true;
-
-  const renderRoute = (route, isAuthenticated) => {
-    if (route.isPrivate || isAuthenticated) {
-      return route.element;
-    }
-  };
-
   useEffect(() => {
     const getKey = async () => {
       try {
@@ -35,6 +28,12 @@ export default function AppRoutes() {
 
     getKey();
   }, []);
+  const renderRoute = (route, isAuthenticated) => {
+    if (route.isPrivate || isAuthenticated) {
+      return route.element;
+    }
+  };
+
   return (
     <Suspense fallback={<h1>Loading....</h1>}>
       <ScrollTop />
@@ -55,7 +54,7 @@ export default function AppRoutes() {
           />
         ))}
       </Routes>
-      <CrispWidget keyChat={keyLiveChat} />
+      {keyLiveChat !== "" && <CrispWidget keyLiveChat={keyLiveChat} />}
     </Suspense>
   );
 }
