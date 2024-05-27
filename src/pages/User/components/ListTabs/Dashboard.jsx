@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { showNotification } from "../../../../redux/reducers/notificationReducer";
 import { getAgencyByHomeAgentId } from "../../../../api/utils/agency";
 
-export const Dashboard = ({ data }) => {
+export const Dashboard = ({ data, totalOrderNotSuccess }) => {
   return (
     <div className="tab_layout">
       <h2>
@@ -43,7 +43,7 @@ export const Dashboard = ({ data }) => {
         </div>
         <div className="bg_3">
           <p>
-            0 <TranslateTing text="Products" />
+            {totalOrderNotSuccess} <TranslateTing text="Products" />
           </p>
           <p>
             <TranslateTing text="in your Order" />

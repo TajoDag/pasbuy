@@ -13,13 +13,16 @@ import { Wallet } from "../components/ListTabs/Wallet";
 import { WishList } from "../components/ListTabs/WishList";
 import Stock from "./ListTabs/Stock";
 import { useDispatch } from "react-redux";
-import { getAgencyByHomeAgentId } from "../../../api/utils/agency";
+import { getAgencyByHomeAgentId, getListNotSuccess } from "../../../api/utils/agency";
 import { showNotification } from "../../../redux/reducers/notificationReducer";
+import { getListOrders } from "../../../api/utils/order";
 
 export const Tabs = ({ activeMenu }) => {
   const user = JSON.parse(localStorage.getItem("userData"));
   const dispatch = useDispatch()
   const [dataAgency, setAgency] = useState()
+  const [totalOrderNotSuccess, setTotalOrderNotSuccess] = useState(0)
+  const [dataOrders, setDataOrders] = useState([])
   useEffect(() => {
     const getAgency = async () => {
       try {
@@ -39,13 +42,51 @@ export const Tabs = ({ activeMenu }) => {
         dispatch(showNotification({ message: "Có lỗi xảy ra", type: "error" }));
       }
     }
+
+    const getListOrderNotSuccess = async () => {
+      try {
+        const rp = await getListNotSuccess(user._id); {
+          if (rp.status) {
+            setTotalOrderNotSuccess(rp.result.pagination.total)
+          } else {
+            dispatch(showNotification({ message: response.message, type: "error" }));
+          }
+        }
+      } catch (err) {
+        dispatch(showNotification({ message: "Có lỗi xảy ra", type: "error" }));
+      }
+    }
+
+    const getListHistoryOrders = async () => {
+      try {
+        const rp = await getListOrders(user._id); {
+          if (rp.status) {
+            const updatedProducts = rp.result.orders.map(
+              (item, i) => ({
+                ...item,
+                stt: i + 1
+              })
+            );
+            setDataOrders(updatedProducts)
+          } else {
+            dispatch(showNotification({ message: response.message, type: "error" }));
+          }
+        }
+      } catch (err) {
+        dispatch(showNotification({ message: "Có lỗi xảy ra", type: "error" }));
+      }
+    }
+    getListHistoryOrders();
     getAgency();
+    getListOrderNotSuccess();
+
+
   }, [user._id])
   return (
     <div className="tab_container">
-      {activeMenu === "1" && <Dashboard data={dataAgency} />}
+      {activeMenu === "1" && <Dashboard data={dataAgency} totalOrderNotSuccess={totalOrderNotSuccess} />}
       {activeMenu === "13" && <Stock data={dataAgency} />}
-      {activeMenu === "2" && <PurchaseHistory />}
+      {activeMenu === "2" && <PurchaseHistory dataOrders={dataOrders} />}
       {activeMenu === "3" && <Download />}
       {activeMenu === "4" && <SentRequest />}
       {activeMenu === "5" && <WishList />}

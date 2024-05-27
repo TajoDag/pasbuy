@@ -155,7 +155,7 @@
   "Invite Code": "Mã giới thiệu",
   "Image": "Hình ảnh",
   "Warehouse": "Kho hàng",
-  "Stock" : "Số lượng tồn",
+  "Stock": "Số lượng tồn",
   "Update Email": "Cập nhật Email",
   "Register Now": "Đăng ký ngay",
   "Don't have an account?": "Bạn chưa có tài khoản?",
@@ -164,7 +164,7 @@
   "Username": "Tên đăng nhập",
   "Password": "Mật khẩu",
   "Please input your username!": "Vui lòng nhập tên đăng nhập!",
-  "Please input your password!" : "Vui lòng nhập mật khẩu!",
+  "Please input your password!": "Vui lòng nhập mật khẩu!",
   "Login to your account.": "Đăng nhập tài khoản",
   "Create an account.": "Đăng ký tài khoản mới",
   "Already have an account?": "Bạn đã có tài khoản?",
@@ -172,6 +172,13 @@
   "Please input your name!": "Vui lòng nhập tên của bạn!",
   "Please input your phone!": "Vui lòng nhập số điện thoại của bạn!",
   "New order": "Tạo đơn hàng mới",
-  "Your warehouse": "Kho hàng của bạn"
-
+  "Your warehouse": "Kho hàng của bạn",
+  "in your Stock": "trong kho của bạn",
+  "Orders location": "Đơn hàng đang ở ",
+  "In Stock": "Trong kho",
+  "Successful delivery": "Đã giao",
+  "Delivering": "Đang giao",
+  "Processing": "Đang xử lý",
+  "Order": "Đơn hàng",
+  "Product name": "Tên sản phẩm"
 }

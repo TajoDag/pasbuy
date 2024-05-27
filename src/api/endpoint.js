@@ -34,6 +34,10 @@ export const endpoints = {
   },
   agency: {
     get: `agency/homeAgent`,
+    getNotSuccess: `agency/orders`,
+  },
+  orders: {
+    getListOrders: `customer/order/all`,
   },
   livechat: {
     get: `configLiveChat`,

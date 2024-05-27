@@ -8,7 +8,6 @@ export default () => {
   const [total, setTotal] = React.useState(0);
   const location = useLocation();
   const searchQuery = location.state?.query || "";
-  console.log(searchQuery)
   const [bodyFilter, setBodyFilter] = React.useState({
     page: 1,
     size: 12,
