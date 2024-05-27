@@ -34,12 +34,20 @@ export default () => {
   const items = [
     {
       key: "1",
-      label: <h3><TranslateTing text="Descriptions" /></h3>,
+      label: (
+        <h3>
+          <TranslateTing text="Descriptions" />
+        </h3>
+      ),
       children: <Descriptions detail={detail} />,
     },
     {
       key: "2",
-      label: <h3><TranslateTing text="Reviews" /></h3>,
+      label: (
+        <h3>
+          <TranslateTing text="Reviews" />
+        </h3>
+      ),
       children: <Reviews detail={detail} />,
     },
   ];
@@ -119,7 +127,7 @@ export default () => {
           <div className=" detail_decription">
             <Tabs defaultActiveKey="1" items={items} />
           </div>
-          <div className="related_product detail_decription">
+          <div className="related_product detail_decription ">
             <RelatedProduct />
           </div>
           <div

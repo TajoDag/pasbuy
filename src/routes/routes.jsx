@@ -32,7 +32,7 @@ export const routes_here = [
     isPrivate: false,
   },
   {
-    path: "/detail",
+    // path: "/detail",
     path: "/detail/:_id",
     element: <ProductDetail />,
     isPrivate: false,

@@ -5,11 +5,18 @@
   justify-content: center;
   align-items: center;
   margin-bottom: 30px;
+  padding: 20px 100px;
+  @media (min-width: 768px) and (max-width: 1023px) {
+    padding: 10px;
+  }
+  @media (max-width: 767px) {
+    padding: 10px;
+  }
+
   .detail_container {
     display: flex;
     background-color: #fff;
     padding: 12px;
-    width: 80%;
     border-radius: 5px;
     margin-top: 15px;
     .slide_slick {
@@ -119,7 +126,7 @@
 // decription
 .wrap_decription {
   margin-top: 15px;
-  width: 80%;
+  width: 100%;
   display: flex;
   gap: 10px;
   .detail_decription {
@@ -130,31 +137,94 @@
     margin-top: 15px;
   }
   .recommend {
-    width: 40%;
+    width: 30%;
+    @media (min-width: 768px) and (max-width: 1023px) {
+      width: 100%;
+    }
+    @media (max-width: 767px) {
+      width: 100%;
+    }
   }
   .decription {
-    width: 100%;
+    width: 70%;
+    @media (min-width: 768px) and (max-width: 1023px) {
+      width: 100%;
+    }
+    @media (max-width: 767px) {
+      width: 100%;
+    }
     img {
       width: 100%;
     }
   }
   .related_product {
     width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     .item {
-      flex-shrink: 0;
-      width: 150px; /* Adjust based on the number of items you want to show */
-      margin-right: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      // padding: 15px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      text-align: left;
+      width: 150px;
+      cursor: pointer;
+      img {
+        max-height: 210px;
+        width: 100%;
+        object-fit: cover;
+        height: 100%;
+        margin-bottom: 10px;
+      }
     }
     .related_wrap {
-      display: flex;
-      padding-top: 20px;
-      max-width: 750px;
-      // transition: transform 1s ease;
-      box-sizing: border-box;
-      overflow-x: auto;
+      max-width: 1400px;
+      overflow: hidden;
+      position: relative;
+      padding: 10px;
+      .slick-list {
+        margin: 0 -5px; // Đảm bảo khoảng cách giữa các ảnh là 10px (5px mỗi bên)
+      }
+      .slick-track {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+      }
+    }
+    .infor {
+      padding: 5px;
+    }
+    .custom-arrow {
+      position: absolute;
+      &.custom-arrow-prev,
+      &.custom-arrow-next {
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background: #fff;
+        border-radius: 50%;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        cursor: pointer;
+        text-align: center;
+        svg {
+          width: 35px;
+          height: 35px;
+          color: #333;
+          // transform: translateY(-%);
+        }
+      }
+
+      // &.custom-arrow-prev {
+      //   left: -5px;
+      // }
+
+      &.custom-arrow-next {
+        right: 1px;
+      }
     }
   }
   .contact_seller {
