@@ -3,8 +3,59 @@ import TranslateTing from "../../../../components/Common/TranslateTing";
 import { useDispatch } from "react-redux";
 import { showNotification } from "../../../../redux/reducers/notificationReducer";
 import { getAgencyByHomeAgentId } from "../../../../api/utils/agency";
+import { Button, Space, Table } from "antd";
+import { FaEye } from "react-icons/fa";
 
 export const Dashboard = ({ data, totalOrderNotSuccess }) => {
+
+  const column = [
+    {
+      title: "#",
+      dataIndex: "stt",
+    },
+    {
+      title: <TranslateTing text="Customer" />,
+      // dataIndex: "name",
+    },
+    {
+      title: <TranslateTing text="Phone number" />,
+      // dataIndex: "name",
+    },
+    {
+      title: <TranslateTing text="Note" />,
+    },
+    {
+      title: <TranslateTing text="Status" />,
+      // dataIndex: "quantity",
+    },
+    {
+      title: <TranslateTing text="Total price" />,
+      render: (_, record) => (
+        <>{formatPrice(record.price * record.quantity, currency)}</>
+      ),
+    },
+    {
+      title: <TranslateTing text="Order creator" />,
+      // dataIndex: "quantity",
+    },
+    {
+      title: " ",
+      render: (_, record) => {
+        return (
+          <Space size="middle">
+            <Button
+              icon={<FaEye />}
+            // onClick={() => {
+            //   showModal(true);
+            //   setIdOrder(record._id);
+            //   setDataItems(record.orderItems);
+            // }}
+            />
+          </Space>
+        );
+      },
+    },
+  ];
   return (
     <div className="tab_layout">
       <h2>
@@ -57,14 +108,21 @@ export const Dashboard = ({ data, totalOrderNotSuccess }) => {
           </svg>
         </div>
       </div>
-      <div className="background_white" style={{ marginTop: "20px" }}>
+      <div className="background_white" style={{ marginTop: "20px", paddingBottom: 10 }}>
         <div className="border_bottom">
           <h2>
-            {" "}
-            <TranslateTing text="Default Shipping Address" />
+            <TranslateTing text="Orders" />
           </h2>
+
+          <Button>  <TranslateTing text="New order" /></Button>
         </div>
-        <div>Ha Noi City</div>
+        <div style={{ padding: 10 }}>
+          <Table
+            columns={column}
+            scroll={{ x: "max-content" }}
+            dataSource={[]}
+          />
+        </div>
       </div>
     </div>
   );
