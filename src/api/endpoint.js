@@ -11,6 +11,11 @@ export const endpoints = {
     delete: `product`,
     getDetail: `product`,
   },
+  user: {
+    all: `admin/users`,
+    detail: `me`,
+    update: `user/update`,
+  },
   category: {
     getAll: `categories/all`,
   },
@@ -35,6 +40,10 @@ export const endpoints = {
   agency: {
     get: `agency/homeAgent`,
     getNotSuccess: `agency/orders`,
+    updatePrice: `agency/product/update`,
+    createOrder: `agency/order/create`,
+    getListOrder: `agency/order/all`,
+    changeStatus: `agency/order/status`,
   },
   orders: {
     getListOrders: `customer/order/all`,

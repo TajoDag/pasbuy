@@ -181,5 +181,20 @@
   "Processing": "加工",
   "Order": "命令",
   "Product name": "產品名稱",
-  "Orders": "訂單清單"
+  "Orders": "訂單清單",
+  "Women's Fashing Bag": "女式時尚包",
+  "Customer": "顧客",
+  "Phone number": "電話號碼",
+  "Note": "筆記",
+  "Change price": "更改產品價格",
+  "Do you want to change price?" : "您想更改價格嗎？",
+  "Input price ($)": "輸入價格 ($)",
+  "Delete": "刪除",
+  "Delete the product": "刪除該產品",
+  "Are you sure to delete this product?": "您確定要刪除該產品嗎 ?",
+  "Total Price:": "發票總金額: ",
+  "Cancel": "取消",
+  "Submit": "確認",
+  "Order detail": "訂單詳細信息",
+  "Order Location": "訂單地點"
 }

@@ -1,11 +1,41 @@
 import React from "react";
 import { Form, Input, Switch } from "antd";
 import TranslateTing from "../../../../components/Common/TranslateTing";
+import { useDispatch } from "react-redux";
+import { showNotification } from "../../../../redux/reducers/notificationReducer";
+import { updateUser } from "../../../../api/utils/auth";
 
-export default () => {
-  const handleUploadProfile = (value) => {
+export default ({ user }) => {
+  const dispatch = useDispatch();
+  const handleUploadProfile = async (value) => {
+    try {
+      const rp = await updateUser(value);
+      if (rp.status) {
+        dispatch(
+          showNotification({
+            message: "Success.",
+            type: "success",
+          })
+        );
+      } else {
+        dispatch(
+          showNotification({
+            message: "Error.",
+            type: "error",
+          })
+        );
+      }
+    } catch {
+      dispatch(
+        showNotification({
+          message: "Error.",
+          type: "error",
+        })
+      );
+    }
     console.log(value);
   };
+  console.log(user);
   return (
     <div className="basic_info">
       <Form
@@ -17,6 +47,9 @@ export default () => {
         }}
         initialValues={{
           remember: true,
+          name: user.name,
+          phone: user.phone,
+          password: user.password,
         }}
         onFinish={(value) => handleUploadProfile(value)}
         autoComplete="off"
@@ -27,83 +60,18 @@ export default () => {
               <TranslateTing text="Basic Info" />
             </h3>
           </div>
-          <Form.Item label={<TranslateTing text="Your name" />} name="username">
+          <Form.Item label={<TranslateTing text="Your name" />} name="name">
             <Input />
           </Form.Item>
-          <Form.Item
-            label={<TranslateTing text="Your phone" />}
-            name="password"
-          >
+          <Form.Item label={<TranslateTing text="Your phone" />} name="phone">
             <Input />
           </Form.Item>
-          <Form.Item label={<TranslateTing text="Photo" />} name="password">
-            <Input />
-          </Form.Item>
-          <Form.Item
+          {/* <Form.Item
             label={<TranslateTing text="Your Password" />}
             name="password"
           >
             <Input.Password />
-          </Form.Item>
-          <Form.Item
-            label={<TranslateTing text="Confirm Password" />}
-            name="password"
-          >
-            <Input.Password />
-          </Form.Item>
-        </div>
-        {/* payment */}
-        <div className="form_info background_white">
-          <div className="border_bottom" style={{ marginBottom: "15px" }}>
-            <h3>
-              <TranslateTing text="Payment Setting" />
-            </h3>
-          </div>
-          <Form.Item
-            label={<TranslateTing text="Cash Payment" />}
-            name="username"
-          >
-            <Switch />
-          </Form.Item>
-          <Form.Item
-            label={<TranslateTing text="Bank Payment" />}
-            name="password"
-          >
-            <Switch />
-          </Form.Item>
-          <Form.Item label={<TranslateTing text="Photo" />} name="password">
-            <Input />
-          </Form.Item>
-          <Form.Item
-            label={<TranslateTing text="Bank Account Name" />}
-            name="password"
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item
-            label={<TranslateTing text="Bank Account Number" />}
-            name="password"
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item label={<TranslateTing text="Your name" />} name="password">
-            <Input />
-          </Form.Item>
-          <Form.Item
-            label={<TranslateTing text="USDT Payment" />}
-            name="password"
-          >
-            <Switch />
-          </Form.Item>
-          <Form.Item label={<TranslateTing text="USDT Link" />} name="password">
-            <Input />
-          </Form.Item>
-          <Form.Item
-            label={<TranslateTing text="USDT Address" />}
-            name="password"
-          >
-            <Input />
-          </Form.Item>
+          </Form.Item> */}
         </div>
         <Form.Item
           wrapperCol={{

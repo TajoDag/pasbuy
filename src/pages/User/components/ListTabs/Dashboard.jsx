@@ -2,60 +2,157 @@ import React, { useEffect, useState } from "react";
 import TranslateTing from "../../../../components/Common/TranslateTing";
 import { useDispatch } from "react-redux";
 import { showNotification } from "../../../../redux/reducers/notificationReducer";
-import { getAgencyByHomeAgentId } from "../../../../api/utils/agency";
+import {
+  getAgencyByHomeAgentId,
+  listOrderAgency,
+} from "../../../../api/utils/agency";
 import { Button, Space, Table } from "antd";
 import { FaEye } from "react-icons/fa";
+import CreateOrder from "../Modal/CreateOrder";
+import { MdOutlinePriceChange } from "react-icons/md";
+import useRefresh from "../../../../hooks/useRefresh";
+import { getListOrders } from "../../../../api/utils/order";
+import { formatPrice } from "../../../../utils";
+import { useCurrency } from "../../../../context/CurrencyContext";
+import { TagsOrder } from "../../../../utils/TagsOrder";
+import ItemsOrder from "../Modal/ItemsOrder";
+import { TbEdit } from "react-icons/tb";
+import UpdateOrder from "../Modal/UpdateOrder";
 
-export const Dashboard = ({ data, totalOrderNotSuccess }) => {
-
+export const Dashboard = ({
+  data,
+  totalOrderNotSuccess,
+  refecth,
+  userId,
+  refresh,
+}) => {
+  const [listOrder, setListOrder] = useState([]);
+  const [isModalCreate, setIsModalCreate] = useState(false);
+  const { currency } = useCurrency();
+  const [openItems, setOpenItems] = useState(false);
+  const [openDetail, setOpenDetail] = useState(false);
+  const [dataItems, setDataItems] = useState([]);
+  const [searchParams, setSearchParams] = useState({
+    page: 0,
+    size: 10,
+    userId: userId,
+  });
+  const [pagination, setPagination] = useState({
+    current: 1,
+    pageSize: 10,
+    total: 0,
+  });
+  const onCloseModalDetail = () => {
+    setOpenItems(false);
+    setDataItems([]);
+  };
+  const onCloseModalChangeStatus = () => {
+    setOpenDetail(false);
+    setDataItems([]);
+  };
   const column = [
     {
       title: "#",
       dataIndex: "stt",
+      width: 50,
     },
     {
       title: <TranslateTing text="Customer" />,
-      // dataIndex: "name",
+      dataIndex: "customer",
+      key: "customer",
+      width: 170,
+      align: "left",
+      render: (text) => <>{text.name}</>,
     },
     {
       title: <TranslateTing text="Phone number" />,
-      // dataIndex: "name",
+      dataIndex: "phone",
+      key: "phone",
+      width: 130,
+      align: "center",
     },
     {
       title: <TranslateTing text="Note" />,
+      dataIndex: "note",
+      key: "note",
+      width: 250,
+      align: "center",
     },
     {
       title: <TranslateTing text="Status" />,
+      dataIndex: "orderStatus",
+      align: "center",
+      width: 140,
+      render: (value) => TagsOrder(value),
       // dataIndex: "quantity",
+    },
+    {
+      title: <TranslateTing text="Order Location" />,
+      dataIndex: "orderLocation",
+      key: "orderLocation",
+      width: 150,
+      align: "center",
     },
     {
       title: <TranslateTing text="Total price" />,
-      render: (_, record) => (
-        <>{formatPrice(record.price * record.quantity, currency)}</>
-      ),
-    },
-    {
-      title: <TranslateTing text="Order creator" />,
-      // dataIndex: "quantity",
+      dataIndex: "totalPrice",
+      width: 150,
+      render: (_, record) => <>{formatPrice(record.totalPrice, currency)}</>,
     },
     {
       title: " ",
+      width: 100,
       render: (_, record) => {
         return (
           <Space size="middle">
             <Button
               icon={<FaEye />}
-            // onClick={() => {
-            //   showModal(true);
-            //   setIdOrder(record._id);
-            //   setDataItems(record.orderItems);
-            // }}
+              onClick={() => {
+                setOpenItems(true);
+                setDataItems(record.orderItems);
+              }}
+            />
+            <Button
+              icon={<TbEdit />}
+              onClick={() => {
+                setOpenDetail(true);
+                setDataItems(record);
+              }}
             />
           </Space>
         );
       },
     },
   ];
+  const handleTableChange = (pagination) => {
+    setSearchParams({
+      ...searchParams,
+      page: pagination.current - 1,
+      size: pagination.pageSize,
+    });
+    setPagination(pagination);
+  };
+  useEffect(() => {
+    const getList = async () => {
+      try {
+        const response = await listOrderAgency(searchParams);
+        if (response.status) {
+          const updatedProducts = response.result.orders.map((item, i) => ({
+            ...item,
+            stt: i + 1 + searchParams.page * searchParams.size,
+          }));
+          setListOrder(updatedProducts);
+          setPagination((prev) => ({
+            ...prev,
+            total: response.result.pagination?.total,
+          }));
+        }
+      } catch (err) {
+        setListOrder([]);
+      }
+    };
+    getList();
+  }, [searchParams, refresh]);
   return (
     <div className="tab_layout">
       <h2>
@@ -64,7 +161,7 @@ export const Dashboard = ({ data, totalOrderNotSuccess }) => {
       <div className="card_wrap">
         <div className="bg_1">
           <p>
-            {data?.length}  <TranslateTing text="Products" />
+            {data?.length} <TranslateTing text="Products" />
           </p>
           <p>
             <TranslateTing text="in your Stock" />
@@ -108,22 +205,50 @@ export const Dashboard = ({ data, totalOrderNotSuccess }) => {
           </svg>
         </div>
       </div>
-      <div className="background_white" style={{ marginTop: "20px", paddingBottom: 10 }}>
+      <div
+        className="background_white"
+        style={{ marginTop: "20px", paddingBottom: 10 }}
+      >
         <div className="border_bottom">
           <h2>
             <TranslateTing text="Orders" />
           </h2>
 
-          <Button>  <TranslateTing text="New order" /></Button>
+          <Button onClick={() => setIsModalCreate(true)}>
+            <TranslateTing text="New order" />
+          </Button>
         </div>
         <div style={{ padding: 10 }}>
           <Table
             columns={column}
-            scroll={{ x: "max-content" }}
-            dataSource={[]}
+            scroll={{ x: 800 }}
+            dataSource={listOrder}
+            pagination={{
+              current: pagination.current,
+              pageSize: pagination.pageSize,
+              total: pagination.total,
+            }}
+            onChange={handleTableChange}
           />
         </div>
       </div>
+      <CreateOrder
+        open={isModalCreate}
+        setIsModalCreate={setIsModalCreate}
+        width={"80%"}
+        dataProducts={data}
+        refecth={refecth}
+        userId={userId}
+      />
+      <ItemsOrder
+        open={openItems}
+        data={dataItems}
+        onClose={onCloseModalDetail}
+      />
+      <UpdateOrder open={openDetail}
+        data={dataItems}
+        refecth={refecth}
+        onClose={onCloseModalChangeStatus}/>
     </div>
   );
 };

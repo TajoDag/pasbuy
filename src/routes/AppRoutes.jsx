@@ -13,27 +13,28 @@ export default function AppRoutes() {
   const loading = useSelector((state) => state.loading.loading);
   const notificationProps = useSelector((state) => state.notification);
   const [keyLiveChat, setKeyLiveChat] = useState("");
-  const isAuthenticated = true;
+  const isAuthenticated = JSON.parse(localStorage.getItem("isLogin"));
   useEffect(() => {
-    const getKey = async () => {
-      try {
-        const rp = await getLiveChat("665461c54715f752a552f7a2");
-        if (rp && rp) {
-          setKeyLiveChat(rp.result.keyLive);
+    if (isAuthenticated && isAuthenticated !== null) {
+      const getKey = async () => {
+        try {
+          const rp = await getLiveChat("665461c54715f752a552f7a2");
+          if (rp && rp) {
+            setKeyLiveChat(rp.result.keyLive);
+          }
+        } catch (error) {
+          console.error("Error fetching live chat key:", error);
         }
-      } catch (error) {
-        console.error("Error fetching live chat key:", error);
-      }
-    };
+      };
 
-    getKey();
-  }, []);
+      getKey();
+    }
+  }, [isAuthenticated]);
   const renderRoute = (route, isAuthenticated) => {
     if (route.isPrivate || isAuthenticated) {
       return route.element;
     }
   };
-
   return (
     <Suspense fallback={<h1>Loading....</h1>}>
       <ScrollTop />
@@ -47,14 +48,19 @@ export default function AppRoutes() {
             element={
               <Layout>
                 <Suspense fallback={<h1>Loading....</h1>}>
-                  {renderRoute(route, isAuthenticated)}
+                  {renderRoute(route, true)}
                 </Suspense>
               </Layout>
             }
           />
         ))}
       </Routes>
-      {keyLiveChat !== "" && <CrispWidget keyLiveChat={keyLiveChat} />}
+      {/* {keyLiveChat !== "" && isAuthenticated === true ? (
+        <CrispWidget keyLiveChat={keyLiveChat} />
+      ) : null} */}
+      {isAuthenticated === true && keyLiveChat && (
+        <CrispWidget keyLiveChat={keyLiveChat} />
+      )}
     </Suspense>
   );
 }

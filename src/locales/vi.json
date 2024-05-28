@@ -182,5 +182,20 @@
   "Order": "Đơn hàng",
   "Product name": "Tên sản phẩm",
   "Orders": "Danh sách đơn hàng",
-  "Sold by": "Được bán bởi"
+  "Sold by": "Được bán bởi",
+  "Women's Fashing Bag": "Túi xách thời trang nữ",
+  "Customer": "Khách hàng", 
+  "Phone number" : "Số điện thoại",
+  "Note": "Ghi chú",
+  "Change price": "Thay đổi giá sản phẩm",
+  "Do you want to change price?" : "Bạn có chắc chắn muốn thay đổi giá sản phẩm này?",
+  "Input price ($)": "Nhập giá tiền ($)",
+  "Delete": "Xoá",
+  "Delete the product": "Xoá sản phẩm này",
+  "Are you sure to delete this product?": "Bạn chắc chắn xoá sản phẩm này ?",
+  "Total Price:": "Tổng tiền hoá đơn: ",
+  "Cancel": "Huỷ bỏ",
+  "Submit": "Xác nhận",
+  "Order detail": "Chi tiết đơn hàng",
+  "Order Location": "Vị trí đơn hàng"
 }

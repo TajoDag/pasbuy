@@ -10,3 +10,35 @@
     background-color: #e62e05 !important;
   }
 }
+
+.border_bottom {
+  .ant-btn {
+    &:hover {
+      color: #e62e05 !important;
+      border: 1.5px solid #e62e05 !important;
+    }
+  }
+}
+.changeHoverBtn {
+  &:hover {
+    color: #e62e05 !important;
+    border: 1.5px solid #e62e05 !important;
+  }
+}
+
+.btn_cancel {
+  .ant-btn{
+    &:hover {
+      color: #e62e05 !important;
+      border: 1.5px solid #e62e05 !important;
+    }
+  }
+}
+.btn_submit{
+  ant-btn{
+    &:hover {
+      color: #fff !important;
+      border: 1.5px solid #e62e05 !important;
+    }
+  }
+}
