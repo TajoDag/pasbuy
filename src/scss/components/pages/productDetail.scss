@@ -246,7 +246,7 @@
   display: flex;
   padding: 10px;
   .avatar {
-    width: 10%;
+    // width: 10%;
     img {
       width: 80px;
       height: 80px;
@@ -256,8 +256,8 @@
   .content {
     display: flex;
     justify-content: space-between;
-    padding: 10px 25px;
-    width: 100%;
+    padding: 10px 10px;
+    width: 90%;
     span {
       color: #807b7b;
     }

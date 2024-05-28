@@ -26,12 +26,19 @@ export const InforProduct = ({ detail }) => {
     const currentURL = window.location.href;
     if (window.$crisp) {
       window.$crisp.push(["do", "chat:open"]);
-      window.$crisp.push(["do", "message:send", ["text", `I'm interested in this product: ${currentURL}`]]);
+      window.$crisp.push([
+        "do",
+        "message:send",
+        ["text", `I'm interested in this product: ${currentURL}`],
+      ]);
     }
   };
   return (
     <div>
-      <div className="border_bottom">
+      <div
+        className="border_bottom"
+        style={{ display: "flex", flexDirection: "column" }}
+      >
         <h2>{detail.name}</h2>
         <div style={{ display: "flex", gap: "3px" }}>
           <span>
@@ -41,18 +48,28 @@ export const InforProduct = ({ detail }) => {
             <IoMdStar className="star_icon" />
             <IoMdStar className="star_icon" />
           </span>
-          <span>( <TranslateTing text="Reviews" />)</span>
+          <span>
+            ( <TranslateTing text="Reviews" />)
+          </span>
         </div>
         <div>
-          <span style={{ fontSize: "0.7rem" }}> <TranslateTing text="Estimate Shipping Time:" /> </span>
-          <span>4  <TranslateTing text="Days" /></span>
+          <span style={{ fontSize: "0.8rem", marginRight: "4px" }}>
+            <TranslateTing text="Estimate Shipping Time:" />
+          </span>
+          <span>
+            4 <TranslateTing text="Days" />
+          </span>
         </div>
       </div>
       <div className="border_bottom">
         <div style={{ display: "flex", gap: "30px" }}>
           <div>
-            <p><TranslateTing text="Sold by" />:</p>
-            <p><TranslateTing text="Nice Sense" /></p>
+            <p>
+              <TranslateTing text="Sold by" />:
+            </p>
+            <p>
+              <TranslateTing text="Nice Sense" />
+            </p>
           </div>
           <button
             className="button_custom_lightning"
@@ -60,13 +77,15 @@ export const InforProduct = ({ detail }) => {
               padding: "5px 15px 5px 15px",
             }}
           >
-           <TranslateTing text="Message Seller" /> 
+            <TranslateTing text="Message Seller" />
           </button>
         </div>
       </div>
       <div className="border_bottom">
         <div style={{ display: "flex", gap: "70px", alignItems: "center" }}>
-          <p><TranslateTing text="Price" /> :</p>
+          <p>
+            <TranslateTing text="Price" /> :
+          </p>
           <p style={{ fontSize: "2rem", color: "red", fontWeight: "600" }}>
             {formatPrice(detail.price, currency)}
           </p>
@@ -78,7 +97,9 @@ export const InforProduct = ({ detail }) => {
           style={{ display: "flex", gap: "50px" }}
           className="button_quantity"
         >
-          <p> <TranslateTing text="Quantity" /> :</p>
+          <p>
+            <TranslateTing text="Quantity" /> :
+          </p>
           <button
             onClick={() => setQuantity(quantity - 1)}
             disabled={quantity === 1}
@@ -91,7 +112,9 @@ export const InforProduct = ({ detail }) => {
       </div>
       <div className="border_bottom">
         <div style={{ display: "flex", gap: "35px", alignItems: "center" }}>
-          <p><TranslateTing text="Total price" /> :</p>
+          <p>
+            <TranslateTing text="Total price" /> :
+          </p>
           <p style={{ fontSize: "2rem", color: "red", fontWeight: "600" }}>
             {formatPrice(quantity * price, currency)}
           </p>
@@ -118,8 +141,12 @@ export const InforProduct = ({ detail }) => {
           </button>
         </div>
         <div className="button_group" style={{ gap: "50px" }}>
-          <div className="link_button"><TranslateTing text="Add to Wishlist" /></div>
-          <div className="link_button"><TranslateTing text="Add to Compare" /></div>
+          <div className="link_button">
+            <TranslateTing text="Add to Wishlist" />
+          </div>
+          <div className="link_button">
+            <TranslateTing text="Add to Compare" />
+          </div>
         </div>
         <div
           style={{
@@ -129,8 +156,12 @@ export const InforProduct = ({ detail }) => {
             marginTop: "10px",
           }}
         >
-          <p><TranslateTing text="Refund" />:</p>
-          <p className="link_button"><TranslateTing text="View policy" /></p>
+          <p>
+            <TranslateTing text="Refund" />:
+          </p>
+          <p className="link_button">
+            <TranslateTing text="View policy" />
+          </p>
         </div>
         <div
           style={{
@@ -141,7 +172,9 @@ export const InforProduct = ({ detail }) => {
             marginTop: "10px",
           }}
         >
-          <p><TranslateTing text="Share" />:</p>
+          <p>
+            <TranslateTing text="Share" />:
+          </p>
           <div style={{ display: "flex" }}>
             {/* <div style={{ background: "red", padding: "0px" }}>
             <CgMail className="icon_contact" style={{ color: "blue" }} />

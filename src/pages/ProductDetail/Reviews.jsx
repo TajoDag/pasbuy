@@ -31,7 +31,11 @@ export const Reviews = () => {
   return (
     <div>
       {reviews.map((item) => (
-        <div key={item.id} className="border_bottom review">
+        <div
+          key={item.id}
+          className="border_bottom review"
+          style={{ justifyContent: "normal" }}
+        >
           <div className="avatar">
             <img src={item.avatar} alt="" />
           </div>
