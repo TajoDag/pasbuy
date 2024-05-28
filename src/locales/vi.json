@@ -11,6 +11,11 @@
   "blogs": "Blogs",
   "allBrands": "Thương hiệu",
   "allCategories": "Danh mục",
+  "Categories": "Danh mục",
+  "Home": "Trang chủ",
+  "Account": "Tài khoản",
+  "Notifications": "Thông báo",
+  "Cart": "Giỏ hàng",
   "dolla": "Đô la Mỹ ($)",
   "vnd": "Việt Nam đồng",
   "cny": "Nhân dân tệ (CNY)",
@@ -184,7 +189,7 @@
   "Orders": "Danh sách đơn hàng",
   "Sold by": "Được bán bởi",
   "Women's Fashing Bag": "Túi xách thời trang nữ",
-  "Customer": "Khách hàng", 
+  "Customer": "Khách hàng",
   "Phone number" : "Số điện thoại",
   "Note": "Ghi chú",
   "Change price": "Thay đổi giá sản phẩm",
@@ -197,5 +202,11 @@
   "Cancel": "Huỷ bỏ",
   "Submit": "Xác nhận",
   "Order detail": "Chi tiết đơn hàng",
-  "Order Location": "Vị trí đơn hàng"
+  "Order Location": "Vị trí đơn hàng",
+  "Your email": "Email của bạn",
+  "Your address": "Địa chỉ của bạn",
+  "Change password": "Đổi mật khẩu",
+  "Old Password":"Mật khẩu cũ",
+  "New Password":"Mật khẩu mới",
+  "Confirm Password": "Xác nhận mật khẩu"
 }

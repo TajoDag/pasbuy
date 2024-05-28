@@ -20,6 +20,7 @@ import {
 import { showNotification } from "../../../redux/reducers/notificationReducer";
 import { getListOrders } from "../../../api/utils/order";
 import useRefresh from "../../../hooks/useRefresh";
+import { getUser } from "../../../api/utils/auth";
 
 export const Tabs = ({ activeMenu }) => {
   const user = JSON.parse(localStorage.getItem("userData"));
@@ -27,6 +28,7 @@ export const Tabs = ({ activeMenu }) => {
   const [dataAgency, setAgency] = useState();
   const [totalOrderNotSuccess, setTotalOrderNotSuccess] = useState(0);
   const [dataOrders, setDataOrders] = useState([]);
+  const [dataUser, setDataUser] = useState({});
   const [refresh, refecth] = useRefresh();
   useEffect(() => {
     if (user.isShop && user.role === "agency") {
@@ -92,7 +94,18 @@ export const Tabs = ({ activeMenu }) => {
         dispatch(showNotification({ message: "Có lỗi xảy ra", type: "error" }));
       }
     };
+    const getUserDt = async () => {
+      try {
+        const rp = await getUser();
+        if (rp.status) {
+          setDataUser(rp.result);
+        }
+      } catch (err) {
+        dispatch(showNotification({ message: "Có lỗi xảy ra", type: "error" }));
+      }
+    };
     getListHistoryOrders();
+    getUserDt();
   }, [user._id, user.isShop, user.role, refresh]);
 
   return (
@@ -106,7 +119,7 @@ export const Tabs = ({ activeMenu }) => {
         />
       )}
       {activeMenu === "13" && (
-        <Stock data={dataAgency} refecth={refecth} userId={user._id} refresh={refresh}/>
+        <Stock data={dataAgency} refecth={refecth} userId={user._id} refresh={refresh} />
       )}
       {activeMenu === "2" && <PurchaseHistory dataOrders={dataOrders} />}
       {activeMenu === "3" && <Download />}
@@ -118,7 +131,7 @@ export const Tabs = ({ activeMenu }) => {
       {activeMenu === "9" && <EarningPoint />}
       {activeMenu === "10" && <Support />}
       {activeMenu === "11" && <Transaction />}
-      {activeMenu === "12" && <Manage user={user}/>}
+      {activeMenu === "12" && <Manage user={dataUser} refecth={refecth} />}
     </div>
   );
 };

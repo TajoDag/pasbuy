@@ -12,3 +12,7 @@ export const getListUserAll = () =>
 
 export const updateUser = (body) =>
   request("put", `${API}/${endpoints.user.update}`, body);
+export const getUser = () => request("get", `${API}/${endpoints.user.detail}`);
+
+export const updatePassword = (body) =>
+  request("put", `${API}/${endpoints.user.updatePassword}`, body);

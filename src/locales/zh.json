@@ -196,5 +196,11 @@
   "Cancel": "取消",
   "Submit": "確認",
   "Order detail": "訂單詳細信息",
-  "Order Location": "訂單地點"
+  "Order Location": "訂單地點",
+  "Your email": "您的电子邮件",
+  "Your address": "您的地址",
+  "Change password": "更改密码",
+  "Old Password": "旧密码",
+  "New Password": "新密码",
+  "Confirm Password": "确认密码"
 }

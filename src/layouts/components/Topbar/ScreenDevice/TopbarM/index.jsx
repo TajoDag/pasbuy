@@ -23,7 +23,7 @@ const TopbarM = () => {
       icon: <img style={{ marginRight: 8 }} src={flagEn} />,
     },
     {
-      key: "cn",
+      key: "zh",
       label: "简体中文",
       icon: <img style={{ marginRight: 8 }} src={flagCn} />,
     },
@@ -36,11 +36,15 @@ const TopbarM = () => {
   const currencys = [
     {
       key: "USD",
-      label:  <TranslateTing text="dolla" />,
+      label: <TranslateTing text="dolla" />,
     },
     {
       key: "VND",
-      label:  <TranslateTing text="vnd" />,
+      label: <TranslateTing text="vnd" />,
+    },
+    {
+      key: "CNY",
+      label: <TranslateTing text="cny" />,
     },
   ];
   const handleChangeLanguages = (value) => {
@@ -69,6 +73,7 @@ const TopbarM = () => {
   const handleLogout = () => {
     window.localStorage.clear();
     navigate("/");
+    window.location.reload();
   };
   return (
     <header className="topbar">

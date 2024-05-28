@@ -74,7 +74,9 @@ const TopbarH = () => {
   const getLabel = (list, key) => list.find((item) => item.key === key)?.label;
   const handleLogout = () => {
     window.localStorage.clear();
+
     navigate("/");
+    window.location.reload();
   };
   return (
     <header className="topbar">

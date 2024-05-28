@@ -14,7 +14,9 @@ export const endpoints = {
   user: {
     all: `admin/users`,
     detail: `me`,
-    update: `user/update`,
+    // update: `user/update`,
+    updatePassword: `password/update`,
+    update: `me/update`,
   },
   category: {
     getAll: `categories/all`,

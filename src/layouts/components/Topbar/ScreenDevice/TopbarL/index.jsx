@@ -22,7 +22,7 @@ const TopbarL = () => {
       icon: <img style={{ marginRight: 8 }} src={flagEn} />,
     },
     {
-      key: "cn",
+      key: "zh",
       label: "简体中文",
       icon: <img style={{ marginRight: 8 }} src={flagCn} />,
     },
@@ -41,6 +41,10 @@ const TopbarL = () => {
     {
       key: "VND",
       label: <TranslateTing text="vnd" />,
+    },
+    {
+      key: "CNY",
+      label: <TranslateTing text="cny" />,
     },
   ];
   const handleChangeLanguages = (value) => {

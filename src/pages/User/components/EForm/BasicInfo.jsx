@@ -1,12 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import { Form, Input, Switch } from "antd";
 import TranslateTing from "../../../../components/Common/TranslateTing";
 import { useDispatch } from "react-redux";
 import { showNotification } from "../../../../redux/reducers/notificationReducer";
 import { updateUser } from "../../../../api/utils/auth";
+import ChangePassword from "../Modal/ChangePassword";
 
-export default ({ user }) => {
+export default ({ user, refecth }) => {
   const dispatch = useDispatch();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
   const handleUploadProfile = async (value) => {
     try {
       const rp = await updateUser(value);
@@ -17,6 +28,8 @@ export default ({ user }) => {
             type: "success",
           })
         );
+        refecth();
+        window.location.reload();
       } else {
         dispatch(
           showNotification({
@@ -33,9 +46,7 @@ export default ({ user }) => {
         })
       );
     }
-    console.log(value);
   };
-  console.log(user);
   return (
     <div className="basic_info">
       <Form
@@ -49,7 +60,9 @@ export default ({ user }) => {
           remember: true,
           name: user.name,
           phone: user.phone,
-          password: user.password,
+          email: user.email,
+          address: user.address,
+          // password: user.password,
         }}
         onFinish={(value) => handleUploadProfile(value)}
         autoComplete="off"
@@ -66,6 +79,12 @@ export default ({ user }) => {
           <Form.Item label={<TranslateTing text="Your phone" />} name="phone">
             <Input />
           </Form.Item>
+          <Form.Item label={<TranslateTing text="Your email" />} name="email">
+            <Input />
+          </Form.Item>
+          <Form.Item label={<TranslateTing text="Your address" />} name="address">
+            <Input />
+          </Form.Item>
           {/* <Form.Item
             label={<TranslateTing text="Your Password" />}
             name="password"
@@ -73,6 +92,7 @@ export default ({ user }) => {
             <Input.Password />
           </Form.Item> */}
         </div>
+
         <Form.Item
           wrapperCol={{
             span: 24,
@@ -84,6 +104,14 @@ export default ({ user }) => {
           </button>
         </Form.Item>
       </Form>
+      <div
+        className="button_wrap"
+      >
+        <button onClick={showModal}>
+          {<TranslateTing text="Change password" />}
+        </button>
+      </div>
+      <ChangePassword open={isModalOpen} onClose={handleCancel} />
     </div>
   );
 };

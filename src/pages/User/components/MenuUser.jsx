@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { IoHomeOutline } from "react-icons/io5";
 import { MdHistory, MdOutlineProductionQuantityLimits } from "react-icons/md";
 import { AiOutlineDownload } from "react-icons/ai";
@@ -7,7 +7,7 @@ import { IoMdHeartEmpty } from "react-icons/io";
 import { IoIosGitCompare } from "react-icons/io";
 import { BiConversation } from "react-icons/bi";
 import { IoWalletOutline } from "react-icons/io5";
-import { CiBadgeDollar } from "react-icons/ci";
+import { CiBadgeDollar, CiLogout } from "react-icons/ci";
 import { IoTicketOutline } from "react-icons/io5";
 import { GrTransaction } from "react-icons/gr";
 import { FiUser } from "react-icons/fi";
@@ -17,6 +17,9 @@ import {
   useIsMobile,
   useIsTablet,
 } from "../../../utils/responsive";
+import useRefresh from "../../../hooks/useRefresh";
+import { getUser } from "../../../api/utils/auth";
+import { useNavigate } from "react-router-dom";
 
 const menu = [
   { key: "1", name: "Dashboard", icon: <IoHomeOutline /> },
@@ -32,16 +35,38 @@ const menu = [
   // { key: "10", name: "Support Ticket", icon: <IoTicketOutline /> },
   // { key: "11", name: "Transaction Password", icon: <GrTransaction /> },
   { key: "12", name: "Manage Profile", icon: <FiUser /> },
+  { key: "14", name: "logout", icon: <CiLogout /> },
 
 ];
 export const MenuUser = ({ setActiveMenu, activeMenu }) => {
   const isLaptopOrDesktop = useIsLaptopOrDesktop();
-  const user = JSON.parse(localStorage.getItem("userData"));
   const isTablet = useIsTablet();
   const isMobile = useIsMobile();
-  const filteredMenu = user.isShop
+  const navigate = useNavigate();
+  const [dataUser, setDataUser] = useState({});
+  const [refresh, refecth] = useRefresh();
+
+  useEffect(() => {
+    const getUserDt = async () => {
+      try {
+        const rp = await getUser();
+        if (rp.status) {
+          setDataUser(rp.result);
+        }
+      } catch (err) {
+        dispatch(showNotification({ message: "Có lỗi xảy ra", type: "error" }));
+      }
+    };
+    getUserDt();
+  }, [refresh]);
+  const filteredMenu = dataUser.isShop
     ? menu
     : menu.filter(item => item.key !== "1" && item.key !== "13");
+  const handleLogout = () => {
+    window.localStorage.clear();
+    navigate("/");
+    window.location.reload();
+  };
   return (
     <div className={`menu_wrap ${isLaptopOrDesktop && "background_white"}`}>
       <div className="user_infor">
@@ -49,17 +74,22 @@ export const MenuUser = ({ setActiveMenu, activeMenu }) => {
           src="https://www.pasbuy.cyou/public/assets/img/avatar-place.png"
           alt=""
         />
-        <h3>{user.name}</h3>
-        <p>{user.email && user.email}</p>
-        {user.isShop && <p>
-          <TranslateTing text="Invite Code" /> :  {user.inviteCode && user.inviteCode}</p>}
+        <h3>{dataUser.name}</h3>
+        <p>{dataUser.email && dataUser.email}</p>
+        {dataUser.isShop && <p>
+          <TranslateTing text="Invite Code" /> :  {dataUser.inviteCode && dataUser.inviteCode}</p>}
 
       </div>
       <div className="menu_item">
         {filteredMenu.map((item) => (
           <div
             key={item.key}
-            onClick={() => setActiveMenu(item.key)}
+            onClick={() => {
+              setActiveMenu(item.key);
+              if (item.name === "logout") {
+                handleLogout()
+              }
+            }}
             style={
               activeMenu === item.key ? { backgroundColor: "#f7a592" } : {}
             }
@@ -70,6 +100,7 @@ export const MenuUser = ({ setActiveMenu, activeMenu }) => {
             </span>
           </div>
         ))}
+
       </div>
     </div>
   );
