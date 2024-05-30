@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import TranslateTing from "../../../../components/Common/TranslateTing";
 import { PiCurrencyDollar } from "react-icons/pi";
 import { Table } from "antd";
@@ -6,9 +6,21 @@ import DateTimeComponent from "../../../../utils/DateTimeComponent";
 import { formatPrice } from "../../../../utils";
 import { useCurrency } from "../../../../context/CurrencyContext";
 import { TagsOrder } from "../../../../utils/TagsOrder";
+import { listOrderAgency } from "../../../../api/utils/agency";
 
 export const EarningPoint = ({dataOrders}) => {
   const { currency } = useCurrency();
+  const [searchParams, setSearchParams] = useState({
+    page: 0,
+    size: 10,
+    userId: userId,
+  });
+  const [pagination, setPagination] = useState({
+    current: 1,
+    pageSize: 10,
+    total: 0,
+  });
+  const [listOrder, setListOrder] = useState([]);
   const columns = [
     {
       title: "#",
@@ -33,6 +45,28 @@ export const EarningPoint = ({dataOrders}) => {
       render: (text) => <DateTimeComponent dateString={text.createdAt} />,
     },
   ];
+
+  useEffect(() => {
+    const getList = async () => {
+      try {
+        const response = await listOrderAgency(searchParams);
+        if (response.status) {
+          const updatedProducts = response.result.orders.map((item, i) => ({
+            ...item,
+            stt: i + 1 + searchParams.page * searchParams.size,
+          }));
+          setListOrder(updatedProducts);
+          setPagination((prev) => ({
+            ...prev,
+            total: response.result.pagination?.total,
+          }));
+        }
+      } catch (err) {
+        setListOrder([]);
+      }
+    };
+    getList();
+  }, [searchParams, refresh]);
   return (
     <>
       <div className="background_white" style={{ padding: 20 }}>
