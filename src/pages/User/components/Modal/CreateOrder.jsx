@@ -420,7 +420,7 @@ const CreateOrder = (props) => {
               <Button
                 type="primary"
                 htmlType="submit"
-                onClick={() => form.submit()}
+                // onClick={() => form.submit()}
                 style={{ background: "#e62e05" }}
               >
                 <TranslateTing text="Submit" />

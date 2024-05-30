@@ -18,3 +18,6 @@ export const listOrderAgency = (body) =>
 
 export const updateStatusOrders = (id, body) =>
   request("put", `${API}/${endpoints.agency.changeStatus}/${id}`, body);
+
+export const getSuccessOrder = (body) =>
+  request("post", `${API}/${endpoints.agency.getSuccess}`, body);

@@ -25,6 +25,8 @@ export const Dashboard = ({
   // refecth,
   userId,
   // refresh,
+  totalAmount,
+  totalOrderSuccess
 }) => {
   const [listOrder, setListOrder] = useState([]);
   const [isModalCreate, setIsModalCreate] = useState(false);
@@ -177,10 +179,10 @@ export const Dashboard = ({
         </div>
         <div className="bg_2">
           <p>
-            0 <TranslateTing text="Products" />
+            {formatPrice(totalAmount, currency)} <TranslateTing text="Revenue" />
           </p>
           <p>
-            <TranslateTing text="in your Wishlist" />
+            <TranslateTing text="in your" /> {totalOrderSuccess}  <TranslateTing text="orders" />
           </p>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
             <path
@@ -249,7 +251,7 @@ export const Dashboard = ({
       <UpdateOrder open={openDetail}
         data={dataItems}
         refecth={refecth}
-        onClose={onCloseModalChangeStatus}/>
+        onClose={onCloseModalChangeStatus} />
     </div>
   );
 };

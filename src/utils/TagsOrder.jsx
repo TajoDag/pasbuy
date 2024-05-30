@@ -9,5 +9,11 @@ export const TagsOrder = (value) => {
             return <Tag color="geekblue"><TranslateTing text="Delivering" /></Tag>;
         case "Successful delivery":
             return <Tag color="green"><TranslateTing text="Successful delivery" /></Tag>;
+        case "Cancel":
+            return <Tag color="red"><TranslateTing text="Cancel" /></Tag>;
+        case "success":
+            return <Tag color="green"><TranslateTing text="Success" /></Tag>;
+        case "cancel":
+            return <Tag color="red"><TranslateTing text="Cancel" /></Tag>;
     }
 };

@@ -6,9 +6,9 @@ import DateTimeComponent from "../../../../utils/DateTimeComponent";
 import { formatPrice } from "../../../../utils";
 import { useCurrency } from "../../../../context/CurrencyContext";
 import { TagsOrder } from "../../../../utils/TagsOrder";
-import { listOrderAgency } from "../../../../api/utils/agency";
+import { getSuccessOrder, listOrderAgency } from "../../../../api/utils/agency";
 
-export const EarningPoint = ({dataOrders}) => {
+export const EarningPoint = ({ dataOrders, userId, user }) => {
   const { currency } = useCurrency();
   const [searchParams, setSearchParams] = useState({
     page: 0,
@@ -26,7 +26,7 @@ export const EarningPoint = ({dataOrders}) => {
       title: "#",
       dataIndex: "stt",
     },
-   
+
     {
       title: <TranslateTing text="Order Id" />,
       dataIndex: "_id",
@@ -49,7 +49,7 @@ export const EarningPoint = ({dataOrders}) => {
   useEffect(() => {
     const getList = async () => {
       try {
-        const response = await listOrderAgency(searchParams);
+        const response = await getSuccessOrder(searchParams);
         if (response.status) {
           const updatedProducts = response.result.orders.map((item, i) => ({
             ...item,
@@ -66,7 +66,7 @@ export const EarningPoint = ({dataOrders}) => {
       }
     };
     getList();
-  }, [searchParams, refresh]);
+  }, [searchParams]);
   return (
     <>
       <div className="background_white" style={{ padding: 20 }}>
@@ -98,7 +98,7 @@ export const EarningPoint = ({dataOrders}) => {
               >
                 {/* <PiCurrencyDollar />
                  */}
-                0 Points = $1.00 Wallet Money
+                {user.point} <TranslateTing text="Points" /> = {formatPrice(user.point, currency)} <TranslateTing text="Wallet Money" />
               </p>
             </div>
             <div style={{ marginTop: 10 }}>
@@ -109,7 +109,7 @@ export const EarningPoint = ({dataOrders}) => {
           </div>
         </div>
       </div>
-      <div className="background_white" style={{marginTop: 30}}>
+      <div className="background_white" style={{ marginTop: 30 }}>
         <div className="border_bottom">
           <h2>
             <TranslateTing text="Point Earning History" />
@@ -120,7 +120,7 @@ export const EarningPoint = ({dataOrders}) => {
           <Table
             columns={columns}
             scroll={{ x: "max-content" }}
-            // dataSource={dataOrders}
+            dataSource={listOrder}
           />
         </div>
       </div>

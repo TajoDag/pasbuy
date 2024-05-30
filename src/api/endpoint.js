@@ -46,6 +46,7 @@ export const endpoints = {
     createOrder: `agency/order/create`,
     getListOrder: `agency/order/all`,
     changeStatus: `agency/order/status`,
+    getSuccess: `agency/order/success`,
   },
   orders: {
     getListOrders: `customer/order/all`,
@@ -61,5 +62,10 @@ export const endpoints = {
   },
   banner: {
     get: `banner`,
+  },
+  wallet: {
+    getDeposit: `user/wallet/deposit-history`,
+    getWithdraw: `user/wallet/withdraw-history`,
+    postRequest: `user/wallet/request`,
   },
 };

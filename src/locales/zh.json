@@ -205,5 +205,8 @@
   "Confirm Password": "确认密码",
   "Exchange rate": "匯率",
   "Points": "賺取積分",
-  "Converted": "已轉換"
+  "Converted": "已轉換",
+  "Trading code": "交易代碼",
+  "Success": "成功",
+  "Withdraw Request": "撤回請求"
 }
