@@ -58,11 +58,13 @@ export default ({ user, refecth }) => {
         }}
         initialValues={{
           remember: true,
-          name: user.name,
-          phone: user.phone,
-          email: user.email,
-          address: user.address,
-          // password: user.password,
+          name: user?.name,
+          phone: user?.phone,
+          email: user?.email,
+          address: user?.address,
+          bankName: user?.bankName,
+          bankNumber: user?.bankNumber,
+          owner: user?.owner,
         }}
         onFinish={(value) => handleUploadProfile(value)}
         autoComplete="off"
@@ -82,17 +84,36 @@ export default ({ user, refecth }) => {
           <Form.Item label={<TranslateTing text="Your email" />} name="email">
             <Input />
           </Form.Item>
-          <Form.Item label={<TranslateTing text="Your address" />} name="address">
+          <Form.Item
+            label={<TranslateTing text="Your address" />}
+            name="address"
+          >
             <Input />
           </Form.Item>
-          {/* <Form.Item
-            label={<TranslateTing text="Your Password" />}
-            name="password"
-          >
-            <Input.Password />
-          </Form.Item> */}
         </div>
 
+        <div className="form_info background_white">
+          <div className="border_bottom " style={{ marginBottom: "15px" }}>
+            <h3>
+              <TranslateTing text="Bank Info" />
+            </h3>
+          </div>
+          <Form.Item label={<TranslateTing text="Bank Name" />} name="bankName">
+            <Input />
+          </Form.Item>
+          <Form.Item
+            label={<TranslateTing text="Bank Account Name" />}
+            name="owner"
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            label={<TranslateTing text="Bank Account Number" />}
+            name="bankNumber"
+          >
+            <Input />
+          </Form.Item>
+        </div>
         <Form.Item
           wrapperCol={{
             span: 24,
@@ -104,9 +125,7 @@ export default ({ user, refecth }) => {
           </button>
         </Form.Item>
       </Form>
-      <div
-        className="button_wrap"
-      >
+      <div className="button_wrap">
         <button onClick={showModal}>
           {<TranslateTing text="Change password" />}
         </button>

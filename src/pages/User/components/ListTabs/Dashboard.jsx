@@ -22,9 +22,9 @@ import UpdateOrder from "../Modal/UpdateOrder";
 export const Dashboard = ({
   data,
   totalOrderNotSuccess,
-  refecth,
+  // refecth,
   userId,
-  refresh,
+  // refresh,
 }) => {
   const [listOrder, setListOrder] = useState([]);
   const [isModalCreate, setIsModalCreate] = useState(false);
@@ -32,6 +32,7 @@ export const Dashboard = ({
   const [openItems, setOpenItems] = useState(false);
   const [openDetail, setOpenDetail] = useState(false);
   const [dataItems, setDataItems] = useState([]);
+  const [refresh, refecth] = useRefresh();
   const [searchParams, setSearchParams] = useState({
     page: 0,
     size: 10,

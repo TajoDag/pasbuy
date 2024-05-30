@@ -143,7 +143,7 @@
   "Payment Setting": "Tùy chọn thanh toán",
   "Cash Payment": "Thanh toán tiền mặt",
   "Bank Payment": "Thanh toán qua ngân hàng",
-  "Bank Account Name": "Tên ngân hàng",
+  "Bank Name": "Tên ngân hàng",
   "Bank Account Number": "Số tài khoản",
   "USDT Payment": "Thanh toán bằng USDT",
   "USDT Link": "Đường dẫn USDT",
@@ -208,5 +208,8 @@
   "Change password": "Đổi mật khẩu",
   "Old Password":"Mật khẩu cũ",
   "New Password":"Mật khẩu mới",
-  "Confirm Password": "Xác nhận mật khẩu"
+  "Confirm Password": "Xác nhận mật khẩu",
+  "Exchange rate": "Tỉ giá",
+  "Points": "Điểm",
+  "Converted": "Chuyển đổi tiền"
 }

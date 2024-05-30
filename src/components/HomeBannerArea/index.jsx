@@ -1,9 +1,6 @@
 import SidebarLeft from "../SidebarLeft";
 import SidebarRight from "../SidebarRight";
 import { Carousel } from "antd";
-import banner1 from "@assets/images/banner_slider/anh1.png";
-import banner2 from "@assets/images/banner_slider/anh2.png";
-import banner3 from "@assets/images/banner_slider/anh3.png";
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 import anh1 from "@assets/images/img_category/dress.png";
 import anh2 from "@assets/images/img_category/vest.png";
@@ -14,8 +11,9 @@ import anh6 from "@assets/images/img_category/car.png";
 import anh7 from "@assets/images/img_category/watch.png";
 import anh8 from "@assets/images/img_category/phone.jpg";
 import anh9 from "@assets/images/img_category/home.png";
-import { splitText } from "./../../utils/index";
 import TranslateTing from "../Common/TranslateTing";
+import { useEffect, useState } from "react";
+import { getBanner } from "../../api/utils/banner";
 
 const contentStyle = {
   height: "315px",
@@ -62,6 +60,7 @@ const HomeBannerArea = () => {
       name: "Home Decoration & Appliance",
     },
   ];
+  
   const CustomPrevArrow = (props) => {
     const { className, style, onClick } = props;
     return (
@@ -88,6 +87,26 @@ const HomeBannerArea = () => {
     );
   };
 
+  const [fileList, setFileList] = useState([]);
+  
+  useEffect(() => {
+    const getAllBanner = async () => {
+      try {
+        const rp = await getBanner("6657d48c85a9f04ae59d06b8");
+
+        if (rp.result && rp.result.images) {
+          const imageUrls = rp.result.images.map((image) => ({
+            url: image.url,
+          }));
+          setFileList(imageUrls);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getAllBanner();
+  }, []);
+
   return (
     <div className="home_banner_area">
       <SidebarLeft />
@@ -99,25 +118,16 @@ const HomeBannerArea = () => {
           nextArrow={<CustomNextArrow />}
           prevArrow={<CustomPrevArrow />}
         >
-          <div>
-            <div
-              style={{
-                ...contentStyle,
-                backgroundImage: `url(${banner1})`,
-                backgroundSize: "cover",
-              }}
-            />
-          </div>
-          <div>
-            <div
-              style={{ ...contentStyle, backgroundImage: `url(${banner2})` }}
-            />
-          </div>
-          <div>
-            <div
-              style={{ ...contentStyle, backgroundImage: `url(${banner3})` }}
-            />
-          </div>
+          {fileList.map((item, ix) => (
+            <div key={ix}>
+              <div
+                style={{
+                  ...contentStyle,
+                  backgroundImage: `url(${item.url})`,
+                }}
+              />
+            </div>
+          ))}
         </Carousel>
         <div className="categories">
           {categoriesR.map((item, index) => (
@@ -126,7 +136,7 @@ const HomeBannerArea = () => {
                 <img src={item.img} alt="" />
               </div>
               <div className="name_cate">
-              <TranslateTing text={`${item.name}`} />
+                <TranslateTing text={`${item.name}`} />
               </div>
             </div>
           ))}
@@ -136,4 +146,5 @@ const HomeBannerArea = () => {
     </div>
   );
 };
+
 export default HomeBannerArea;

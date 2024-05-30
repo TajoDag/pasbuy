@@ -3,7 +3,7 @@ import logo from "@assets/images/logo.png";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useIntl } from "react-intl";
-const HeaderL = () => {
+const HeaderL = ({img}) => {
   const [showInput, setShowInput] = useState(false);
   const navigate = useNavigate();
   const [search, setSearch] = useState()
@@ -50,7 +50,7 @@ const HeaderL = () => {
       ) : (
         <div className="header_content">
           <div className="header_logo">
-            <img src={logo} className="logo" onClick={() => navigate("/")} />
+            <img src={img} className="logo" onClick={() => navigate("/")} />
           </div>
           <div className="search-bar-mobile">
             <button

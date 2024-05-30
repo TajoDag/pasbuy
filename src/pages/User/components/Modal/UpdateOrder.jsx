@@ -2,8 +2,9 @@ import { Button, Col, Input, Modal, Row, Select, Space } from "antd";
 import TranslateTing from "../../../../components/Common/TranslateTing";
 import { showNotification } from "../../../../redux/reducers/notificationReducer";
 import { useDispatch } from "react-redux";
-import { ChangeStatusOrderAgency } from "../../../../api/utils/agency";
+// import { ChangeStatusOrderAgency } from "../../../../api/utils/agency";
 import { useEffect, useState } from "react";
+import { updateStatusOrders } from "../../../../api/utils/agency";
 const { Option } = Select;
 
 const UpdateOrder = (props) => {
@@ -27,7 +28,7 @@ const UpdateOrder = (props) => {
       orderLocation: orderLocation,
     };
     try {
-      const rp = await ChangeStatusOrderAgency(data._id, payload);
+      const rp = await updateStatusOrders(data._id, payload);
       if (rp.status) {
         dispatch(
           showNotification({

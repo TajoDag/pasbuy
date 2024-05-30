@@ -138,7 +138,7 @@
   "Payment Setting": "付款设置",
   "Cash Payment": "现金支付",
   "Bank Payment": "银行支付",
-  "Bank Account Name": "银行账户名称",
+  "Bank Name": "银行账户名称",
   "Bank Account Number": "银行账号",
   "USDT Payment": "USDT支付",
   "USDT Link": "USDT链接",
@@ -202,5 +202,8 @@
   "Change password": "更改密码",
   "Old Password": "旧密码",
   "New Password": "新密码",
-  "Confirm Password": "确认密码"
+  "Confirm Password": "确认密码",
+  "Exchange rate": "匯率",
+  "Points": "賺取積分",
+  "Converted": "已轉換"
 }

@@ -9,12 +9,16 @@ import { SiVerizon } from "react-icons/si";
 import { changePriceAgency } from "../../../../../api/utils/agency";
 import { showNotification } from "../../../../../redux/reducers/notificationReducer";
 import { useDispatch } from "react-redux";
+import useRefresh from "../../../../../hooks/useRefresh";
+import CreateOrder from "../../Modal/CreateOrder";
 
-const Stock = ({ data, refecth, userId }) => {
+const Stock = ({ data, userId }) => {
   const { currency } = useCurrency();
   const [isChangePrice, setIsChangePrice] = useState(false);
   const [newPrice, setNewPrice] = useState(0);
   const [selectedProductId, setSelectedProductId] = useState(null);
+  const [refresh, refecth] = useRefresh();
+  const [isModalCreate, setIsModalCreate] = useState(false);
   const dispatch = useDispatch();
 
   const handleChangePrice = (productId) => {
@@ -41,7 +45,6 @@ const Stock = ({ data, refecth, userId }) => {
     } catch (err) {
       dispatch(showNotification({ message: "Có lỗi xảy ra", type: "error" }));
     }
-    // newPrice
   };
 
   const handlePriceChange = (price) => {
@@ -147,7 +150,7 @@ const Stock = ({ data, refecth, userId }) => {
         <h2>
           <TranslateTing text="Your warehouse" />
         </h2>
-        <Button>
+        <Button onClick={() => setIsModalCreate(true)}>
           {" "}
           <TranslateTing text="New order" />
         </Button>
@@ -159,6 +162,14 @@ const Stock = ({ data, refecth, userId }) => {
           dataSource={data}
         />
       </div>
+      <CreateOrder
+        open={isModalCreate}
+        setIsModalCreate={setIsModalCreate}
+        width={"80%"}
+        dataProducts={data}
+        refecth={refecth}
+        userId={userId}
+      />
     </div>
   );
 };

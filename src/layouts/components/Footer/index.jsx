@@ -1,5 +1,7 @@
 import { useIntl } from "react-intl";
 import TranslateTing from "../../../components/Common/TranslateTing";
+import { getLogoFooter } from "../../../api/utils/logo";
+import { useEffect, useState } from "react";
 
 const Footer = () => {
   const intl = useIntl();
@@ -27,12 +29,25 @@ const Footer = () => {
     "Term Conditions Page",
   ];
   const myAccount = ["Login", "Order History", "My Wishlist", "Track Order"];
+  const [detailLogoHeader, setDetailLogoHeader] = useState();
+  useEffect(() => {
+    const getDetailLogoHeader = async () => {
+      try {
+        const rp = await getLogoFooter("665701da76b8c058a19a4780");
+        if (rp.status) {
+          setDetailLogoHeader(rp.result.images.url);
+        }
+      } catch (err) {
+      }
+    };
+    getDetailLogoHeader();
+  },[])
   return (
     <footer>
       <div className="footer">
         <div className="footer-section">
           <img
-            src="https://www.pasbuy.cyou/public/uploads/all/Pb40YAYGtG8kNwCDTQZZ3w84k1bufpt57NCcS9dj.jpg"
+            src={detailLogoHeader}
             alt="Logo"
             style={{ width: 44, height: 44 }}
             className="footer-logo"

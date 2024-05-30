@@ -53,4 +53,13 @@ export const endpoints = {
   livechat: {
     get: `configLiveChat`,
   },
+  logoHeader: {
+    get: `admin/logo/header`,
+  },
+  logoFooter: {
+    get: `logo/footer`,
+  },
+  banner: {
+    get: `banner`,
+  },
 };

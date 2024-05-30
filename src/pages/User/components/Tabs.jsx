@@ -128,7 +128,7 @@ export const Tabs = ({ activeMenu }) => {
       {activeMenu === "6" && <Compare />}
       {activeMenu === "7" && <Conversations />}
       {activeMenu === "8" && <Wallet />}
-      {activeMenu === "9" && <EarningPoint />}
+      {activeMenu === "9" && <EarningPoint dataOrders={dataOrders}/>}
       {activeMenu === "10" && <Support />}
       {activeMenu === "11" && <Transaction />}
       {activeMenu === "12" && <Manage user={dataUser} refecth={refecth} />}

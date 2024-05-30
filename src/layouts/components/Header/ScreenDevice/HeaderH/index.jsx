@@ -9,7 +9,7 @@ import {
 import TranslateTing from "../../../../../components/Common/TranslateTing";
 import { useNavigate } from "react-router-dom";
 import { useIntl } from "react-intl";
-const HeaderH = () => {
+const HeaderH = ({img}) => {
   const navigate = useNavigate();
   const [search, setSearch] = useState();
   const handleInputChange = (e) => {
@@ -32,13 +32,14 @@ const HeaderH = () => {
 
   const intl = useIntl();
   const placeholderText = intl.formatMessage({ id: "placeholderSearch" });
+
   return (
     <>
       <header className="header_shop">
         <div className="header_content">
           <div className="header_left">
             <div className="header_logo">
-              <img src={logo} className="logo" onClick={() => navigate("/")} />
+              <img src={img} className="logo" onClick={() => navigate("/")} />
             </div>
           </div>
           <div className="header_right">
