@@ -115,13 +115,13 @@ export const Dashboard = ({
                 setDataItems(record.orderItems);
               }}
             />
-            <Button
+            {/* <Button
               icon={<TbEdit />}
               onClick={() => {
                 setOpenDetail(true);
                 setDataItems(record);
               }}
-            />
+            /> */}
           </Space>
         );
       },
