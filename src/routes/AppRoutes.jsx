@@ -59,7 +59,7 @@ export default function AppRoutes() {
         <CrispWidget keyLiveChat={keyLiveChat} />
       ) : null} */}
       {isAuthenticated === true && keyLiveChat && (
-        <CrispWidget keyLiveChat={keyLiveChat} />
+      <CrispWidget keyLiveChat={keyLiveChat} />
       )}
     </Suspense>
   );

@@ -1,17 +1,19 @@
 import React, { useState } from "react";
 import TranslateTing from "../../../../components/Common/TranslateTing";
-import { Button, Modal, Space, Table } from "antd";
+import { Button, Drawer, Modal, Space, Table } from "antd";
 import DateTimeComponent from "../../../../utils/DateTimeComponent";
 import { formatPrice } from "../../../../utils";
 import { useCurrency } from "../../../../context/CurrencyContext";
 import { TagsOrder } from "../../../../utils/TagsOrder";
 import { FaEye } from "react-icons/fa";
+import { useIsMobile } from "../../../../utils/responsive";
 
 export const PurchaseHistory = ({ dataOrders }) => {
   const { currency } = useCurrency();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [idOrder, setIdOrder] = useState("");
   const [dataItems, setDataItems] = useState([]);
+  const isMobile = useIsMobile();
   const showModal = () => {
     setIsModalOpen(true);
   };
@@ -68,7 +70,6 @@ export const PurchaseHistory = ({ dataOrders }) => {
     },
   ];
   const columnItems = [
-
     {
       title: <TranslateTing text="Product name" />,
       dataIndex: "name",
@@ -104,25 +105,41 @@ export const PurchaseHistory = ({ dataOrders }) => {
           dataSource={dataOrders}
         />
       </div>
-      <Modal
-        width={"75%"}
-        title={
-          <div>
-            <TranslateTing text="Order" /> - {idOrder}
-          </div>
-        }
-        open={isModalOpen}
-        onOk={handleOk}
-        onCancel={handleCancel}
-        footer={null}
-      >
-        <Table
-          columns={columnItems}
-          scroll={{ x: "max-content" }}
-          dataSource={dataItems}
-        />
-
-      </Modal>
+      {isMobile ? (
+        <Drawer
+          title={
+            <div>
+              <TranslateTing text="Order" /> - {idOrder}
+            </div>
+          }
+          width={720}
+          onClose={handleCancel}
+          visible={isModalOpen}
+          bodyStyle={{ paddingBottom: 80 }}
+          footer={null}
+        >
+          <Table columns={columnItems} dataSource={dataItems} />
+        </Drawer>
+      ) : (
+        <Modal
+          width={"75%"}
+          title={
+            <div>
+              <TranslateTing text="Order" /> - {idOrder}
+            </div>
+          }
+          open={isModalOpen}
+          onOk={handleOk}
+          onCancel={handleCancel}
+          footer={null}
+        >
+          <Table
+            columns={columnItems}
+            scroll={{ x: "max-content" }}
+            dataSource={dataItems}
+          />
+        </Modal>
+      )}
     </div>
   );
 };

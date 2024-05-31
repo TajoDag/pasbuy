@@ -11,6 +11,8 @@ import { showNotification } from "../../../../../redux/reducers/notificationRedu
 import { useDispatch } from "react-redux";
 import useRefresh from "../../../../../hooks/useRefresh";
 import CreateOrder from "../../Modal/CreateOrder";
+import DrawerCreateOrder from "../../Modal/DrawerCreateOrder";
+import { useIsMobile } from "../../../../../utils/responsive";
 
 const Stock = ({ data, userId }) => {
   const { currency } = useCurrency();
@@ -20,7 +22,7 @@ const Stock = ({ data, userId }) => {
   const [refresh, refecth] = useRefresh();
   const [isModalCreate, setIsModalCreate] = useState(false);
   const dispatch = useDispatch();
-
+  const isMobile = useIsMobile();
   const handleChangePrice = (productId) => {
     setSelectedProductId(productId);
     setIsChangePrice(true);
@@ -162,14 +164,25 @@ const Stock = ({ data, userId }) => {
           dataSource={data}
         />
       </div>
-      <CreateOrder
-        open={isModalCreate}
-        setIsModalCreate={setIsModalCreate}
-        width={"80%"}
-        dataProducts={data}
-        refecth={refecth}
-        userId={userId}
-      />
+      {isMobile ? (
+        <DrawerCreateOrder
+          open={isModalCreate}
+          setIsModalCreate={setIsModalCreate}
+          width={720}
+          dataProducts={data}
+          refecth={refecth}
+          userId={userId}
+        />
+      ) : (
+        <CreateOrder
+          open={isModalCreate}
+          setIsModalCreate={setIsModalCreate}
+          width={"80%"}
+          dataProducts={data}
+          refecth={refecth}
+          userId={userId}
+        />
+      )}
     </div>
   );
 };

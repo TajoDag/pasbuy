@@ -1,9 +1,9 @@
 import {
   Button,
   Col,
+  Drawer,
   Form,
   Input,
-  Modal,
   Popconfirm,
   Row,
   Select,
@@ -27,7 +27,7 @@ import { getListUserAll } from "../../../../api/utils/auth";
 import { createOrder } from "../../../../api/utils/agency";
 import { showNotification } from "../../../../redux/reducers/notificationReducer";
 
-const CreateOrder = (props) => {
+const DrawerCreateOrder = (props) => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
   const { currency } = useCurrency();
@@ -102,7 +102,6 @@ const CreateOrder = (props) => {
       key: "images",
       width: 90,
       align: "center",
-
       render: (images) => (
         <img
           key={images[0].public_id}
@@ -126,7 +125,6 @@ const CreateOrder = (props) => {
       key: "images",
       width: 100,
       align: "center",
-
       render: (images) => (
         <img
           key={images[0].public_id}
@@ -310,107 +308,20 @@ const CreateOrder = (props) => {
         })
       );
     }finally{
-      dispatch(stopLoading());
-  }
+        dispatch(stopLoading());
+    }
   };
-
   return (
-    <Modal
+    <Drawer
       title={props.title}
-      open={props.open}
-      onOk={props.handleOk}
-      onCancel={handleCancel}
-      footer={null}
-      width={props.width}
-    >
-      <Form
-        name="basic"
-        layout="vertical"
-        labelCol={{ span: 8 }}
-        wrapperCol={{ span: 22 }}
-        style={{ width: "100%" }}
-        initialValues={{ remember: true }}
-        onFinish={onFinish}
-        form={form}
-        autoComplete="off"
-      >
-        <div style={{ display: "flex", flexWrap: "wrap" }}>
-          <div style={{ flex: "1 1 60%", padding: "0 10px" }}>
-            <Row gutter={14}>
-              <Col span={12}>
-                <Form.Item
-                  label={<TranslateTing text="Customer" />}
-                  name="customer"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Please input your customer!",
-                    },
-                  ]}
-                >
-                  <Select
-                    showSearch
-                    optionFilterProp="children"
-                    filterOption={filterOption}
-                    options={dataUser}
-                  />
-                </Form.Item>
-              </Col>
-              <Col span={12}>
-                <Form.Item
-                  label={<TranslateTing text="Phone number" />}
-                  name="phone"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Please input your phone number!",
-                    },
-                  ]}
-                >
-                  <Input />
-                </Form.Item>
-              </Col>
-            </Row>
-            <Row gutter={14}>
-              <Col span={12}>
-                <Form.Item label={<TranslateTing text="Note" />} name="note">
-                  <Input />
-                </Form.Item>
-              </Col>
-              <Col span={12}>
-                <Form.Item label=" ">
-                  <div style={{ fontWeight: 550, fontSize: 20 }}>
-                    <TranslateTing text="Total Price:" /> {"  "}
-                    <span>{formatPrice(totalPrice, currency)}</span>
-                  </div>
-                </Form.Item>
-              </Col>
-            </Row>
-            <Table columns={columnItems} dataSource={selectedRows} />
-          </div>
-          <div style={{ flex: "1 1 40%", padding: "0 10px" }}>
-            <div className="table_page">
-              <Table
-                rowSelection={{
-                  ...rowSelection,
-                }}
-                bordered
-                columns={columnProducts}
-                dataSource={newArray}
-                pagination={{
-                  current: pagination.current,
-                  pageSize: pagination.pageSize,
-                  total: pagination.total,
-                }}
-                onChange={handleTableChange}
-              />
-            </div>
-          </div>
-        </div>
-        <div
-          style={{ marginTop: 15, display: "flex", justifyContent: "center" }}
-        >
+      width={props.width || 720}
+      onClose={handleCancel}
+      visible={props.open}
+      bodyStyle={{ paddingBottom: 80 }}
+      footer={
+        <div style={{ display: "flex", justifyContent: "center" }}>
           <Space>
+            {" "}
             <div className="btn_cancel">
               <Button htmlType="button" onClick={handleCancel}>
                 <TranslateTing text="Cancel" />
@@ -419,7 +330,7 @@ const CreateOrder = (props) => {
             <div className="btn_submit">
               <Button
                 type="primary"
-                htmlType="submit"
+                onClick={() => form.submit()}
                 style={{ background: "#e62e05" }}
               >
                 <TranslateTing text="Submit" />
@@ -427,8 +338,78 @@ const CreateOrder = (props) => {
             </div>
           </Space>
         </div>
+      }
+    >
+      <Form
+        layout="vertical"
+        form={form}
+        initialValues={{ remember: true }}
+        onFinish={onFinish}
+      >
+        <Row gutter={16}>
+          <Col span={12}>
+            <Form.Item
+              name="customer"
+              label={<TranslateTing text="Customer" />}
+              rules={[{ required: true, message: "Please select a customer" }]}
+            >
+              <Select
+                showSearch
+                optionFilterProp="children"
+                filterOption={filterOption}
+                options={dataUser}
+              />
+            </Form.Item>
+          </Col>
+          <Col span={12}>
+            <Form.Item
+              name="phone"
+              label={<TranslateTing text="Phone number" />}
+              rules={[{ required: true, message: "Please enter phone number" }]}
+            >
+              <Input />
+            </Form.Item>
+          </Col>
+        </Row>
+        <Row gutter={16}>
+          <Col span={12}>
+            <Form.Item name="note" label={<TranslateTing text="Note" />}>
+              <Input />
+            </Form.Item>
+          </Col>
+          <Col span={12}>
+            <Form.Item label=" ">
+              <div style={{ fontWeight: 550, fontSize: 20 }}>
+                <TranslateTing text="Total Price:" /> {"  "}
+                <span>{formatPrice(totalPrice, currency)}</span>
+              </div>
+            </Form.Item>
+          </Col>
+        </Row>
+        <Table
+          columns={columnItems}
+          dataSource={selectedRows}
+          rowKey="key"
+          pagination={false}
+        />
+        <div className="table_page" style={{ marginTop: 16 }}>
+          <Table
+            rowSelection={{
+              ...rowSelection,
+            }}
+            bordered
+            columns={columnProducts}
+            dataSource={newArray}
+            pagination={{
+              current: pagination.current,
+              pageSize: pagination.pageSize,
+              total: pagination.total,
+            }}
+            onChange={handleTableChange}
+          />
+        </div>
       </Form>
-    </Modal>
+    </Drawer>
   );
 };
-export default CreateOrder;
+export default DrawerCreateOrder;

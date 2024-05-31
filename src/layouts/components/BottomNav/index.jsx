@@ -32,14 +32,15 @@ const BottomNav = () => {
 
         <span className="card-title"><TranslateTing text="Cart" /> (0)</span>
       </div>
-      <div className="nav-item">
-        <BellOutlined />
-        <span><TranslateTing text="Notifications" /></span>
-      </div>
       <div className="nav-item" onClick={() => setOpen(true)}>
         <UserOutlined />
         <span><TranslateTing text="Account" /></span>
       </div>
+      <div className="nav-item">
+        <BellOutlined />
+        <span><TranslateTing text="Notifications" /></span>
+      </div>
+     
       <Drawer onClose={() => setOpen(false)} open={open}>
         <MenuUser setActiveMenu={setActiveMenu} activeMenu={activeMenu} />
       </Drawer>

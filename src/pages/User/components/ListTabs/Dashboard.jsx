@@ -18,6 +18,9 @@ import { TagsOrder } from "../../../../utils/TagsOrder";
 import ItemsOrder from "../Modal/ItemsOrder";
 import { TbEdit } from "react-icons/tb";
 import UpdateOrder from "../Modal/UpdateOrder";
+import DrawerCreateOrder from "../Modal/DrawerCreateOrder";
+import { useIsMobile } from "../../../../utils/responsive";
+import DrawerDetailOrder from "../Modal/DrawerDetailOrder";
 
 export const Dashboard = ({
   data,
@@ -26,7 +29,7 @@ export const Dashboard = ({
   userId,
   // refresh,
   totalAmount,
-  totalOrderSuccess
+  totalOrderSuccess,
 }) => {
   const [listOrder, setListOrder] = useState([]);
   const [isModalCreate, setIsModalCreate] = useState(false);
@@ -35,6 +38,7 @@ export const Dashboard = ({
   const [openDetail, setOpenDetail] = useState(false);
   const [dataItems, setDataItems] = useState([]);
   const [refresh, refecth] = useRefresh();
+  const isMobile = useIsMobile();
   const [searchParams, setSearchParams] = useState({
     page: 0,
     size: 10,
@@ -179,10 +183,12 @@ export const Dashboard = ({
         </div>
         <div className="bg_2">
           <p>
-            {formatPrice(totalAmount, currency)} <TranslateTing text="Revenue" />
+            {formatPrice(totalAmount, currency)}{" "}
+            <TranslateTing text="Revenue" />
           </p>
           <p>
-            <TranslateTing text="in your" /> {totalOrderSuccess}  <TranslateTing text="orders" />
+            <TranslateTing text="in your" /> {totalOrderSuccess}{" "}
+            <TranslateTing text="orders" />
           </p>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
             <path
@@ -235,23 +241,46 @@ export const Dashboard = ({
           />
         </div>
       </div>
-      <CreateOrder
-        open={isModalCreate}
-        setIsModalCreate={setIsModalCreate}
-        width={"80%"}
-        dataProducts={data}
-        refecth={refecth}
-        userId={userId}
-      />
-      <ItemsOrder
-        open={openItems}
+      {isMobile ? (
+        <>
+          <DrawerCreateOrder
+            open={isModalCreate}
+            setIsModalCreate={setIsModalCreate}
+            width={720}
+            dataProducts={data}
+            refecth={refecth}
+            userId={userId}
+          />
+          <DrawerDetailOrder
+            open={openItems}
+            data={dataItems}
+            onClose={onCloseModalDetail}
+          />
+        </>
+      ) : (
+        <>
+          <CreateOrder
+            open={isModalCreate}
+            setIsModalCreate={setIsModalCreate}
+            width={"80%"}
+            dataProducts={data}
+            refecth={refecth}
+            userId={userId}
+          />
+          <ItemsOrder
+            open={openItems}
+            data={dataItems}
+            onClose={onCloseModalDetail}
+          />
+        </>
+      )}
+
+      <UpdateOrder
+        open={openDetail}
         data={dataItems}
-        onClose={onCloseModalDetail}
-      />
-      <UpdateOrder open={openDetail}
-        data={dataItems}
         refecth={refecth}
-        onClose={onCloseModalChangeStatus} />
+        onClose={onCloseModalChangeStatus}
+      />
     </div>
   );
 };
