@@ -1,4 +1,3 @@
-
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { QueryClient, QueryClientProvider } from "react-query";
@@ -12,6 +11,7 @@ import { Provider } from "react-redux";
 import store from "./stores";
 import { CurrencyProvider } from "./context/CurrencyContext";
 import CrispWidget from "./utils/CrispWidget";
+import { MenuProvider } from "./context/ActiveMenu";
 
 const queryClient = new QueryClient();
 
@@ -21,10 +21,11 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <QueryClientProvider client={queryClient}>
         <LocalizationProvider>
           <CurrencyProvider>
-            <BrowserRouter>
-              <AppRoutes />
-
-            </BrowserRouter>
+            <MenuProvider>
+              <BrowserRouter>
+                <AppRoutes />
+              </BrowserRouter>
+            </MenuProvider>
           </CurrencyProvider>
         </LocalizationProvider>
       </QueryClientProvider>

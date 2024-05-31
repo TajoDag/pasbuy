@@ -1,10 +1,11 @@
 import React from "react";
 import { MenuUser } from "./components/MenuUser";
 import { Tabs } from "./components/Tabs";
+import { useActiveMenu } from "../../context/ActiveMenu";
 
 export default () => {
-  const user = JSON.parse(localStorage.getItem("userData"));
-  const [activeMenu, setActiveMenu] = React.useState(user.isShop ? "1" : "2");
+  const { activeMenu, setActiveMenu } = useActiveMenu();
+
   return (
     <div className="user_container">
       <MenuUser setActiveMenu={setActiveMenu} activeMenu={activeMenu} />

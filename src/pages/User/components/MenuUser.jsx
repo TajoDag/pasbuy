@@ -20,6 +20,7 @@ import {
 import useRefresh from "../../../hooks/useRefresh";
 import { getUser } from "../../../api/utils/auth";
 import { useNavigate } from "react-router-dom";
+import { useActiveMenu } from "../../../context/ActiveMenu";
 
 const menu = [
   { key: "1", name: "Dashboard", icon: <IoHomeOutline /> },
@@ -36,10 +37,11 @@ const menu = [
   // { key: "11", name: "Transaction Password", icon: <GrTransaction /> },
   { key: "12", name: "Manage Profile", icon: <FiUser /> },
   { key: "14", name: "logout", icon: <CiLogout /> },
-
 ];
-export const MenuUser = ({ setActiveMenu, activeMenu }) => {
+export const MenuUser = () => {
   const isLaptopOrDesktop = useIsLaptopOrDesktop();
+  const { activeMenu, setActiveMenu, setOpenMenu } = useActiveMenu();
+
   const isTablet = useIsTablet();
   const isMobile = useIsMobile();
   const navigate = useNavigate();
@@ -61,7 +63,7 @@ export const MenuUser = ({ setActiveMenu, activeMenu }) => {
   }, [refresh]);
   const filteredMenu = dataUser.isShop
     ? menu
-    : menu.filter(item => item.key !== "1" && item.key !== "13");
+    : menu.filter((item) => item.key !== "1" && item.key !== "13");
   const handleLogout = () => {
     window.localStorage.clear();
     navigate("/");
@@ -76,18 +78,27 @@ export const MenuUser = ({ setActiveMenu, activeMenu }) => {
         />
         <h3>{dataUser.name}</h3>
         <p>{dataUser.email && dataUser.email}</p>
-        {dataUser.isShop && <p>
-          <TranslateTing text="Invite Code" /> :  {dataUser.inviteCode && dataUser.inviteCode}</p>}
-
+        {dataUser.isShop && (
+          <p>
+            <TranslateTing text="Invite Code" /> :{" "}
+            {dataUser.inviteCode && dataUser.inviteCode}
+          </p>
+        )}
       </div>
       <div className="menu_item">
         {filteredMenu.map((item) => (
           <div
             key={item.key}
             onClick={() => {
-              setActiveMenu(item.key);
+              if (isTablet || isMobile) {
+                navigate("/user");
+                setActiveMenu(item.key);
+                setOpenMenu(false);
+              } else {
+                setActiveMenu(item.key);
+              }
               if (item.name === "logout") {
-                handleLogout()
+                handleLogout();
               }
             }}
             style={
@@ -100,7 +111,6 @@ export const MenuUser = ({ setActiveMenu, activeMenu }) => {
             </span>
           </div>
         ))}
-
       </div>
     </div>
   );
