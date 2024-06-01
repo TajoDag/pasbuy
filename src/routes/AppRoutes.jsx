@@ -8,7 +8,13 @@ import AppLoading from "../components/AppLoading/index";
 import { useSelector } from "react-redux";
 import { getLiveChat } from "../api/utils/livechat";
 import CrispWidget from "../utils/CrispWidget";
+import LiveChatWidget from "../utils/LiveChatWidget";
 
+
+const getLicenseIdFromUrl = (url) => {
+  const parts = url.split('/');
+  return parts[parts.length - 2]; // Lấy phần tử thứ hai từ cuối cùng
+};
 export default function AppRoutes() {
   const loading = useSelector((state) => state.loading.loading);
   const notificationProps = useSelector((state) => state.notification);
@@ -20,7 +26,7 @@ export default function AppRoutes() {
         try {
           const rp = await getLiveChat("665461c54715f752a552f7a2");
           if (rp && rp) {
-            setKeyLiveChat(rp.result.keyLive);
+            setKeyLiveChat(getLicenseIdFromUrl(rp.result.keyLive));
           }
         } catch (error) {
           console.error("Error fetching live chat key:", error);
@@ -59,7 +65,8 @@ export default function AppRoutes() {
         <CrispWidget keyLiveChat={keyLiveChat} />
       ) : null} */}
       {isAuthenticated === true && keyLiveChat && (
-      <CrispWidget keyLiveChat={keyLiveChat} />
+        // <CrispWidget keyLiveChat={keyLiveChat} />
+        <LiveChatWidget license={keyLiveChat} />
       )}
     </Suspense>
   );

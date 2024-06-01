@@ -22,15 +22,24 @@ export const InforProduct = ({ detail }) => {
   //   const currentURL = window.location.href;
   //   openChatAndSendMessage(`I'm interested in this product: ${currentURL}`);
   // };
+  // const handleMessageSeller = () => {
+  //   const currentURL = window.location.href;
+  //   if (window.$crisp) {
+  //     window.$crisp.push(["do", "chat:open"]);
+  //     window.$crisp.push([
+  //       "do",
+  //       "message:send",
+  //       ["text", `I'm interested in this product: ${currentURL}`],
+  //     ]);
+  //   }
+  // };
   const handleMessageSeller = () => {
     const currentURL = window.location.href;
-    if (window.$crisp) {
-      window.$crisp.push(["do", "chat:open"]);
-      window.$crisp.push([
-        "do",
-        "message:send",
-        ["text", `I'm interested in this product: ${currentURL}`],
-      ]);
+    if (window.LiveChatWidget) {
+      window.LiveChatWidget.call("maximize"); // Mở khung chat
+      window.LiveChatWidget.call("sendMessage", `I'm interested in this product: ${currentURL}`); // Gửi tin nhắn
+    } else {
+      console.error("LiveChatWidget is not available");
     }
   };
   return (
