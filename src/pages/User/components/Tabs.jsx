@@ -1,7 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { Dashboard } from "../components/ListTabs/Dashboard";
+import { useIntl } from "react-intl";
+import { useDispatch } from "react-redux";
+import {
+  getAgencyByHomeAgentId,
+  getListNotSuccess,
+  getSuccessOrder,
+} from "../../../api/utils/agency";
+import { getUser } from "../../../api/utils/auth";
+import { getListOrders } from "../../../api/utils/order";
+import { getDeposit, getWithdraw } from "../../../api/utils/wallet";
+import useRefresh from "../../../hooks/useRefresh";
+import { showNotification } from "../../../redux/reducers/notificationReducer";
 import { Compare } from "../components/ListTabs/Compare";
 import { Conversations } from "../components/ListTabs/Conversations";
+import { Dashboard } from "../components/ListTabs/Dashboard";
 import { Download } from "../components/ListTabs/Download";
 import { EarningPoint } from "../components/ListTabs/EarningPoint";
 import { Manage } from "../components/ListTabs/Manage";
@@ -12,18 +24,6 @@ import { Transaction } from "../components/ListTabs/Transaction";
 import { Wallet } from "../components/ListTabs/Wallet";
 import { WishList } from "../components/ListTabs/WishList";
 import Stock from "./ListTabs/Stock";
-import { useDispatch } from "react-redux";
-import {
-  getAgencyByHomeAgentId,
-  getListNotSuccess,
-  getSuccessOrder,
-  listOrderAgency,
-} from "../../../api/utils/agency";
-import { showNotification } from "../../../redux/reducers/notificationReducer";
-import { getListOrders } from "../../../api/utils/order";
-import useRefresh from "../../../hooks/useRefresh";
-import { getUser } from "../../../api/utils/auth";
-import { getDeposit, getWithdraw } from "../../../api/utils/wallet";
 
 export const Tabs = ({ activeMenu }) => {
   const user = JSON.parse(localStorage.getItem("userData"));
@@ -37,6 +37,9 @@ export const Tabs = ({ activeMenu }) => {
   const [dataDeposit, setDataDeposit] = useState([]);
   const [dataWithdraw, setDataWithdraw] = useState([]);
   const [refresh, refecth] = useRefresh();
+  const intl = useIntl();
+  const Success = intl.formatMessage({ id: "Success" });
+  const Error = intl.formatMessage({ id: "Success" });
   useEffect(() => {
     if (user.isShop && user.role === "agency") {
       const getAgency = async () => {
@@ -49,14 +52,10 @@ export const Tabs = ({ activeMenu }) => {
             }));
             setAgency(updatedProducts);
           } else {
-            dispatch(
-              showNotification({ message: response.message, type: "error" })
-            );
+            dispatch(showNotification({ message: Error, type: "error" }));
           }
         } catch (err) {
-          dispatch(
-            showNotification({ message: "Có lỗi xảy ra", type: "error" })
-          );
+          dispatch(showNotification({ message: Error, type: "error" }));
         }
       };
       const getListOrderNotSuccess = async () => {
@@ -66,15 +65,11 @@ export const Tabs = ({ activeMenu }) => {
             if (rp.status) {
               setTotalOrderNotSuccess(rp.result.pagination.total);
             } else {
-              dispatch(
-                showNotification({ message: response.message, type: "error" })
-              );
+              dispatch(showNotification({ message: Error, type: "error" }));
             }
           }
         } catch (err) {
-          dispatch(
-            showNotification({ message: "Có lỗi xảy ra", type: "error" })
-          );
+          dispatch(showNotification({ message: Error, type: "error" }));
         }
       };
       getAgency();
@@ -92,13 +87,11 @@ export const Tabs = ({ activeMenu }) => {
             }));
             setDataOrders(updatedProducts);
           } else {
-            dispatch(
-              showNotification({ message: response.message, type: "error" })
-            );
+            dispatch(showNotification({ message: Error, type: "error" }));
           }
         }
       } catch (err) {
-        dispatch(showNotification({ message: "Có lỗi xảy ra", type: "error" }));
+        dispatch(showNotification({ message: Error, type: "error" }));
       }
     };
     const getUserDt = async () => {
@@ -108,7 +101,7 @@ export const Tabs = ({ activeMenu }) => {
           setDataUser(rp.result);
         }
       } catch (err) {
-        dispatch(showNotification({ message: "Có lỗi xảy ra", type: "error" }));
+        dispatch(showNotification({ message: Error, type: "error" }));
       }
     };
     const getListSuccess = async () => {
@@ -117,30 +110,30 @@ export const Tabs = ({ activeMenu }) => {
           userId: user._id,
         });
         if (response.status) {
-          const totalAmount = response.result.orders.reduce((sum, order) => sum + order.totalPrice, 0);
+          const totalAmount = response.result.orders.reduce(
+            (sum, order) => sum + order.totalPrice,
+            0
+          );
           setTotalAmount(totalAmount);
-          setTotalOrderSuccess(response.result.pagination.total)
+          setTotalOrderSuccess(response.result.pagination.total);
         }
-      } catch (err) {
-      }
+      } catch (err) {}
     };
     const getListDeposit = async () => {
       try {
         const response = await getDeposit(user._id);
         if (response.status) {
-          setDataDeposit(response.result)
+          setDataDeposit(response.result);
         }
-      } catch (err) {
-      }
+      } catch (err) {}
     };
     const getListWithdraw = async () => {
       try {
         const response = await getWithdraw(user._id);
         if (response.status) {
-          setDataWithdraw(response.result)
+          setDataWithdraw(response.result);
         }
-      } catch (err) {
-      }
+      } catch (err) {}
     };
     getListWithdraw();
     getListDeposit();
@@ -162,16 +155,36 @@ export const Tabs = ({ activeMenu }) => {
         />
       )}
       {activeMenu === "13" && (
-        <Stock data={dataAgency} refecth={refecth} userId={user._id} refresh={refresh} />
+        <Stock
+          data={dataAgency}
+          refecth={refecth}
+          userId={user._id}
+          refresh={refresh}
+        />
       )}
-      {activeMenu === "2" && <PurchaseHistory dataOrders={dataOrders} userId={user._id} />}
+      {activeMenu === "2" && (
+        <PurchaseHistory dataOrders={dataOrders} userId={user._id} />
+      )}
       {activeMenu === "3" && <Download />}
       {activeMenu === "4" && <SentRequest />}
       {activeMenu === "5" && <WishList />}
       {activeMenu === "6" && <Compare />}
       {activeMenu === "7" && <Conversations />}
-      {activeMenu === "8" && <Wallet user={dataUser} dataDeposit={dataDeposit} refecth={refecth} dataWithdraw={dataWithdraw} />}
-      {activeMenu === "9" && <EarningPoint dataOrders={dataOrders} userId={user._id} user={dataUser} />}
+      {activeMenu === "8" && (
+        <Wallet
+          user={dataUser}
+          dataDeposit={dataDeposit}
+          refecth={refecth}
+          dataWithdraw={dataWithdraw}
+        />
+      )}
+      {activeMenu === "9" && (
+        <EarningPoint
+          dataOrders={dataOrders}
+          userId={user._id}
+          user={dataUser}
+        />
+      )}
       {activeMenu === "10" && <Support />}
       {activeMenu === "11" && <Transaction />}
       {activeMenu === "12" && <Manage user={dataUser} refecth={refecth} />}

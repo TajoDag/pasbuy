@@ -1,3 +1,4 @@
+import { QuestionCircleOutlined } from "@ant-design/icons";
 import {
   Button,
   Col,
@@ -12,25 +13,27 @@ import {
   Tooltip,
 } from "antd";
 import { useEffect, useState } from "react";
+import { RiDeleteBin5Line } from "react-icons/ri";
+import { useIntl } from "react-intl";
 import { useDispatch } from "react-redux";
-import { startLoading, stopLoading } from "../../../../redux/reducers/loadingReducer";
-import { formatPrice, splitText } from "../../../../utils";
+import { createOrder } from "../../../../api/utils/agency";
+import { getListUserAll } from "../../../../api/utils/auth";
+import TranslateTing from "../../../../components/Common/TranslateTing";
 import { useCurrency } from "../../../../context/CurrencyContext";
 import {
-  CloseOutlined,
-  QuestionCircleOutlined,
-  SearchOutlined,
-} from "@ant-design/icons";
-import { RiDeleteBin5Line } from "react-icons/ri";
-import TranslateTing from "../../../../components/Common/TranslateTing";
-import { getListUserAll } from "../../../../api/utils/auth";
-import { createOrder } from "../../../../api/utils/agency";
+  startLoading,
+  stopLoading,
+} from "../../../../redux/reducers/loadingReducer";
 import { showNotification } from "../../../../redux/reducers/notificationReducer";
+import { formatPrice, splitText } from "../../../../utils";
 
 const CreateOrder = (props) => {
   const dispatch = useDispatch();
   const [form] = Form.useForm();
   const { currency } = useCurrency();
+  const intl = useIntl();
+  const Success = intl.formatMessage({ id: "Success" });
+  const Error = intl.formatMessage({ id: "Success" });
   const [searchProduct, setSearchProduct] = useState({ name: "" });
   const [searchParams, setSearchParams] = useState({
     page: 0,
@@ -97,7 +100,7 @@ const CreateOrder = (props) => {
 
   const columnProducts = [
     {
-      title: "Images",
+      title: <TranslateTing text="Images" />,
       dataIndex: "images",
       key: "images",
       width: 90,
@@ -113,7 +116,7 @@ const CreateOrder = (props) => {
       ),
     },
     {
-      title: "Name",
+      title: <TranslateTing text="Name" />,
       dataIndex: "name",
       render: (text) => <p>{splitText(text, 50)}</p>,
     },
@@ -242,7 +245,7 @@ const CreateOrder = (props) => {
         setDataUser([]);
         dispatch(
           showNotification({
-            message: "Lấy dữ liệu thất bại.",
+            message: Error,
             type: "error",
           })
         );
@@ -284,7 +287,7 @@ const CreateOrder = (props) => {
       if (rp.status) {
         dispatch(
           showNotification({
-            message: rp.message || "Order created successfully",
+            message: Success,
             type: "success",
           })
         );
@@ -297,7 +300,7 @@ const CreateOrder = (props) => {
       } else {
         dispatch(
           showNotification({
-            message: rp.message || "Failed to create order",
+            message: Error,
             type: "error",
           })
         );
@@ -305,13 +308,13 @@ const CreateOrder = (props) => {
     } catch (err) {
       dispatch(
         showNotification({
-          message: "Failed to create order",
+          message: Error,
           type: "error",
         })
       );
-    }finally{
+    } finally {
       dispatch(stopLoading());
-  }
+    }
   };
 
   return (

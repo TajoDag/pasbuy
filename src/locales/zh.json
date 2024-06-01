@@ -208,5 +208,21 @@
   "Converted": "已轉換",
   "Trading code": "交易代碼",
   "Success": "成功",
-  "Withdraw Request": "撤回請求"
+  "Withdraw Request": "撤回請求",
+  "Amount Request":"金額要求",
+  "Images":"圖片",
+  "Name":"姓名",
+  "OK":"好的",
+  "My point":"我的觀點",
+  "Point Earning History":"積分賺取歷史",
+  "Bank Info":"銀行資訊",
+  "Bank Account Name":"銀行帳戶名稱",
+  "Address:":"地址:",
+  "Phone:":"電話:",
+  "Subscribe":"訂閱",
+  "Revenue":"收入",
+  "in your":"在你的",
+  "orders":"命令",
+  "Success":"成功",
+  "Error":"錯誤"
 }

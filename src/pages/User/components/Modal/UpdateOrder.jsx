@@ -1,9 +1,10 @@
 import { Button, Col, Input, Modal, Row, Select, Space } from "antd";
+import { useDispatch } from "react-redux";
 import TranslateTing from "../../../../components/Common/TranslateTing";
 import { showNotification } from "../../../../redux/reducers/notificationReducer";
-import { useDispatch } from "react-redux";
 // import { ChangeStatusOrderAgency } from "../../../../api/utils/agency";
 import { useEffect, useState } from "react";
+import { useIntl } from "react-intl";
 import { updateStatusOrders } from "../../../../api/utils/agency";
 const { Option } = Select;
 
@@ -12,7 +13,9 @@ const UpdateOrder = (props) => {
   const dispatch = useDispatch();
   const [status, setStatus] = useState(data?.orderStatus || "");
   const [orderLocation, setOrderLocation] = useState(data?.orderLocation || "");
-
+  const intl = useIntl();
+  const Success = intl.formatMessage({ id: "Success" });
+  const Error = intl.formatMessage({ id: "Success" });
   useEffect(() => {
     setStatus(data?.orderStatus || "");
     setOrderLocation(data?.orderLocation || "");
@@ -32,7 +35,7 @@ const UpdateOrder = (props) => {
       if (rp.status) {
         dispatch(
           showNotification({
-            message: "Success.",
+            message: Success,
             type: "success",
           })
         );
@@ -42,7 +45,7 @@ const UpdateOrder = (props) => {
     } catch (err) {
       dispatch(
         showNotification({
-          message: "Lấy dữ liệu thất bại.",
+          message: Error,
           type: "error",
         })
       );

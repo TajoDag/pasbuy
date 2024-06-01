@@ -1,3 +1,4 @@
+import { QuestionCircleOutlined } from "@ant-design/icons";
 import {
   Button,
   Col,
@@ -12,23 +13,25 @@ import {
   Tooltip,
 } from "antd";
 import { useEffect, useState } from "react";
+import { RiDeleteBin5Line } from "react-icons/ri";
+import { useIntl } from "react-intl";
 import { useDispatch } from "react-redux";
-import { startLoading, stopLoading } from "../../../../redux/reducers/loadingReducer";
-import { formatPrice, splitText } from "../../../../utils";
+import { createOrder } from "../../../../api/utils/agency";
+import { getListUserAll } from "../../../../api/utils/auth";
+import TranslateTing from "../../../../components/Common/TranslateTing";
 import { useCurrency } from "../../../../context/CurrencyContext";
 import {
-  CloseOutlined,
-  QuestionCircleOutlined,
-  SearchOutlined,
-} from "@ant-design/icons";
-import { RiDeleteBin5Line } from "react-icons/ri";
-import TranslateTing from "../../../../components/Common/TranslateTing";
-import { getListUserAll } from "../../../../api/utils/auth";
-import { createOrder } from "../../../../api/utils/agency";
+  startLoading,
+  stopLoading,
+} from "../../../../redux/reducers/loadingReducer";
 import { showNotification } from "../../../../redux/reducers/notificationReducer";
+import { formatPrice, splitText } from "../../../../utils";
 
 const DrawerCreateOrder = (props) => {
   const dispatch = useDispatch();
+  const intl = useIntl();
+  const Success = intl.formatMessage({ id: "Success" });
+  const Error = intl.formatMessage({ id: "Success" });
   const [form] = Form.useForm();
   const { currency } = useCurrency();
   const [searchProduct, setSearchProduct] = useState({ name: "" });
@@ -240,7 +243,7 @@ const DrawerCreateOrder = (props) => {
         setDataUser([]);
         dispatch(
           showNotification({
-            message: "Lấy dữ liệu thất bại.",
+            message: Error,
             type: "error",
           })
         );
@@ -282,7 +285,7 @@ const DrawerCreateOrder = (props) => {
       if (rp.status) {
         dispatch(
           showNotification({
-            message: rp.message || "Order created successfully",
+            message: Success,
             type: "success",
           })
         );
@@ -295,7 +298,7 @@ const DrawerCreateOrder = (props) => {
       } else {
         dispatch(
           showNotification({
-            message: rp.message || "Failed to create order",
+            message: Error,
             type: "error",
           })
         );
@@ -303,12 +306,12 @@ const DrawerCreateOrder = (props) => {
     } catch (err) {
       dispatch(
         showNotification({
-          message: "Failed to create order",
+          message: Error,
           type: "error",
         })
       );
-    }finally{
-        dispatch(stopLoading());
+    } finally {
+      dispatch(stopLoading());
     }
   };
   return (

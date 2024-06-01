@@ -1,26 +1,18 @@
-import React, { useEffect, useState } from "react";
-import TranslateTing from "../../../../components/Common/TranslateTing";
-import { useDispatch } from "react-redux";
-import { showNotification } from "../../../../redux/reducers/notificationReducer";
-import {
-  getAgencyByHomeAgentId,
-  listOrderAgency,
-} from "../../../../api/utils/agency";
 import { Button, Space, Table } from "antd";
+import React, { useEffect, useState } from "react";
 import { FaEye } from "react-icons/fa";
-import CreateOrder from "../Modal/CreateOrder";
-import { MdOutlinePriceChange } from "react-icons/md";
-import useRefresh from "../../../../hooks/useRefresh";
-import { getListOrders } from "../../../../api/utils/order";
-import { formatPrice } from "../../../../utils";
+import { listOrderAgency } from "../../../../api/utils/agency";
+import TranslateTing from "../../../../components/Common/TranslateTing";
 import { useCurrency } from "../../../../context/CurrencyContext";
+import useRefresh from "../../../../hooks/useRefresh";
+import { formatPrice } from "../../../../utils";
 import { TagsOrder } from "../../../../utils/TagsOrder";
-import ItemsOrder from "../Modal/ItemsOrder";
-import { TbEdit } from "react-icons/tb";
-import UpdateOrder from "../Modal/UpdateOrder";
-import DrawerCreateOrder from "../Modal/DrawerCreateOrder";
 import { useIsMobile } from "../../../../utils/responsive";
+import CreateOrder from "../Modal/CreateOrder";
+import DrawerCreateOrder from "../Modal/DrawerCreateOrder";
 import DrawerDetailOrder from "../Modal/DrawerDetailOrder";
+import ItemsOrder from "../Modal/ItemsOrder";
+import UpdateOrder from "../Modal/UpdateOrder";
 
 export const Dashboard = ({
   data,

@@ -214,5 +214,21 @@
   "Converted": "Chuyển đổi tiền",
   "Trading code": "Mã giao dịch",
   "Success": "Hoàn thành",
-  "Withdraw Request": "Yêu cầu rút tiền"
+  "Withdraw Request": "Yêu cầu rút tiền",
+  "Amount Request":"Tổng tiền yêu cầu",
+  "Images":"Hình ảnh",
+  "Name":"Tên",
+  "OK":"Đồng ý",
+  "My point":"Điểm của tôi",
+  "Point Earning History":"Lịch sử kiếm điểm",
+  "Bank Info":"Thông tin ngân hàng",
+  "Bank Account Name":"Tên chủ tài khoản",
+  "Address:":"Địa chỉ:",
+  "Phone:":"Số điện thoại:",
+  "Subscribe":"Đăng ký",
+  "Revenue":"Doanh thu",
+  "in your":"trong",
+  "orders":"đơn đặt hàng",
+  "Success":"Thành công",
+  "Error":"Thất bại"
 }

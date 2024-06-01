@@ -37,11 +37,10 @@ const Footer = () => {
         if (rp.status) {
           setDetailLogoHeader(rp.result.images.url);
         }
-      } catch (err) {
-      }
+      } catch (err) {}
     };
     getDetailLogoHeader();
-  },[])
+  }, []);
   return (
     <footer>
       <div className="footer">
@@ -56,7 +55,9 @@ const Footer = () => {
             <TranslateTing text="Contact customer service for free admission" />
           </p>
           <input type="email" placeholder={placeholderText} />
-          <button>Subscribe</button>
+          <button>
+            <TranslateTing text="Subscribe" />
+          </button>
           <div className="app-links">
             <a href="/detail">
               <img
@@ -74,7 +75,6 @@ const Footer = () => {
         </div>
         <div className="footer-section">
           <h4>
-            {" "}
             <TranslateTing text="CONTACT INFO" />
           </h4>
           <div className="content-contact">

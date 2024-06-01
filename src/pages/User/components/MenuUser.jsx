@@ -1,26 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { IoHomeOutline } from "react-icons/io5";
-import { MdHistory, MdOutlineProductionQuantityLimits } from "react-icons/md";
-import { AiOutlineDownload } from "react-icons/ai";
-import { VscSend } from "react-icons/vsc";
-import { IoMdHeartEmpty } from "react-icons/io";
-import { IoIosGitCompare } from "react-icons/io";
-import { BiConversation } from "react-icons/bi";
-import { IoWalletOutline } from "react-icons/io5";
 import { CiBadgeDollar, CiLogout } from "react-icons/ci";
-import { IoTicketOutline } from "react-icons/io5";
-import { GrTransaction } from "react-icons/gr";
 import { FiUser } from "react-icons/fi";
+import { IoHomeOutline, IoWalletOutline } from "react-icons/io5";
+import { MdHistory, MdOutlineProductionQuantityLimits } from "react-icons/md";
+import { useIntl } from "react-intl";
+import { useNavigate } from "react-router-dom";
+import { getUser } from "../../../api/utils/auth";
 import TranslateTing from "../../../components/Common/TranslateTing";
+import { useActiveMenu } from "../../../context/ActiveMenu";
+import useRefresh from "../../../hooks/useRefresh";
 import {
   useIsLaptopOrDesktop,
   useIsMobile,
   useIsTablet,
 } from "../../../utils/responsive";
-import useRefresh from "../../../hooks/useRefresh";
-import { getUser } from "../../../api/utils/auth";
-import { useNavigate } from "react-router-dom";
-import { useActiveMenu } from "../../../context/ActiveMenu";
 
 const menu = [
   { key: "1", name: "Dashboard", icon: <IoHomeOutline /> },
@@ -47,7 +40,9 @@ export const MenuUser = () => {
   const navigate = useNavigate();
   const [dataUser, setDataUser] = useState({});
   const [refresh, refecth] = useRefresh();
-
+  const intl = useIntl();
+  const Success = intl.formatMessage({ id: "Success" });
+  const Error = intl.formatMessage({ id: "Success" });
   useEffect(() => {
     const getUserDt = async () => {
       try {
@@ -56,7 +51,7 @@ export const MenuUser = () => {
           setDataUser(rp.result);
         }
       } catch (err) {
-        dispatch(showNotification({ message: "Có lỗi xảy ra", type: "error" }));
+        dispatch(showNotification({ message: Error, type: "error" }));
       }
     };
     getUserDt();

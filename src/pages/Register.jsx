@@ -1,36 +1,33 @@
+import { Button, Form, Input } from "antd";
+import { useIntl } from "react-intl";
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import { startLoading, stopLoading } from "../redux/reducers/loadingReducer";
 import { registerUser } from "../api/utils/auth";
-import { showNotification } from "../redux/reducers/notificationReducer";
-import { Button, Form, Input } from "antd";
 import TranslateTing from "../components/Common/TranslateTing";
-import { useIntl } from "react-intl";
+import { startLoading, stopLoading } from "../redux/reducers/loadingReducer";
+import { showNotification } from "../redux/reducers/notificationReducer";
 
 const Register = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-
+  const intl = useIntl();
+  const Success = intl.formatMessage({ id: "Success" });
+  const Error = intl.formatMessage({ id: "Success" });
   const onFinish = async (values) => {
     if (location.pathname === "/register") {
       dispatch(startLoading());
       const response = await registerUser(values);
       if (response.status) {
-        dispatch(
-          showNotification({ message: response.message, type: "success" })
-        );
+        dispatch(showNotification({ message: Success, type: "success" }));
         navigate("/login");
         dispatch(stopLoading());
       } else {
-        dispatch(
-          showNotification({ message: response.message, type: "error" })
-        );
+        dispatch(showNotification({ message: Error, type: "error" }));
         dispatch(stopLoading());
       }
     }
   };
-  const intl = useIntl();
   const placeholderUsername = intl.formatMessage({ id: "Username" });
   const placeholderPassword = intl.formatMessage({ id: "Password" });
   const placeholderName = intl.formatMessage({ id: "Name" });
@@ -54,7 +51,12 @@ const Register = () => {
               <Form.Item
                 name="username"
                 rules={[
-                  { required: true, message: <TranslateTing text="Please input your username!" /> },
+                  {
+                    required: true,
+                    message: (
+                      <TranslateTing text="Please input your username!" />
+                    ),
+                  },
                 ]}
               >
                 <Input
@@ -65,14 +67,24 @@ const Register = () => {
 
               <Form.Item
                 name="name"
-                rules={[{ required: true, message: <TranslateTing text="Please input your name!" /> }]}
+                rules={[
+                  {
+                    required: true,
+                    message: <TranslateTing text="Please input your name!" />,
+                  },
+                ]}
               >
                 <Input className="login_input" placeholder={placeholderName} />
               </Form.Item>
               <Form.Item
                 name="password"
                 rules={[
-                  { required: true, message: <TranslateTing text="Please input your password!" /> },
+                  {
+                    required: true,
+                    message: (
+                      <TranslateTing text="Please input your password!" />
+                    ),
+                  },
                 ]}
               >
                 <Input.Password
@@ -83,7 +95,10 @@ const Register = () => {
               <Form.Item
                 name="phone"
                 rules={[
-                  { required: true, message: <TranslateTing text="Please input your phone!" /> },
+                  {
+                    required: true,
+                    message: <TranslateTing text="Please input your phone!" />,
+                  },
                 ]}
               >
                 <Input className="login_input" placeholder={placeholderPhone} />

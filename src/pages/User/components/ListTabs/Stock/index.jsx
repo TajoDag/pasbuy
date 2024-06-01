@@ -1,18 +1,19 @@
-import React, { useState } from "react";
-import TranslateTing from "../../../../../components/Common/TranslateTing";
 import { Button, Popconfirm, Space, Table, Tooltip } from "antd";
-import { useCurrency } from "../../../../../context/CurrencyContext";
-import { formatPrice } from "../../../../../utils";
+import React, { useState } from "react";
 import { MdCancel, MdOutlinePriceChange } from "react-icons/md";
-import InputChangePrice from "../../../../../utils/InputChangePrice";
 import { SiVerizon } from "react-icons/si";
-import { changePriceAgency } from "../../../../../api/utils/agency";
-import { showNotification } from "../../../../../redux/reducers/notificationReducer";
+import { useIntl } from "react-intl";
 import { useDispatch } from "react-redux";
+import { changePriceAgency } from "../../../../../api/utils/agency";
+import TranslateTing from "../../../../../components/Common/TranslateTing";
+import { useCurrency } from "../../../../../context/CurrencyContext";
 import useRefresh from "../../../../../hooks/useRefresh";
+import { showNotification } from "../../../../../redux/reducers/notificationReducer";
+import { formatPrice } from "../../../../../utils";
+import InputChangePrice from "../../../../../utils/InputChangePrice";
+import { useIsMobile } from "../../../../../utils/responsive";
 import CreateOrder from "../../Modal/CreateOrder";
 import DrawerCreateOrder from "../../Modal/DrawerCreateOrder";
-import { useIsMobile } from "../../../../../utils/responsive";
 
 const Stock = ({ data, userId }) => {
   const { currency } = useCurrency();
@@ -27,7 +28,9 @@ const Stock = ({ data, userId }) => {
     setSelectedProductId(productId);
     setIsChangePrice(true);
   };
-
+  const intl = useIntl();
+  const Success = intl.formatMessage({ id: "Success" });
+  const Error = intl.formatMessage({ id: "Success" });
   const handleCancelChangePrice = async () => {
     try {
       let payload = {
@@ -37,15 +40,13 @@ const Stock = ({ data, userId }) => {
       };
       const rp = await changePriceAgency(payload);
       if (rp.status) {
-        dispatch(
-          showNotification({ message: "Đổi thành công", type: "success" })
-        );
+        dispatch(showNotification({ message: Success, type: "success" }));
         setSelectedProductId(null);
         setIsChangePrice(false);
         refecth();
       }
     } catch (err) {
-      dispatch(showNotification({ message: "Có lỗi xảy ra", type: "error" }));
+      dispatch(showNotification({ message: Error, type: "error" }));
     }
   };
 

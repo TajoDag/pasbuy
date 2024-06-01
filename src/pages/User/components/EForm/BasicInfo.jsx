@@ -1,14 +1,18 @@
+import { Form, Input } from "antd";
 import React, { useState } from "react";
-import { Form, Input, Switch } from "antd";
-import TranslateTing from "../../../../components/Common/TranslateTing";
+import { useIntl } from "react-intl";
 import { useDispatch } from "react-redux";
-import { showNotification } from "../../../../redux/reducers/notificationReducer";
 import { updateUser } from "../../../../api/utils/auth";
+import TranslateTing from "../../../../components/Common/TranslateTing";
+import { showNotification } from "../../../../redux/reducers/notificationReducer";
 import ChangePassword from "../Modal/ChangePassword";
 
 export default ({ user, refecth }) => {
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const intl = useIntl();
+  const Success = intl.formatMessage({ id: "Success" });
+  const Error = intl.formatMessage({ id: "Success" });
   const showModal = () => {
     setIsModalOpen(true);
   };
@@ -24,7 +28,7 @@ export default ({ user, refecth }) => {
       if (rp.status) {
         dispatch(
           showNotification({
-            message: "Success.",
+            message: Success,
             type: "success",
           })
         );
@@ -33,7 +37,7 @@ export default ({ user, refecth }) => {
       } else {
         dispatch(
           showNotification({
-            message: "Error.",
+            message: Error,
             type: "error",
           })
         );
@@ -41,7 +45,7 @@ export default ({ user, refecth }) => {
     } catch {
       dispatch(
         showNotification({
-          message: "Error.",
+          message: Error,
           type: "error",
         })
       );
