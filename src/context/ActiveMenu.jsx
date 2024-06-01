@@ -12,7 +12,7 @@ export const useActiveMenu = () => {
 
 export const MenuProvider = ({ children }) => {
   const user = JSON.parse(localStorage.getItem("userData"));
-  const [activeMenu, setActiveMenu] = useState(user.isShop ? "1" : "2");
+  const [activeMenu, setActiveMenu] = useState(user && user?.role === "agency" ? "1" : "2");
   const [openMenu, setOpenMenu] = React.useState(false);
 
   return (
