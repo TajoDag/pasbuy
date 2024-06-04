@@ -88,7 +88,7 @@
   "Price": "价格",
   "Quantity": "数量",
   "Total price": "总价",
-  "Add to card": "添加到购物车",
+  "Add to cart": "添加到购物车",
   "Add to wishlist": "添加到收藏夹",
   "View policy": "查看政策",
   "Refund": "退款",
@@ -224,5 +224,8 @@
   "in your":"在你的",
   "orders":"命令",
   "Success":"成功",
-  "Error":"錯誤"
+  "Error":"錯誤",
+  "Success add to cart": "成功加入購物車",
+  "Cart Items": "購物車商品"
 }
+

@@ -11,36 +11,44 @@ import CrispWidget from "../../utils/CrispWidget";
 import TranslateTing from "../../components/Common/TranslateTing";
 import { useCurrency } from "../../context/CurrencyContext";
 import { formatPrice } from "../../utils";
+import { useCart } from "../../context/CartContext";
+import { useDispatch } from "react-redux";
+import { useIntl } from "react-intl";
+import { showNotification } from "../../redux/reducers/notificationReducer";
 export const InforProduct = ({ detail }) => {
   const [quantity, setQuantity] = React.useState(1);
   const { currency } = useCurrency();
+  const { addToCart } = useCart();
+  const dispatch = useDispatch();
   let price = detail.price;
-
-  // const { openChatAndSendMessage } = CrispWidget();
-
-  // const handleMessageSeller = () => {
-  //   const currentURL = window.location.href;
-  //   openChatAndSendMessage(`I'm interested in this product: ${currentURL}`);
-  // };
-  // const handleMessageSeller = () => {
-  //   const currentURL = window.location.href;
-  //   if (window.$crisp) {
-  //     window.$crisp.push(["do", "chat:open"]);
-  //     window.$crisp.push([
-  //       "do",
-  //       "message:send",
-  //       ["text", `I'm interested in this product: ${currentURL}`],
-  //     ]);
-  //   }
-  // };
   const handleMessageSeller = () => {
     const currentURL = window.location.href;
     if (window.LiveChatWidget) {
-      window.LiveChatWidget.call("maximize"); // Mở khung chat
+      window.LiveChatWidget.call("maximize");
       window.LiveChatWidget.call("sendMessage", `I'm interested in this product: ${currentURL}`); // Gửi tin nhắn
     } else {
       console.error("LiveChatWidget is not available");
     }
+  };
+  const intl = useIntl();
+  const Success = intl.formatMessage({ id: "Success add cart" });
+  const handleAddToCart = () => {
+    const cartItem = {
+      _id: detail._id,
+      name: detail.name,
+      images: detail.images,
+      price: detail.price,
+      quantity: quantity,
+      totalPrice: detail.price * quantity,
+    };
+
+    addToCart(cartItem);
+    dispatch(
+      showNotification({
+        message: Success,
+        type: "success",
+      })
+    );
   };
   return (
     <div>
@@ -140,9 +148,10 @@ export const InforProduct = ({ detail }) => {
             style={{
               padding: "10px 20px 10px 20px",
             }}
+            onClick={handleAddToCart}
           >
             <MdOutlineShoppingBag />
-            <TranslateTing text="Add to card" />
+            <TranslateTing text="Add to cart" />
           </button>
           <button className="button_custom" onClick={handleMessageSeller}>
             <IoCartOutline />

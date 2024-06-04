@@ -14,6 +14,7 @@ import anh9 from "@assets/images/img_category/home.png";
 import TranslateTing from "../Common/TranslateTing";
 import { useEffect, useState } from "react";
 import { getBanner } from "../../api/utils/banner";
+import { useNavigate } from "react-router-dom";
 
 const contentStyle = {
   height: "315px",
@@ -22,6 +23,7 @@ const contentStyle = {
 };
 
 const HomeBannerArea = () => {
+  const navigate = useNavigate()
   const categoriesR = [
     {
       img: anh1,
@@ -60,7 +62,7 @@ const HomeBannerArea = () => {
       name: "Home Decoration & Appliance",
     },
   ];
-  
+
   const CustomPrevArrow = (props) => {
     const { className, style, onClick } = props;
     return (
@@ -88,7 +90,7 @@ const HomeBannerArea = () => {
   };
 
   const [fileList, setFileList] = useState([]);
-  
+
   useEffect(() => {
     const getAllBanner = async () => {
       try {
@@ -131,7 +133,7 @@ const HomeBannerArea = () => {
         </Carousel>
         <div className="categories">
           {categoriesR.map((item, index) => (
-            <div key={index} className="card">
+            <div key={index} className="card" onClick={() => navigate('/products')}>
               <div className="img_cate">
                 <img src={item.img} alt="" />
               </div>

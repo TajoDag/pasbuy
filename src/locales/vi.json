@@ -93,7 +93,7 @@
   "Price": "Giá",
   "Quantity": "Số lượng",
   "Total price": "Tổng tiền",
-  "Add to card": "Thêm vào mục giỏ hàng",
+  "Add to cart": "Thêm vào mục giỏ hàng",
   "Add to wishlist": "Thêm vào mục yêu thích",
   "View policy": "Xem chính sách",
   "Refund": "Hoàn tiền",
@@ -230,5 +230,7 @@
   "in your":"trong",
   "orders":"đơn đặt hàng",
   "Success":"Thành công",
-  "Error":"Thất bại"
+  "Error":"Thất bại",
+  "Success add to cart": "Thêm vào giỏ hàng thành công",
+  "Cart Items": "Giỏ hàng"
 }

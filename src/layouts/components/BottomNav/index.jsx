@@ -11,10 +11,12 @@ import { MenuUser } from "../../../pages/User/components/MenuUser";
 import { useNavigate } from "react-router-dom";
 import TranslateTing from "../../../components/Common/TranslateTing";
 import { useActiveMenu } from "../../../context/ActiveMenu";
+import { useCart } from "../../../context/CartContext";
 
 const BottomNav = () => {
   const { openMenu, setOpenMenu } = useActiveMenu();
   const navigate = useNavigate();
+  const { totalItems } = useCart();
   return (
     <div className="bottom-nav">
       <div className="nav-item" onClick={() => navigate("/")}>
@@ -35,7 +37,7 @@ const BottomNav = () => {
         </div>
 
         <span className="card-title">
-          <TranslateTing text="Cart" /> (0)
+          <TranslateTing text="Cart" /> ({totalItems})
         </span>
       </div>
       <div className="nav-item" onClick={() => setOpenMenu(true)}>
@@ -50,7 +52,7 @@ const BottomNav = () => {
           <TranslateTing text="Notifications" />
         </span>
       </div>
-    
+
       <Drawer onClose={() => setOpenMenu(false)} open={openMenu}>
         <MenuUser />
       </Drawer>

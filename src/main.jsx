@@ -12,6 +12,7 @@ import store from "./stores";
 import { CurrencyProvider } from "./context/CurrencyContext";
 import CrispWidget from "./utils/CrispWidget";
 import { MenuProvider } from "./context/ActiveMenu";
+import { CartProvider } from "./context/CartContext";
 
 const queryClient = new QueryClient();
 
@@ -21,11 +22,13 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <QueryClientProvider client={queryClient}>
         <LocalizationProvider>
           <CurrencyProvider>
-            <MenuProvider>
-              <BrowserRouter>
-                <AppRoutes />
-              </BrowserRouter>
-            </MenuProvider>
+            <CartProvider>
+              <MenuProvider>
+                <BrowserRouter>
+                  <AppRoutes />
+                </BrowserRouter>
+              </MenuProvider>
+            </CartProvider>,
           </CurrencyProvider>
         </LocalizationProvider>
       </QueryClientProvider>

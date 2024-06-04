@@ -3,10 +3,11 @@ import logo from "@assets/images/logo.png";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useIntl } from "react-intl";
-const HeaderL = ({img}) => {
+const HeaderL = ({ img }) => {
   const [showInput, setShowInput] = useState(false);
   const navigate = useNavigate();
   const [search, setSearch] = useState()
+
   const handleInputChange = (e) => {
     setSearch(e.target.value);
   };
