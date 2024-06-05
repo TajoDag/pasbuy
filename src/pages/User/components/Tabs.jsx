@@ -196,7 +196,7 @@ export const Tabs = ({ activeMenu }) => {
         />
       )}
       {activeMenu === "21" && (
-        <ListUser dataTable={dataTableUser}
+        <ListUser dataTable={dataTableUser} paginationCustomer={paginationCustomer} handleTableChangeCustomer={handleTableChangeCustomer}
         />
       )}
       {activeMenu === "13" && (

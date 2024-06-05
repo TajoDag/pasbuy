@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import TranslateTing from "../../../../components/Common/TranslateTing";
 import { Button, Drawer, Modal, Space, Table } from "antd";
 import DateTimeComponent from "../../../../utils/DateTimeComponent";
-const ListUser = ({ dataTable }) => {
+const ListUser = ({ dataTable, paginationCustomer, handleTableChangeCustomer }) => {
 
     const columns = [
         {
@@ -43,6 +43,12 @@ const ListUser = ({ dataTable }) => {
                     columns={columns}
                     scroll={{ x: "max-content" }}
                     dataSource={dataTable}
+                    pagination={{
+                        current: paginationCustomer.current,
+                        pageSize: paginationCustomer.pageSize,
+                        total: paginationCustomer.total,
+                    }}
+                    onChange={handleTableChangeCustomer}
                 />
             </div>
         </div>
