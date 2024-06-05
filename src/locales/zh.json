@@ -226,6 +226,18 @@
   "Success":"成功",
   "Error":"錯誤",
   "Success add to cart": "成功加入購物車",
-  "Cart Items": "購物車商品"
+  "Cart Items": "購物車商品",
+  "Your Cart is empty": "您的購物車是空的",
+  "Qty": "数量",
+  "Subtotal": "小計",
+  "View cart": "檢查購物車",
+  "My Cart:" : "我的購物車",
+  "Remove": "消除",
+  "Return To Shop": "返回商店",
+  "Continue To Shipping": "繼續出貨",
+  "Shipping Info": "物流資訊",
+  "Please input your phone number!": "請輸入您的電話號碼 !",
+  "Please input your address!": "請輸入您的地址！",
+  "Customers": "客戶名單"
 }
 

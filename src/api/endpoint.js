@@ -17,6 +17,7 @@ export const endpoints = {
     // update: `user/update`,
     updatePassword: `password/update`,
     update: `me/update`,
+    getCustomers: `user/customers`,
   },
   category: {
     getAll: `categories/all`,
@@ -50,6 +51,7 @@ export const endpoints = {
   },
   orders: {
     getListOrders: `customer/order/all`,
+    create: `customer/order/create`,
   },
   livechat: {
     get: `configLiveChat`,

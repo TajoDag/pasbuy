@@ -215,9 +215,9 @@ export const Dashboard = ({
             <TranslateTing text="Orders" />
           </h2>
 
-          <Button onClick={() => setIsModalCreate(true)}>
+          {/* <Button onClick={() => setIsModalCreate(true)}>
             <TranslateTing text="New order" />
-          </Button>
+          </Button> */}
         </div>
         <div style={{ padding: 10 }}>
           <Table

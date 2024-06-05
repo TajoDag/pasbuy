@@ -32,11 +32,17 @@ export const CartProvider = ({ children }) => {
         localStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
     };
 
+    const removeFromCart = (itemId) => {
+        const updatedCartItems = cartItems.filter(item => item._id !== itemId);
+        setCartItems(updatedCartItems);
+        localStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
+    };
+
     const totalItems = cartItems.length;
     const totalQuantity = cartItems.reduce((total, item) => total + item.quantity, 0);
 
     return (
-        <CartContext.Provider value={{ cartItems, addToCart, totalItems, totalQuantity }}>
+        <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, totalItems, totalQuantity }}>
             {children}
         </CartContext.Provider>
     );

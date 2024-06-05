@@ -13,12 +13,15 @@ import { useNavigate } from "react-router-dom";
 import { useIntl } from "react-intl";
 import { useCart } from "../../../../../context/CartContext";
 import { Button, Popover } from 'antd';
+import { formatPrice, splitText } from "../../../../../utils";
+import { useCurrency } from "../../../../../context/CurrencyContext";
 const HeaderH = ({ img }) => {
   const navigate = useNavigate();
   const [search, setSearch] = useState();
-  const { cartItems, totalItems } = useCart();
-
+  const { cartItems, totalItems, removeFromCart } = useCart();
+  const { currency } = useCurrency();
   const [open, setOpen] = useState(false);
+  const isAuthenticated = JSON.parse(localStorage.getItem("isLogin"));
   const hide = () => {
     setOpen(false);
   };
@@ -51,7 +54,7 @@ const HeaderH = ({ img }) => {
       return (
         <div style={{ textAlign: 'center', padding: '10px' }}>
           <FrownOutlined style={{ fontSize: '24px' }} />
-          <p>Your Cart is empty</p>
+          <TranslateTing text="Your Cart is empty" /><p></p>
         </div>
       );
     }
@@ -59,31 +62,30 @@ const HeaderH = ({ img }) => {
     const subtotal = cartItems.reduce((sum, item) => sum + item.totalPrice, 0);
 
     return (
-      <div style={{ padding: '10px', maxWidth: '300px' }}>
+      <div style={{ padding: '10px', width: 300, maxWidth: '300px' }}>
         <div style={{ maxHeight: '200px', overflowY: 'auto' }}>
           {cartItems.map(item => (
             <div key={item._id} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px', alignItems: 'center' }}>
-              <img src={item.images[0]} alt={item.name} style={{ width: '50px', height: '50px', objectFit: 'cover' }} />
+              <img src={item.images[0].url} alt={item.name} style={{ width: '50px', height: '50px', objectFit: 'cover' }} />
               <div style={{ flex: 1, marginLeft: '10px' }}>
-                <p style={{ margin: 0 }}>{item.name}</p>
-                <p style={{ margin: 0 }}>Qty: {item.quantity}</p>
-                <p style={{ margin: 0 }}>${item.totalPrice.toFixed(2)}</p>
+                <p style={{ margin: 0, fontWeight: 500 }}>{splitText(item.name, 40)}</p>
+                <p style={{ margin: 0 }}><TranslateTing text="Qty" />: {item.quantity}</p>
+                <p style={{ margin: 0 }}>{formatPrice(item.price.toFixed(2), currency)}</p>
               </div>
-              <CloseOutlined style={{ cursor: 'pointer' }} />
+              <CloseOutlined style={{ cursor: 'pointer' }} onClick={() => removeFromCart(item._id)} />
             </div>
           ))}
         </div>
         <div style={{ borderTop: '1px solid #ddd', paddingTop: '10px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
-            <p style={{ margin: 0 }}>Subtotal</p>
-            <p style={{ margin: 0 }}>${subtotal.toFixed(2)}</p>
+            <p style={{ margin: 0 }}> <TranslateTing text="Subtotal" /></p>
+            <p style={{ margin: 0 }}>{formatPrice(subtotal.toFixed(2), currency)}</p>
           </div>
-          <Button type="primary" onClick={() => navigate('/cart')} block>View cart</Button>
+          <Button style={{ backgroundColor: "#e62e04" }} type="primary" onClick={() => isAuthenticated ? navigate('/cart') : navigate('/login')} block><TranslateTing text="View cart" /></Button>
         </div>
       </div>
     );
   };
-
 
   return (
     <>
@@ -127,7 +129,6 @@ const HeaderH = ({ img }) => {
                   </div>
                 </div>
               </div>
-
 
               <Popover
                 content={viewCart()}

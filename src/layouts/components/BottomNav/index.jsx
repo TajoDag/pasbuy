@@ -17,6 +17,7 @@ const BottomNav = () => {
   const { openMenu, setOpenMenu } = useActiveMenu();
   const navigate = useNavigate();
   const { totalItems } = useCart();
+  const isAuthenticated = JSON.parse(localStorage.getItem("isLogin"));
   return (
     <div className="bottom-nav">
       <div className="nav-item" onClick={() => navigate("/")}>
@@ -31,7 +32,7 @@ const BottomNav = () => {
           <TranslateTing text="Categories" />
         </span>
       </div>
-      <div className="nav-item">
+      <div className="nav-item" onClick={() => isAuthenticated ? navigate('/cart') : navigate('/login')}>
         <div className="cart-icon">
           <ShoppingCartOutlined style={{ color: "#fff" }} />
         </div>

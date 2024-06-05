@@ -15,12 +15,11 @@ import { useIsMobile } from "../../../../../utils/responsive";
 import CreateOrder from "../../Modal/CreateOrder";
 import DrawerCreateOrder from "../../Modal/DrawerCreateOrder";
 
-const Stock = ({ data, userId }) => {
+const Stock = ({ data, userId, refresh, refecth }) => {
   const { currency } = useCurrency();
   const [isChangePrice, setIsChangePrice] = useState(false);
   const [newPrice, setNewPrice] = useState(0);
   const [selectedProductId, setSelectedProductId] = useState(null);
-  const [refresh, refecth] = useRefresh();
   const [isModalCreate, setIsModalCreate] = useState(false);
   const dispatch = useDispatch();
   const isMobile = useIsMobile();
@@ -153,10 +152,10 @@ const Stock = ({ data, userId }) => {
         <h2>
           <TranslateTing text="Your warehouse" />
         </h2>
-        <Button onClick={() => setIsModalCreate(true)}>
+        {/* <Button onClick={() => setIsModalCreate(true)}>
           {" "}
           <TranslateTing text="New order" />
-        </Button>
+        </Button> */}
       </div>
       <div style={{ marginTop: "10px" }}>
         <Table

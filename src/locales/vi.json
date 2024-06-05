@@ -231,6 +231,18 @@
   "orders":"đơn đặt hàng",
   "Success":"Thành công",
   "Error":"Thất bại",
-  "Success add to cart": "Thêm vào giỏ hàng thành công",
-  "Cart Items": "Giỏ hàng"
+  "Cart Items": "Giỏ hàng",
+  "Your Cart is empty": "Không có sản phẩm trong giỏ hàng",
+  "Qty": "Số lượng",
+  "Success add to cart": "Đã thêm vào giỏ hàng",
+  "Subtotal": "Tổng tiền",
+  "View cart": "Xem giỏ hàng",
+  "My Cart:": "Giỏ hàng của tôi:",
+  "Remove": "Xóa",
+  "Return To Shop": "Tiếp tục mua hàng",
+  "Shipping Info": "Thông tin giao hàng",
+  "Continue To Shipping": "Nhập thông tin giao hàng",
+  "Please input your phone number!": "Vui lòng nhập số điện thoại của bạn!",
+  "Please input your address!": "Vui lòng nhập địa chỉ của bạn!",
+  "Customers": "Danh sách khách hàng"
 }

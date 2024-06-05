@@ -1,5 +1,4 @@
 import { lazy } from "react";
-// import ProductDetail from "../pages/ProductDetail";
 
 const Home = lazy(() => import("@pages/Home"));
 const Login = lazy(() => import("@pages/Login"));
@@ -9,6 +8,7 @@ const Products = lazy(() => import("../pages/Products"));
 const Brands = lazy(() => import("../pages/Brands"));
 const Categories = lazy(() => import("../pages/Categories"));
 const User = lazy(() => import("../pages/User"));
+const Cart = lazy(() => import("../pages/Cart"));
 
 export const routes_here = [
   {
@@ -52,4 +52,10 @@ export const routes_here = [
     element: <Categories />,
     isPrivate: false,
   },
+  {
+    path: "/cart",
+    element: <Cart />,
+    isPrivate: true,
+  },
+
 ];

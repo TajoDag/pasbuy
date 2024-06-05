@@ -6,7 +6,7 @@ import {
   getListNotSuccess,
   getSuccessOrder,
 } from "../../../api/utils/agency";
-import { getUser } from "../../../api/utils/auth";
+import { getListCustomer, getUser } from "../../../api/utils/auth";
 import { getListOrders } from "../../../api/utils/order";
 import { getDeposit, getWithdraw } from "../../../api/utils/wallet";
 import useRefresh from "../../../hooks/useRefresh";
@@ -24,6 +24,7 @@ import { Transaction } from "../components/ListTabs/Transaction";
 import { Wallet } from "../components/ListTabs/Wallet";
 import { WishList } from "../components/ListTabs/WishList";
 import Stock from "./ListTabs/Stock";
+import ListUser from "./ListTabs/ListUser";
 
 export const Tabs = ({ activeMenu }) => {
   const user = JSON.parse(localStorage.getItem("userData"));
@@ -36,10 +37,23 @@ export const Tabs = ({ activeMenu }) => {
   const [totalOrderSuccess, setTotalOrderSuccess] = useState(0);
   const [dataDeposit, setDataDeposit] = useState([]);
   const [dataWithdraw, setDataWithdraw] = useState([]);
+  const [dataTableUser, setDataTableUser] = useState([]);
+
   const [refresh, refecth] = useRefresh();
   const intl = useIntl();
   const Success = intl.formatMessage({ id: "Success" });
   const Error = intl.formatMessage({ id: "Success" });
+
+  const [searchParamsCustomer, setSearchParamsCustomer] = useState({
+    page: 0,
+    size: 10,
+    inviteCode: user.inviteCode,
+  });
+  const [paginationCustomer, setPaginationCustomer] = useState({
+    current: 1,
+    pageSize: 10,
+    total: 0,
+  });
   useEffect(() => {
     if (user.isShop && user.role === "agency") {
       const getAgency = async () => {
@@ -117,7 +131,7 @@ export const Tabs = ({ activeMenu }) => {
           setTotalAmount(totalAmount);
           setTotalOrderSuccess(response.result.pagination.total);
         }
-      } catch (err) {}
+      } catch (err) { }
     };
     const getListDeposit = async () => {
       try {
@@ -125,7 +139,7 @@ export const Tabs = ({ activeMenu }) => {
         if (response.status) {
           setDataDeposit(response.result);
         }
-      } catch (err) {}
+      } catch (err) { }
     };
     const getListWithdraw = async () => {
       try {
@@ -133,15 +147,42 @@ export const Tabs = ({ activeMenu }) => {
         if (response.status) {
           setDataWithdraw(response.result);
         }
-      } catch (err) {}
+      } catch (err) { }
     };
+    const getListCus = async () => {
+      try {
+        const response = await getListCustomer(searchParamsCustomer);
+        if (response.status) {
+          const cus = response.result.users.map((item, i) => ({
+            ...item,
+            stt: i + 1 + searchParamsCustomer.page * searchParamsCustomer.size,
+          }));
+          setDataTableUser(response.result.users);
+          setPaginationCustomer((prev) => ({
+            ...prev,
+            total: response.result.pagination?.total,
+          }));
+        }
+      } catch (err) { }
+    };
+
+    getListCus();
     getListWithdraw();
     getListDeposit();
     getListSuccess();
     getListHistoryOrders();
     getUserDt();
-  }, [user._id, user.isShop, user.role, refresh]);
+  }, [user._id, user.isShop, user.role, refresh, searchParamsCustomer]);
 
+
+  const handleTableChangeCustomer = (pagination) => {
+    setSearchParamsCustomer({
+      ...searchParamsCustomer,
+      page: pagination.current - 1,
+      size: pagination.pageSize,
+    });
+    setPaginationCustomer(pagination);
+  };
   return (
     <div className="tab_container">
       {activeMenu === "1" && (
@@ -152,6 +193,10 @@ export const Tabs = ({ activeMenu }) => {
           userId={user._id}
           totalAmount={totalAmount}
           totalOrderSuccess={totalOrderSuccess}
+        />
+      )}
+      {activeMenu === "21" && (
+        <ListUser dataTable={dataTableUser}
         />
       )}
       {activeMenu === "13" && (

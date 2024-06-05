@@ -1,0 +1,77 @@
+.cart-container {
+  max-width: 1000px; /* Increase the max-width for more space */
+  margin: auto;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.cart-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed; /* Makes the columns take equal space */
+}
+
+.cart-table th,
+.cart-table td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.product-column {
+  width: 40%; /* Adjust the width as needed */
+}
+
+.price-column {
+  width: 15%; /* Adjust the width as needed */
+}
+
+.tax-column {
+  width: 15%; /* Adjust the width as needed */
+}
+
+.quantity-column {
+  width: 15%; /* Adjust the width as needed */
+}
+
+.total-column {
+  width: 15%; /* Adjust the width as needed */
+}
+
+.remove-column {
+  width: 10%; /* Adjust the width as needed */
+}
+
+.product-info {
+  display: flex;
+  align-items: center;
+}
+
+.product-image {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  margin-right: 10px;
+}
+
+.quantity-controls {
+  display: flex;
+  align-items: center;
+}
+
+.quantity-controls span {
+  margin: 0 5px;
+}
+
+.remove-icon {
+  cursor: pointer;
+  color: red;
+}
+
+.cart-summary {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

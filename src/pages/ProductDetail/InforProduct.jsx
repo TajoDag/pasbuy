@@ -31,7 +31,7 @@ export const InforProduct = ({ detail }) => {
     }
   };
   const intl = useIntl();
-  const Success = intl.formatMessage({ id: "Success add cart" });
+  const Success = intl.formatMessage({ id: "Success add to cart" });
   const handleAddToCart = () => {
     const cartItem = {
       _id: detail._id,

@@ -14,9 +14,11 @@ import {
   useIsMobile,
   useIsTablet,
 } from "../../../utils/responsive";
+import { UserSwitchOutlined } from "@ant-design/icons";
 
 const menu = [
   { key: "1", name: "Dashboard", icon: <IoHomeOutline /> },
+  { key: "21", name: "Customers", icon: <UserSwitchOutlined /> },
   { key: "13", name: "Warehouse", icon: <MdOutlineProductionQuantityLimits /> },
   { key: "2", name: "Purchase History", icon: <MdHistory /> },
   // { key: "3", name: "Download", icon: <AiOutlineDownload /> },
