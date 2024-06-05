@@ -13,7 +13,7 @@ import { startLoading, stopLoading } from "../../redux/reducers/loadingReducer";
 import { showNotification } from "../../redux/reducers/notificationReducer";
 
 const Cart = () => {
-    const { cartItems, removeFromCart, addToCart } = useCart();
+    const { cartItems, removeFromCart, addToCart, clearCart } = useCart();
     const navigate = useNavigate();
     const { currency } = useCurrency();
     const [form] = Form.useForm();
@@ -82,6 +82,8 @@ const Cart = () => {
                         type: "success",
                     })
                 );
+                clearCart();
+                localStorage.removeItem('cartItems');
                 handleCancel()
             } else {
                 dispatch(
