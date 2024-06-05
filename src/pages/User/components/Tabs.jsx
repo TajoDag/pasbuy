@@ -157,7 +157,7 @@ export const Tabs = ({ activeMenu }) => {
             ...item,
             stt: i + 1 + searchParamsCustomer.page * searchParamsCustomer.size,
           }));
-          setDataTableUser(response.result.users);
+          setDataTableUser(cus);
           setPaginationCustomer((prev) => ({
             ...prev,
             total: response.result.pagination?.total,
