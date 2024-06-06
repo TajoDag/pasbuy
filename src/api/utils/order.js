@@ -6,3 +6,6 @@ export const getListOrders = (id) =>
 
 export const createOrderUser = (body) =>
   request("post", `${API}/${endpoints.orders.create}`, body);
+
+export const addToWarehouse = (body) =>
+  request("post", `${API}/${endpoints.orders.addToWarehouse}`, body);

@@ -66,10 +66,10 @@ export const Tabs = ({ activeMenu }) => {
             }));
             setAgency(updatedProducts);
           } else {
-            dispatch(showNotification({ message: Error, type: "error" }));
+            // dispatch(showNotification({ message: Error, type: "error" }));
           }
         } catch (err) {
-          dispatch(showNotification({ message: Error, type: "error" }));
+          // dispatch(showNotification({ message: Error, type: "error" }));
         }
       };
       const getListOrderNotSuccess = async () => {
@@ -79,11 +79,11 @@ export const Tabs = ({ activeMenu }) => {
             if (rp.status) {
               setTotalOrderNotSuccess(rp.result.pagination.total);
             } else {
-              dispatch(showNotification({ message: Error, type: "error" }));
+              // dispatch(showNotification({ message: Error, type: "error" }));
             }
           }
         } catch (err) {
-          dispatch(showNotification({ message: Error, type: "error" }));
+          // dispatch(showNotification({ message: Error, type: "error" }));
         }
       };
       getAgency();
@@ -101,11 +101,11 @@ export const Tabs = ({ activeMenu }) => {
             }));
             setDataOrders(updatedProducts);
           } else {
-            dispatch(showNotification({ message: Error, type: "error" }));
+            // dispatch(showNotification({ message: Error, type: "error" }));
           }
         }
       } catch (err) {
-        dispatch(showNotification({ message: Error, type: "error" }));
+        // dispatch(showNotification({ message: Error, type: "error" }));
       }
     };
     const getUserDt = async () => {
@@ -115,7 +115,7 @@ export const Tabs = ({ activeMenu }) => {
           setDataUser(rp.result);
         }
       } catch (err) {
-        dispatch(showNotification({ message: Error, type: "error" }));
+        // dispatch(showNotification({ message: Error, type: "error" }));
       }
     };
     const getListSuccess = async () => {

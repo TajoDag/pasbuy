@@ -52,6 +52,7 @@ export const endpoints = {
   orders: {
     getListOrders: `customer/order/all`,
     create: `customer/order/create`,
+    addToWarehouse: `agency/order/to-house`,
   },
   livechat: {
     get: `configLiveChat`,
