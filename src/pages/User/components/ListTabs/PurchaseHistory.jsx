@@ -8,7 +8,7 @@ import { TagsOrder } from "../../../../utils/TagsOrder";
 import { FaEye } from "react-icons/fa";
 import { useIsMobile } from "../../../../utils/responsive";
 
-export const PurchaseHistory = ({ dataOrders }) => {
+export const PurchaseHistory = ({ dataOrders, dataUser }) => {
   const { currency } = useCurrency();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [idOrder, setIdOrder] = useState("");
@@ -36,6 +36,55 @@ export const PurchaseHistory = ({ dataOrders }) => {
       title: <TranslateTing text="Order Id" />,
       dataIndex: "_id",
     },
+
+    {
+      title: <TranslateTing text="Amount" />,
+      dataIndex: "totalPrice",
+      render: (text) => <>{formatPrice(text, currency)}</>,
+    },
+    {
+      title: <TranslateTing text="Status" />,
+      dataIndex: "orderStatus",
+      render: (value) => TagsOrder(value),
+    },
+    {
+      title: <TranslateTing text="Orders location" />,
+      dataIndex: "orderLocation",
+      render: (value) => <TranslateTing text={value} />,
+    },
+    {
+      title: " ",
+      render: (_, record) => {
+        return (
+          <Space size="middle">
+            <Button
+              icon={<FaEye />}
+              onClick={() => {
+                showModal(true);
+                setIdOrder(record._id);
+                setDataItems(record.orderItems);
+              }}
+            />
+          </Space>
+        );
+      },
+    },
+  ];
+
+  const columnsAgency = [
+    {
+      title: "#",
+      dataIndex: "stt",
+    },
+    {
+      title: <TranslateTing text="Date" />,
+      render: (text) => <DateTimeComponent dateString={text.createdAt} />,
+    },
+    {
+      title: <TranslateTing text="Order Id" />,
+      dataIndex: "_id",
+    },
+
     {
       title: <TranslateTing text="Amount" />,
       dataIndex: "totalPrice",
