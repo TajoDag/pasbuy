@@ -245,5 +245,7 @@
   "Please input your phone number!": "Vui lòng nhập số điện thoại của bạn!",
   "Please input your address!": "Vui lòng nhập địa chỉ của bạn!",
   "Customers": "Danh sách khách hàng",
-  "Add to warehouse": "Thêm vào kho hàng" 
+  "Add to warehouse": "Thêm vào kho hàng" ,
+  "Pending Payment": "Đang chờ thanh toán",
+"Paid": "Đã thanh toán"
 }

@@ -60,7 +60,7 @@ export const MenuUser = () => {
   }, [refresh]);
   const filteredMenu = dataUser.isShop
     ? menu
-    : menu.filter((item) => item.key !== "1" && item.key !== "13");
+    : menu.filter((item) => item.key !== "1" && item.key !== "13" && item.key !== "21");
   const handleLogout = () => {
     window.localStorage.clear();
     navigate("/");

@@ -208,7 +208,7 @@ export const Tabs = ({ activeMenu }) => {
         />
       )}
       {activeMenu === "2" && (
-        <PurchaseHistory dataOrders={dataOrders} userId={user._id} />
+        <PurchaseHistory dataOrders={dataOrders} userId={user._id} dataUser={dataUser} />
       )}
       {activeMenu === "3" && <Download />}
       {activeMenu === "4" && <SentRequest />}
