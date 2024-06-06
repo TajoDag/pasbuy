@@ -75,12 +75,10 @@ export const MenuUser = () => {
         />
         <h3>{dataUser.name}</h3>
         <p>{dataUser.email && dataUser.email}</p>
-        {dataUser.isShop && (
-          <p>
-            <TranslateTing text="Invite Code" /> :{" "}
-            {dataUser.inviteCode && dataUser.inviteCode}
-          </p>
-        )}
+        <p>
+          <TranslateTing text="Invite Code" /> :{" "}
+          {dataUser.inviteCode && dataUser.inviteCode}
+        </p>
       </div>
       <div className="menu_item">
         {filteredMenu.map((item) => (
