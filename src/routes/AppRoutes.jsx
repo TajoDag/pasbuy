@@ -9,10 +9,10 @@ import { useSelector } from "react-redux";
 import { getLiveChat } from "../api/utils/livechat";
 import CrispWidget from "../utils/CrispWidget";
 import LiveChatWidget from "../utils/LiveChatWidget";
-
+import ChatIcon from "../pages/Chat/ChatIcon";
 
 const getLicenseIdFromUrl = (url) => {
-  const parts = url.split('/');
+  const parts = url.split("/");
   return parts[parts.length - 2]; // Lấy phần tử thứ hai từ cuối cùng
 };
 export default function AppRoutes() {
@@ -65,8 +65,9 @@ export default function AppRoutes() {
         <CrispWidget keyLiveChat={keyLiveChat} />
       ) : null} */}
       {isAuthenticated === true && keyLiveChat && (
-        // <CrispWidget keyLiveChat={keyLiveChat} />
-        <LiveChatWidget license={keyLiveChat} />
+        // <CrispWidget keyLiveChat="53744e9b-2ccf-4378-b4a2-e6f6e2d7be58" />
+        // <LiveChatWidget license={keyLiveChat} />
+        <ChatIcon />
       )}
     </Suspense>
   );

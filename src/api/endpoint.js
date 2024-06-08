@@ -71,4 +71,10 @@ export const endpoints = {
     getWithdraw: `user/wallet/withdraw-history`,
     postRequest: `user/wallet/request`,
   },
+  chat: {
+    createChat: "chat/create",
+    addMessage: "chat/message",
+    getUserChats: "chat/user",
+    findUserInChat: "chat/search"
+  }
 };
