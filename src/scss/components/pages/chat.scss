@@ -1,125 +1,184 @@
 .chat-container {
-    position: fixed;
-    bottom: 90px;
-    right: 20px;
-    width: 300px;
-    height: 450px;
-    background-color: #fff;
-    border: 1px solid #dcdcdc;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    border-radius: 10px;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    z-index: 1000;
-  
-    @media (max-width: 768px) {
-      width: 90%;
-      height: 70%;
-      bottom: 20px;
-      right: 5%;
-    }
-  
-    @media (max-width: 480px) {
-      width: 95%;
-      height: 80%;
-      bottom: 10px;
-      right: 2.5%;
-    }
+  position: fixed;
+  bottom: 90px;
+  right: 20px;
+  width: 350px;
+  height: 450px;
+  background-color: #fff;
+  border: 1px solid #dcdcdc;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+}
+
+@media (max-width: 768px) {
+  .chat-container {
+    width: 90%;
+    height: 70%;
+    bottom: 20px;
+    right: 5%;
   }
-  
-  .chat-header {
-    background-color: #007bff;
-    color: white;
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
+}
+
+@media (max-width: 480px) {
+  .chat-container {
+    width: 95%;
+    height: 80%;
+    bottom: 10px;
+    right: 2.5%;
   }
-  
-  .chat-header-info {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-    width: 100%;
-    justify-content: space-between;
-  }
-  
-  .chat-title {
-    font-size: 18px;
-    font-weight: bold;
-  }
-  
-  .close-button {
-    background: transparent;
-    border: none;
-    color: white;
-    cursor: pointer;
-  }
-  
-  .chat-support-status {
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-  }
-  
-  .support-dot {
-    width: 8px;
-    height: 8px;
-    background-color: green;
-    border-radius: 50%;
-    margin-right: 5px;
-  }
-  
-  .chat-messages {
-    flex: 1;
-    padding: 10px;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .message {
-    display: flex;
-    align-items: flex-start;
-    margin-bottom: 10px;
-  }
-  
-  .message img {
-    max-width: 100%;
-    border-radius: 10px;
-    margin-bottom: 5px;
-  }
-  
-  .chat-input-container {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    border-top: 1px solid #dcdcdc;
-  }
-  
-  .chat-input {
-    flex: 1;
-    padding: 10px;
-    border: 1px solid #dcdcdc;
-    border-radius: 5px;
-    margin-right: 10px;
-  }
-  
-  .upload-button {
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    margin-right: 10px;
-  }
-  
-  .send-button {
-    background: #007bff;
-    color: white;
-    border: none;
-    padding: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
+}
+
+.chat-header {
+  background-color: #007bff;
+  color: white;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.chat-header-info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.chat-title {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.close-button {
+  background: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+.chat-support-status {
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+}
+
+.support-dot {
+  width: 8px;
+  height: 8px;
+  background-color: green;
+  border-radius: 50%;
+  margin-right: 5px;
+}
+
+.chat-messages {
+  flex: 1;
+  padding: 10px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.message-item {
+  display: flex;
+  flex-direction: column; /* Để timestamp nằm dưới message-content */
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+
+.message-item.own {
+  align-items: flex-end;
+}
+
+.message-content {
+  max-width: 80%;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #007bff;
+  color: white;
+  position: relative;
+}
+
+.message-item.own .message-content {
+  background-color: #e0e0e0;
+  color: black;
+}
+
+.message-timestamp {
+  font-size: 12px;
+  color: #888;
+  margin-top: 5px;
+  text-align: right;
+}
+
+.message-item.recipient .message-timestamp {
+  color: black; /* Màu chữ cho message-timestamp bên recipient */
+}
+
+.chat-input-container {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-top: 1px solid #dcdcdc;
+  gap: 10px; /* Đảm bảo có khoảng cách đều giữa các phần tử */
+}
+
+.upload-button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px; /* Đặt kích thước cụ thể cho nút upload */
+  height: 40px;
+  padding: 0;
+}
+
+.chat-input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #dcdcdc;
+  border-radius: 5px;
+}
+
+.send-button {
+  background: #007bff;
+  color: white;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.chat-icon {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+}
+
+.chat-icon svg {
+  width: 30px;
+  height: 30px;
+}

@@ -49,6 +49,7 @@ export const Dashboard = ({
     setOpenDetail(false);
     setDataItems([]);
   };
+
   const column = [
     {
       title: "#",
@@ -71,9 +72,9 @@ export const Dashboard = ({
       align: "center",
     },
     {
-      title: <TranslateTing text="Note" />,
-      dataIndex: "note",
-      key: "note",
+      title: <TranslateTing text="Address" />,
+      dataIndex: "address",
+      key: "address",
       width: 250,
       align: "center",
     },

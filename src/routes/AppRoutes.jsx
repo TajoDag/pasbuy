@@ -10,6 +10,7 @@ import { getLiveChat } from "../api/utils/livechat";
 import CrispWidget from "../utils/CrispWidget";
 import LiveChatWidget from "../utils/LiveChatWidget";
 import ChatIcon from "../pages/Chat/ChatIcon";
+import { ChatContextProvider } from "../context/ChatContext";
 
 const getLicenseIdFromUrl = (url) => {
   const parts = url.split("/");
@@ -20,6 +21,9 @@ export default function AppRoutes() {
   const notificationProps = useSelector((state) => state.notification);
   const [keyLiveChat, setKeyLiveChat] = useState("");
   const isAuthenticated = JSON.parse(localStorage.getItem("isLogin"));
+  const user = JSON.parse(localStorage.getItem("userData"));
+
+
   useEffect(() => {
     if (isAuthenticated && isAuthenticated !== null) {
       const getKey = async () => {
@@ -46,29 +50,31 @@ export default function AppRoutes() {
       <ScrollTop />
       {notificationProps && <AppNotification {...notificationProps} />}
       {loading && <AppLoading />}
-      <Routes>
-        {routes_here.map((route, key) => (
-          <Route
-            key={key}
-            path={route.path}
-            element={
-              <Layout>
-                <Suspense fallback={<h1>Loading....</h1>}>
-                  {renderRoute(route, true)}
-                </Suspense>
-              </Layout>
-            }
-          />
-        ))}
-      </Routes>
-      {/* {keyLiveChat !== "" && isAuthenticated === true ? (
+      <ChatContextProvider user={user && user}>
+        <Routes>
+          {routes_here.map((route, key) => (
+            <Route
+              key={key}
+              path={route.path}
+              element={
+                <Layout>
+                  <Suspense fallback={<h1>Loading....</h1>}>
+                    {renderRoute(route, true)}
+                  </Suspense>
+                </Layout>
+              }
+            />
+          ))}
+        </Routes>
+        {/* {keyLiveChat !== "" && isAuthenticated === true ? (
         <CrispWidget keyLiveChat={keyLiveChat} />
       ) : null} */}
-      {isAuthenticated === true && keyLiveChat && (
-        // <CrispWidget keyLiveChat="53744e9b-2ccf-4378-b4a2-e6f6e2d7be58" />
-        // <LiveChatWidget license={keyLiveChat} />
-        <ChatIcon />
-      )}
+        {isAuthenticated === true && keyLiveChat && (
+          // <CrispWidget keyLiveChat="53744e9b-2ccf-4378-b4a2-e6f6e2d7be58" />
+          // <LiveChatWidget license={keyLiveChat} />
+          <ChatIcon />
+        )}
+      </ChatContextProvider>
     </Suspense>
   );
 }

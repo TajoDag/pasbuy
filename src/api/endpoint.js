@@ -74,7 +74,9 @@ export const endpoints = {
   chat: {
     createChat: "chat/create",
     addMessage: "chat/message",
-    getUserChats: "chat/user",
-    findUserInChat: "chat/search"
-  }
+    getUserChat: "chat/user",
+    findUserInChat: "chat/search",
+    getMessageUserChat: "chat",
+    createMessage: `chat/createMessage`,
+  },
 };

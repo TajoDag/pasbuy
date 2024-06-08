@@ -55,3 +55,7 @@ export const formatPrice = (price, currency) => {
     return `${symbol} ${convertedPrice.toLocaleString()}`;
   }
 };
+
+export const unreadNotificationFunc = (notifications) => {
+  return notifications.filter((n) => n.isRead === false);
+};

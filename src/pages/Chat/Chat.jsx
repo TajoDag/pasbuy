@@ -1,72 +1,31 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { FiX, FiImage, FiSend } from "react-icons/fi";
-import io from "socket.io-client";
-import {
-  createChat,
-  addMessageToChat,
-  getUserChats,
-} from "../../api/utils/chat";
-
-const socket = io("http://localhost:4000");
+import { ChatContext } from "../../context/ChatContext";
+import DateTimeComponent from "../../utils/DateTimeComponent";
 
 const Chat = ({ toggleChat }) => {
-  const [messages, setMessages] = useState([]);
-  const [newMessage, setNewMessage] = useState("");
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [chatId, setChatId] = useState(null);
   const user = JSON.parse(localStorage.getItem("userData"));
+  const [message, setMessage] = useState("");
+  const { currentChat, messages, isMessagesLoading, sendTextMessage, updateCurrentChat, userChats } = useContext(ChatContext);
+  const messagesEndRef = useRef(null);
 
   useEffect(() => {
-    const fetchChats = async () => {
-      try {
-        const userChats = await getUserChats(user._id);
-        if (userChats.length > 0) {
-          setChatId(userChats[0]._id);
-          setMessages(userChats[0].messages);
-          socket.emit("joinRoom", { chatId: userChats[0]._id });
-        } else {
-          const newChat = await createChat({
-            participants: [user._id, "ADMIN_ID"],
-            message: { sender: user._id, content: "" }
-          });
-          setChatId(newChat._id);
-          socket.emit("joinRoom", { chatId: newChat._id });
-        }
-      } catch (error) {
-        console.error("Error fetching chats:", error);
-      }
-    };
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages]);
 
-    fetchChats();
-
-    socket.on("receiveMessage", (message) => {
-      setMessages((prevMessages) => [...prevMessages, message]);
-    });
-
-    return () => {
-      socket.disconnect();
-    };
-  }, [user._id]);
+  const handleInputChange = (e) => {
+    setMessage(e.target.value);
+  };
 
   const handleSendMessage = async () => {
-    const formData = new FormData();
-    formData.append("chatId", chatId);
-    formData.append("sender", user._id);
-    formData.append("content", newMessage);
-    if (selectedFile) {
-      formData.append("image", selectedFile);
-    }
-
-    try {
-      const response = await addMessageToChat(formData);
-      const message = response.data;
-      socket.emit("sendMessage", { chatId, message });
-      setNewMessage("");
-      setSelectedFile(null);
-    } catch (error) {
-      console.error("Error sending message:", error);
-    }
+    sendTextMessage(message, user._id, currentChat?._id, setMessage);
   };
+
+  if (isMessagesLoading) {
+    return <p>Loading chat ...</p>;
+  }
 
   return (
     <div className="chat-container">
@@ -83,12 +42,19 @@ const Chat = ({ toggleChat }) => {
         </div>
       </div>
       <div className="chat-messages">
-        {messages.map((msg, index) => (
-          <div key={index} className="message">
-            {msg.imageUrl && <img src={`/${msg.imageUrl}`} alt="attachment" />}
-            <p>{msg.content}</p>
-          </div>
-        ))}
+        {messages &&
+          messages.map((message, index) => (
+            <div
+              key={index}
+              className={`message-item ${message.senderId === user._id ? "own" : "recipient"}`}
+            >
+              <div className="message-content">{message.text}</div>
+              <div className="message-timestamp">
+                <DateTimeComponent dateString={message.createdAt} />
+              </div>
+            </div>
+          ))}
+        <div ref={messagesEndRef} />
       </div>
       <div className="chat-input-container">
         <input
@@ -102,12 +68,12 @@ const Chat = ({ toggleChat }) => {
         </label>
         <input
           type="text"
-          value={newMessage}
-          onChange={(e) => setNewMessage(e.target.value)}
+          value={message}
+          onChange={handleInputChange}
           className="chat-input"
           placeholder="Compose your message..."
         />
-        <button onClick={handleSendMessage} className="send-button">
+        <button onClick={() => handleSendMessage()} className="send-button">
           <FiSend size={24} />
         </button>
       </div>
