@@ -48,12 +48,9 @@ export const ChatContextProvider = ({ children, user }) => {
             setOnlineUsers(res);
         });
         return () => {
-            socket.off("getOnlineUsers")
-        }
+            socket.off("getOnlineUsers");
+        };
     }, [socket]);
-
-
-
 
     // send message
     useEffect(() => {
@@ -86,8 +83,14 @@ export const ChatContextProvider = ({ children, user }) => {
                 setNotifications((prev) => [res, ...prev]);
                 notificationSound.play();
             }
+            notificationSound.play();
         });
+        return () => {
+            socket.off("getMessage");
+            socket.off("getNotification");
+        };
     }, [socket, currentChat]);
+
     useEffect(() => {
         const getUserChats = async () => {
             if (user?._id) {
@@ -178,25 +181,23 @@ export const ChatContextProvider = ({ children, user }) => {
 
     const markNotificationsAsRead = useCallback(
         (n, userChats, user, notifications) => {
-
             // FIND CHAT TO OPEN
             const desiredChat = userChats.find((chat) => {
                 const chatMembers = [user._id, n.senderId];
                 const isDesiredChat = chat?.members.every((member) => {
-
-                    return chatMembers.includes(member)
+                    return chatMembers.includes(member);
                 });
-                return isDesiredChat
+                return isDesiredChat;
             });
             //mark notification add read
             const mNotifications = notifications.map((el) => {
                 if (n.senderId === el.senderId) {
                     return { ...n, isRead: true };
                 } else {
-                    return el
+                    return el;
                 }
-            })
-            updateCurrentChat(desiredChat)
+            });
+            updateCurrentChat(desiredChat);
             setNotifications(mNotifications);
         },
         []
@@ -221,9 +222,12 @@ export const ChatContextProvider = ({ children, user }) => {
         []
     );
 
-    const openChatWithMessage = () => {
+    //   const openChatWithMessage = () => {
+    //     setIsChatOpen(true);
+    //   };
+    const openChatWithMessage = useCallback(() => {
         setIsChatOpen(true);
-    };
+    })
     return (
         <ChatContext.Provider
             value={{
@@ -245,7 +249,9 @@ export const ChatContextProvider = ({ children, user }) => {
                 notifications,
                 markNotificationsAsRead,
                 markThisUserNotificationsAsRead,
-                isChatOpen, openChatWithMessage, setIsChatOpen
+                isChatOpen,
+                openChatWithMessage,
+                setIsChatOpen,
             }}
         >
             {children}

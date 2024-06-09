@@ -11,6 +11,7 @@ import CrispWidget from "../utils/CrispWidget";
 import LiveChatWidget from "../utils/LiveChatWidget";
 import ChatIcon from "../pages/Chat/ChatIcon";
 import { ChatContextProvider } from "../context/ChatContext";
+import { getUser } from "../api/utils/auth";
 
 const getLicenseIdFromUrl = (url) => {
   const parts = url.split("/");
@@ -22,24 +23,25 @@ export default function AppRoutes() {
   const [keyLiveChat, setKeyLiveChat] = useState("");
   const isAuthenticated = JSON.parse(localStorage.getItem("isLogin"));
   const user = JSON.parse(localStorage.getItem("userData"));
-
-
+  const [dataUser, setDataUser] = useState({});
+  const [showIcon, setShowIcon] = useState(false);
   useEffect(() => {
     if (isAuthenticated && isAuthenticated !== null) {
-      const getKey = async () => {
+      const getUserDt = async () => {
         try {
-          const rp = await getLiveChat("665461c54715f752a552f7a2");
-          if (rp && rp) {
-            setKeyLiveChat(getLicenseIdFromUrl(rp.result.keyLive));
+          const rp = await getUser();
+          if (rp.status) {
+            setDataUser(rp.result);
+            setShowIcon(true);
           }
-        } catch (error) {
-          console.error("Error fetching live chat key:", error);
+        } catch (err) {
+          setShowIcon(false);
         }
       };
-
-      getKey();
+      getUserDt();
     }
   }, [isAuthenticated]);
+
   const renderRoute = (route, isAuthenticated) => {
     if (route.isPrivate || isAuthenticated) {
       return route.element;
@@ -66,12 +68,10 @@ export default function AppRoutes() {
             />
           ))}
         </Routes>
-        {/* {keyLiveChat !== "" && isAuthenticated === true ? (
-        <CrispWidget keyLiveChat={keyLiveChat} />
-      ) : null} */}
-        {isAuthenticated === true && keyLiveChat && (
+        {isAuthenticated === true && (
           // <CrispWidget keyLiveChat="53744e9b-2ccf-4378-b4a2-e6f6e2d7be58" />
           // <LiveChatWidget license={keyLiveChat} />
+          // <ChatIcon />
           <ChatIcon initialMessage={`Product link: ${window.location.href}`} />
         )}
       </ChatContextProvider>

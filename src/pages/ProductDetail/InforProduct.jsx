@@ -23,13 +23,24 @@ export const InforProduct = ({ detail }) => {
   const { addToCart } = useCart();
   const {
 
-    openChatWithMessage
+    openChatWithMessage,
+    userChats,
+    updateCurrentChat,
+    isChatOpen, setIsChatOpen,
+    createChat,
   } = useContext(ChatContext);
 
   const dispatch = useDispatch();
   let price = detail.price;
   const handleMessageSeller = () => {
-    openChatWithMessage();
+    // openChatWithMessage();
+    if (userChats && userChats.length < 1) {
+      createChat();
+      openChatWithMessage()
+    } else {
+      updateCurrentChat(userChats[0]);
+      openChatWithMessage()
+    }
   };
 
   const intl = useIntl();

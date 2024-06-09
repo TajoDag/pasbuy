@@ -17,7 +17,7 @@ const ChatIcon = () => {
   const toggleChat = async () => {
     if (userChats && userChats.length < 1) {
       await createChat();
-      setIsChatOpen(true);
+      setIsChatOpen((prev) => !prev);
     } else {
       await updateCurrentChat(userChats[0]);
       setIsChatOpen((prev) => !prev);
