@@ -97,8 +97,13 @@ export const ChatContextProvider = ({ children, user }) => {
                 setIsUserChatsLoading(true);
                 try {
                     const response = await getUserChat(user?._id);
+
                     if (response.status) {
                         setUserChats(response.result);
+                        if (response.result?.length < 1) {
+                            createChat()
+                        }
+
                     } else {
                         setUserChatsError(response.message);
                     }
