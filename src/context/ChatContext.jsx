@@ -25,6 +25,7 @@ export const ChatContextProvider = ({ children, user }) => {
     const [onlineUsers, setOnlineUsers] = useState(null);
     const [isChatId, setIsChatId] = useState(null);
     const [notifications, setNotifications] = useState([]);
+    const [isChatOpen, setIsChatOpen] = useState(false);
     const notificationSound = new Audio(audio);
 
     //initial socket
@@ -218,6 +219,10 @@ export const ChatContextProvider = ({ children, user }) => {
         },
         []
     );
+
+    const openChatWithMessage = () => {
+        setIsChatOpen(true);
+    };
     return (
         <ChatContext.Provider
             value={{
@@ -238,7 +243,8 @@ export const ChatContextProvider = ({ children, user }) => {
                 isChatId,
                 notifications,
                 markNotificationsAsRead,
-                markThisUserNotificationsAsRead
+                markThisUserNotificationsAsRead,
+                isChatOpen, openChatWithMessage, setIsChatOpen
             }}
         >
             {children}

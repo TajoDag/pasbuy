@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { IoMdStar } from "react-icons/io";
 import { CgMail } from "react-icons/cg";
 import { FaFacebookSquare } from "react-icons/fa";
@@ -15,21 +15,23 @@ import { useCart } from "../../context/CartContext";
 import { useDispatch } from "react-redux";
 import { useIntl } from "react-intl";
 import { showNotification } from "../../redux/reducers/notificationReducer";
+import { ChatContext } from "../../context/ChatContext";
 export const InforProduct = ({ detail }) => {
   const [quantity, setQuantity] = React.useState(1);
   const { currency } = useCurrency();
+  const [initialMessage, setInitialMessage] = useState("");
   const { addToCart } = useCart();
+  const {
+
+    openChatWithMessage
+  } = useContext(ChatContext);
+
   const dispatch = useDispatch();
   let price = detail.price;
   const handleMessageSeller = () => {
-    const currentURL = window.location.href;
-    if (window.LiveChatWidget) {
-      window.LiveChatWidget.call("maximize");
-      window.LiveChatWidget.call("sendMessage", `I'm interested in this product: ${currentURL}`); // Gửi tin nhắn
-    } else {
-      console.error("LiveChatWidget is not available");
-    }
+    openChatWithMessage();
   };
+
   const intl = useIntl();
   const Success = intl.formatMessage({ id: "Success add to cart" });
   const handleAddToCart = () => {
