@@ -33,7 +33,6 @@ export default function Login() {
       }
     } catch (err) {
       setIsLogin(false);
-      dispatch(showNotification({ message: Error, type: "error" }));
     }
   };
   const placeholderUsername = intl.formatMessage({ id: "Username" });
