@@ -106,44 +106,44 @@ const Stock = ({ data, userId, refresh, refecth }) => {
       width: 90,
       dataIndex: "quantity",
     },
-    {
-      title: " ",
-      width: 70,
-      render: (_, record) => {
-        return isChangePrice && selectedProductId === record.product._id ? (
-          <Space size="middle">
-            <Button
-              className="changeHoverBtn"
-              icon={<MdCancel />}
-              onClick={handleCancelChangePrice}
-            />
-            <Tooltip title={<TranslateTing text="Change price" />}>
-              <Popconfirm
-                title={<TranslateTing text="Change price" />}
-                description={
-                  <TranslateTing text="Do you want to change price?" />
-                }
-                onConfirm={() => {
-                  handleCancelChangePrice();
-                }}
-              >
-                <Button className="changeHoverBtn" icon={<SiVerizon />} />
-              </Popconfirm>
-            </Tooltip>
-          </Space>
-        ) : (
-          <Space size="middle">
-            <Tooltip title={<TranslateTing text="Change price" />}>
-              <Button
-                className="changeHoverBtn"
-                icon={<MdOutlinePriceChange />}
-                onClick={() => handleChangePrice(record.product._id)}
-              />
-            </Tooltip>
-          </Space>
-        );
-      },
-    },
+    // {
+    //   title: " ",
+    //   width: 70,
+    //   render: (_, record) => {
+    //     return isChangePrice && selectedProductId === record.product._id ? (
+    //       <Space size="middle">
+    //         <Button
+    //           className="changeHoverBtn"
+    //           icon={<MdCancel />}
+    //           onClick={handleCancelChangePrice}
+    //         />
+    //         <Tooltip title={<TranslateTing text="Change price" />}>
+    //           <Popconfirm
+    //             title={<TranslateTing text="Change price" />}
+    //             description={
+    //               <TranslateTing text="Do you want to change price?" />
+    //             }
+    //             onConfirm={() => {
+    //               handleCancelChangePrice();
+    //             }}
+    //           >
+    //             <Button className="changeHoverBtn" icon={<SiVerizon />} />
+    //           </Popconfirm>
+    //         </Tooltip>
+    //       </Space>
+    //     ) : (
+    //       <Space size="middle">
+    //         <Tooltip title={<TranslateTing text="Change price" />}>
+    //           <Button
+    //             className="changeHoverBtn"
+    //             icon={<MdOutlinePriceChange />}
+    //             onClick={() => handleChangePrice(record.product._id)}
+    //           />
+    //         </Tooltip>
+    //       </Space>
+    //     );
+    //   },
+    // },
   ];
 
   return (

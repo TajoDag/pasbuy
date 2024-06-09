@@ -17,7 +17,7 @@ export default function Login() {
   const { setValue: setUserData } = useLocalStorage("userData", "");
   const intl = useIntl();
   const Success = intl.formatMessage({ id: "Success" });
-  const Error = intl.formatMessage({ id: "Success" });
+  const Error = intl.formatMessage({ id: "Error" });
   const onFinish = async (values) => {
     try {
       const response = await loginUser(values);
