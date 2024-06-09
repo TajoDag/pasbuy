@@ -13,7 +13,7 @@ const Register = () => {
   const location = useLocation();
   const intl = useIntl();
   const Success = intl.formatMessage({ id: "Success" });
-  const Error = intl.formatMessage({ id: "Success" });
+  const Error = intl.formatMessage({ id: "Error" });
   const onFinish = async (values) => {
     if (location.pathname === "/register") {
       dispatch(startLoading());
