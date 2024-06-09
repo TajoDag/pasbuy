@@ -25,7 +25,7 @@ export default function Login() {
         setToken(response.result.token);
         setIsLogin(true);
         setUserData(response.result.user);
-        dispatch(showNotification({ message: Success, type: "success" }));
+        // dispatch(showNotification({ message: Success, type: "success" }));
         navigate("/");
       } else {
         setIsLogin(false);
