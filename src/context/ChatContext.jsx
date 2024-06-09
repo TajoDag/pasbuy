@@ -7,6 +7,7 @@ import {
 } from "../api/utils/chat";
 import { io } from "socket.io-client";
 import audio from "../assets/sound-bet.mp3";
+import { SOCKET_URL } from "../api/endpoint";
 
 export const ChatContext = createContext();
 
@@ -31,7 +32,7 @@ export const ChatContextProvider = ({ children, user }) => {
     //initial socket
 
     useEffect(() => {
-        const newSocket = io("https://server-socket-8z9p.onrender.com");
+        const newSocket = io(SOCKET_URL);
         setSocket(newSocket);
 
         return () => {
