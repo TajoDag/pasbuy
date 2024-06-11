@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect, useState } from "react";
+import React, { Suspense, useEffect, useRef, useState } from "react";
 import Layout from "../layouts/Layout";
 import { routes_here } from "./routes";
 import { Route, Routes, useNavigate } from "react-router-dom";
@@ -14,6 +14,7 @@ import { ChatContextProvider } from "../context/ChatContext";
 import { getUser } from "../api/utils/auth";
 import { SOCKET_URL } from "../api/endpoint";
 import { io } from "socket.io-client";
+import useSocket from "../hooks/useSocket";
 
 const getLicenseIdFromUrl = (url) => {
   const parts = url.split("/");
@@ -22,12 +23,9 @@ const getLicenseIdFromUrl = (url) => {
 export default function AppRoutes() {
   const loading = useSelector((state) => state.loading.loading);
   const notificationProps = useSelector((state) => state.notification);
-  const [keyLiveChat, setKeyLiveChat] = useState("");
   const isAuthenticated = JSON.parse(localStorage.getItem("isLogin"));
-  const user = JSON.parse(localStorage.getItem("userData"));
   const [dataUser, setDataUser] = useState({});
   const [socket, setSocket] = useState(null);
-  const [forceLogoutUserId, setForceLogoutUserId] = useState(null);
   const navigate = useNavigate();
   useEffect(() => {
     if (isAuthenticated && isAuthenticated !== null) {
@@ -40,41 +38,19 @@ export default function AppRoutes() {
         } catch (err) {}
       };
       getUserDt();
+      // const newSocket = io(SOCKET_URL);
+
+      // newSocket.on("forceLogout", () => {
+      //   window.localStorage.clear();
+      //   window.location.href = "/login";
+      // });
+
+      // return () => {
+      //   newSocket.disconnect();
+      // };
     }
-  }, [isAuthenticated]);
-  useEffect(() => {
-    if (isAuthenticated) {
-      const newSocket = io(SOCKET_URL);
-      setSocket(newSocket);
-
-      newSocket.on("connect", () => {
-        if (dataUser && dataUser?._id) {
-          newSocket.emit("addNewUser", {
-            userId: dataUser?._id,
-            role: dataUser?.role,
-          });
-        }
-
-        // Lắng nghe sự kiện forceLogout từ server
-        newSocket.on("forceLogout", () => {
-          window.localStorage.clear();
-          navigate("/login");
-          window.location.reload();
-        });
-
-        // Lấy forceLogoutUserId
-        newSocket.emit("getForceLogoutUserId");
-        newSocket.on("receiveForceLogoutUserId", (data) => {
-          setForceLogoutUserId(data?.userId);
-        });
-      });
-
-      return () => {
-        newSocket.disconnect();
-      };
-    }
-  }, [isAuthenticated, dataUser, navigate, SOCKET_URL]);
-  console.log(forceLogoutUserId, "forceLogoutUserId");
+  }, [isAuthenticated, SOCKET_URL]);
+ 
   const renderRoute = (route, isAuthenticated) => {
     if (route.isPrivate || isAuthenticated) {
       return route.element;
