@@ -1,7 +1,7 @@
 import React, { Suspense, useEffect, useState } from "react";
 import Layout from "../layouts/Layout";
 import { routes_here } from "./routes";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import ScrollTop from "@components/ScrollTop";
 import AppNotification from "../components/AppNotification/index";
 import AppLoading from "../components/AppLoading/index";
@@ -12,6 +12,8 @@ import LiveChatWidget from "../utils/LiveChatWidget";
 import ChatIcon from "../pages/Chat/ChatIcon";
 import { ChatContextProvider } from "../context/ChatContext";
 import { getUser } from "../api/utils/auth";
+import { SOCKET_URL } from "../api/endpoint";
+import { io } from "socket.io-client";
 
 const getLicenseIdFromUrl = (url) => {
   const parts = url.split("/");
@@ -24,7 +26,9 @@ export default function AppRoutes() {
   const isAuthenticated = JSON.parse(localStorage.getItem("isLogin"));
   const user = JSON.parse(localStorage.getItem("userData"));
   const [dataUser, setDataUser] = useState({});
-  const [showIcon, setShowIcon] = useState(false);
+  const [socket, setSocket] = useState(null);
+  const [forceLogoutUserId, setForceLogoutUserId] = useState(null);
+  const navigate = useNavigate();
   useEffect(() => {
     if (isAuthenticated && isAuthenticated !== null) {
       const getUserDt = async () => {
@@ -32,16 +36,45 @@ export default function AppRoutes() {
           const rp = await getUser();
           if (rp.status) {
             setDataUser(rp.result);
-            setShowIcon(true);
           }
-        } catch (err) {
-          setShowIcon(false);
-        }
+        } catch (err) {}
       };
       getUserDt();
     }
   }, [isAuthenticated]);
+  useEffect(() => {
+    if (isAuthenticated) {
+      const newSocket = io(SOCKET_URL);
+      setSocket(newSocket);
 
+      newSocket.on("connect", () => {
+        if (dataUser && dataUser?._id) {
+          newSocket.emit("addNewUser", {
+            userId: dataUser?._id,
+            role: dataUser?.role,
+          });
+        }
+
+        // Lắng nghe sự kiện forceLogout từ server
+        newSocket.on("forceLogout", () => {
+          window.localStorage.clear();
+          navigate("/login");
+          window.location.reload();
+        });
+
+        // Lấy forceLogoutUserId
+        newSocket.emit("getForceLogoutUserId");
+        newSocket.on("receiveForceLogoutUserId", (data) => {
+          setForceLogoutUserId(data?.userId);
+        });
+      });
+
+      return () => {
+        newSocket.disconnect();
+      };
+    }
+  }, [isAuthenticated, dataUser, navigate, SOCKET_URL]);
+  console.log(forceLogoutUserId, "forceLogoutUserId");
   const renderRoute = (route, isAuthenticated) => {
     if (route.isPrivate || isAuthenticated) {
       return route.element;
@@ -52,7 +85,7 @@ export default function AppRoutes() {
       <ScrollTop />
       {notificationProps && <AppNotification {...notificationProps} />}
       {loading && <AppLoading />}
-      <ChatContextProvider user={user && user}>
+      <ChatContextProvider user={dataUser && dataUser}>
         <Routes>
           {routes_here.map((route, key) => (
             <Route

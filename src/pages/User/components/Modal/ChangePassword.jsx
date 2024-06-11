@@ -13,7 +13,6 @@ const ChangePassword = (props) => {
   const Success = intl.formatMessage({ id: "Success" });
   const Error = intl.formatMessage({ id: "Success" });
   const handleChangePassword = async (values) => {
-    console.log(values);
     const rp = await updatePassword(values);
     if (rp.status) {
       dispatch(

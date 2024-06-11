@@ -41,7 +41,7 @@ export const ChatContextProvider = ({ children, user }) => {
   // }, [user]);
 
   useEffect(() => {
-    if (user) {
+    if (user && user) {
       const newSocket = io(SOCKET_URL);
       setSocket(newSocket);
 
