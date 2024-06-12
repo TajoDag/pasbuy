@@ -27,8 +27,9 @@ const Chat = ({ toggleChat }) => {
   };
 
   const handleSendMessage = async (e) => {
-    e.preventDefault();
-    e.stopPropagation();
+    // e.preventDefault();
+    // e.stopPropagation();
+    e.blur();
     await sendTextMessage(message, user._id, currentChat?._id, setMessage);
   };
 
