@@ -23,6 +23,9 @@ const Chat = ({ toggleChat }) => {
   }, [messages]);
 
   const handleInputChange = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    inputRef.current.focus();
     setMessage(e.target.value);
   };
 
@@ -30,8 +33,6 @@ const Chat = ({ toggleChat }) => {
     e.preventDefault();
     e.stopPropagation();
     await sendTextMessage(message, user._id, currentChat?._id, setMessage);
-
-    inputRef.current.focus();
   };
 
   if (isMessagesLoading) {
