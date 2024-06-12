@@ -15,7 +15,7 @@ const Chat = ({ toggleChat }) => {
     userChats,
   } = useContext(ChatContext);
   const messagesEndRef = useRef(null);
-
+  const inputRef = useRef(null);
   useEffect(() => {
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
@@ -27,8 +27,10 @@ const Chat = ({ toggleChat }) => {
   };
 
   const handleSendMessage = async (e) => {
-    e.preventDefault();
     await sendTextMessage(message, user._id, currentChat?._id, setMessage);
+    e.preventDefault();
+    e.stopPropagation();
+    inputRef.current.focus();
   };
 
   if (isMessagesLoading) {
