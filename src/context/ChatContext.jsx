@@ -164,23 +164,26 @@ export const ChatContextProvider = ({ children, user }) => {
   }, [currentChat, user?._id]);
 
   const sendTextMessage = useCallback(
-    async (textMessage, senderId, currentChatId, setTextMessage) => {
+    async (textMessage, senderId, currentChatId, setTextMessage, setKey) => {
       let payload = {
         chatId: currentChatId,
         senderId: senderId,
         text: textMessage,
       };
       try {
+        setKey(true);
         const response = await createMessageUserChat(payload);
         if (response.status) {
           setNewMessage(response.result);
           setMessages((prev) => [...prev, response.result]);
           setTextMessage("");
+          setKey(false);
         } else {
           setSendTextMessageError(response.message);
         }
       } catch (e) {
       } finally {
+        setKey(false);
       }
     },
     []

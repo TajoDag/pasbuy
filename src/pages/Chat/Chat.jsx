@@ -6,6 +6,7 @@ import DateTimeComponent from "../../utils/DateTimeComponent";
 const Chat = ({ toggleChat }) => {
   const user = JSON.parse(localStorage.getItem("userData"));
   const [message, setMessage] = useState("");
+  const [key, setKey] = useState(false);
   const {
     currentChat,
     messages,
@@ -29,10 +30,13 @@ const Chat = ({ toggleChat }) => {
   const handleSendMessage = async (e) => {
     e.preventDefault();
     e.stopPropagation();
-    await sendTextMessage(message, user._id, currentChat?._id, setMessage);
-    setTimeout(() => {
-      inputRef.current.focus(); // Giữ focus trên input sau khi gửi
-    }, 0);
+    await sendTextMessage(
+      message,
+      user._id,
+      currentChat?._id,
+      setMessage,
+      setKey
+    );
   };
   const handleKeyPress = (e) => {
     if (e.key === "Enter" && !e.shiftKey) {
@@ -85,7 +89,6 @@ const Chat = ({ toggleChat }) => {
           <FiImage size={24} />
         </label>
         <input
-          ref={inputRef}
           type="text"
           value={message}
           onChange={handleInputChange}
@@ -93,7 +96,11 @@ const Chat = ({ toggleChat }) => {
           className="chat-input"
           placeholder="Compose your message..."
         />
-        <button onClick={(e) => handleSendMessage(e)} className="send-button">
+        <button
+          disabled={key}
+          onClick={(e) => handleSendMessage(e)}
+          className="send-button"
+        >
           <FiSend size={24} />
         </button>
       </div>
