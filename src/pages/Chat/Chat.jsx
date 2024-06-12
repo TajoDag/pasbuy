@@ -30,9 +30,15 @@ const Chat = ({ toggleChat }) => {
     e.preventDefault();
     e.stopPropagation();
     await sendTextMessage(message, user._id, currentChat?._id, setMessage);
-    inputRef.current.focus();
+    setTimeout(() => {
+      inputRef.current.focus(); // Giữ focus trên input sau khi gửi
+    }, 0);
   };
-
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      handleSendMessage(e);
+    }
+  };
   if (isMessagesLoading) {
     return <p>Loading chat ...</p>;
   }
@@ -83,6 +89,7 @@ const Chat = ({ toggleChat }) => {
           type="text"
           value={message}
           onChange={handleInputChange}
+          onKeyPress={handleKeyPress}
           className="chat-input"
           placeholder="Compose your message..."
         />
