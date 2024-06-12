@@ -23,9 +23,6 @@ const Chat = ({ toggleChat }) => {
   }, [messages]);
 
   const handleInputChange = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    inputRef.current.focus();
     setMessage(e.target.value);
   };
 
