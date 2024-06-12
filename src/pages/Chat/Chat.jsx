@@ -66,7 +66,7 @@ const Chat = ({ toggleChat }) => {
           ))}
         <div ref={messagesEndRef} />
       </div>
-      <div className="chat-input-container">
+      <form className="chat-input-container" onSubmit={handleSendMessage}>
         <input
           type="file"
           onChange={(e) => setSelectedFile(e.target.files[0])}
@@ -83,10 +83,10 @@ const Chat = ({ toggleChat }) => {
           className="chat-input"
           placeholder="Compose your message..."
         />
-        <button onClick={(e) => handleSendMessage(e)} className="send-button">
+        <button type="submit" className="send-button">
           <FiSend size={24} />
         </button>
-      </div>
+      </form>
     </div>
   );
 };
