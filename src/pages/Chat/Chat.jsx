@@ -90,7 +90,14 @@ import DateTimeComponent from "../../utils/DateTimeComponent";
 const Chat = ({ toggleChat }) => {
   const user = JSON.parse(localStorage.getItem("userData"));
   const [message, setMessage] = useState("");
-  const { currentChat, messages, isMessagesLoading, sendTextMessage, updateCurrentChat, userChats } = useContext(ChatContext);
+  const {
+    currentChat,
+    messages,
+    isMessagesLoading,
+    sendTextMessage,
+    updateCurrentChat,
+    userChats,
+  } = useContext(ChatContext);
   const messagesEndRef = useRef(null);
 
   useEffect(() => {
@@ -103,8 +110,9 @@ const Chat = ({ toggleChat }) => {
     setMessage(e.target.value);
   };
 
-  const handleSendMessage = async () => {
-    sendTextMessage(message, user._id, currentChat?._id, setMessage);
+  const handleSendMessage = async (e) => {
+    // e.default
+    await sendTextMessage(message, user._id, currentChat?._id, setMessage);
   };
 
   if (isMessagesLoading) {
@@ -130,7 +138,9 @@ const Chat = ({ toggleChat }) => {
           messages.map((message, index) => (
             <div
               key={index}
-              className={`message-item ${message.senderId === user._id ? "own" : "recipient"}`}
+              className={`message-item ${
+                message.senderId === user._id ? "own" : "recipient"
+              }`}
             >
               <div className="message-content">{message.text}</div>
               <div className="message-timestamp">
@@ -157,7 +167,7 @@ const Chat = ({ toggleChat }) => {
           className="chat-input"
           placeholder="Compose your message..."
         />
-        <button onClick={() => handleSendMessage()} className="send-button">
+        <button onClick={(e) => handleSendMessage(e)} className="send-button">
           <FiSend size={24} />
         </button>
       </div>
