@@ -27,9 +27,10 @@ const Chat = ({ toggleChat }) => {
   };
 
   const handleSendMessage = async (e) => {
-    await sendTextMessage(message, user._id, currentChat?._id, setMessage);
     e.preventDefault();
     e.stopPropagation();
+    await sendTextMessage(message, user._id, currentChat?._id, setMessage);
+
     inputRef.current.focus();
   };
 
