@@ -27,10 +27,10 @@ const Chat = ({ toggleChat }) => {
   };
 
   const handleSendMessage = async (e) => {
-    // e.preventDefault();
-    // e.stopPropagation();
-    e.blur();
+    e.preventDefault();
+    e.stopPropagation();
     await sendTextMessage(message, user._id, currentChat?._id, setMessage);
+    inputRef.current.focus();
   };
 
   if (isMessagesLoading) {
@@ -68,7 +68,7 @@ const Chat = ({ toggleChat }) => {
           ))}
         <div ref={messagesEndRef} />
       </div>
-      <form className="chat-input-container" onSubmit={handleSendMessage}>
+      <div className="chat-input-container">
         <input
           type="file"
           onChange={(e) => setSelectedFile(e.target.files[0])}
@@ -85,10 +85,10 @@ const Chat = ({ toggleChat }) => {
           className="chat-input"
           placeholder="Compose your message..."
         />
-        <button type="submit" className="send-button">
+        <button onClick={(e) => handleSendMessage(e)} className="send-button">
           <FiSend size={24} />
         </button>
-      </form>
+      </div>
     </div>
   );
 };
