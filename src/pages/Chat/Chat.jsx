@@ -79,6 +79,7 @@ const Chat = ({ toggleChat }) => {
           <FiImage size={24} />
         </label>
         <input
+          ref={inputRef}
           type="text"
           value={message}
           onChange={handleInputChange}
