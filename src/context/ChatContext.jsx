@@ -164,12 +164,19 @@ export const ChatContextProvider = ({ children, user }) => {
   }, [currentChat, user?._id]);
 
   const sendTextMessage = useCallback(
-    async (textMessage, senderId, currentChatId, setTextMessage, setKey) => {
+    async (textMessage, senderId, currentChatId, setTextMessage, setKey, image,
+      setImage, setPreview, setSelectedFile) => {
       let payload = {
         chatId: currentChatId,
         senderId: senderId,
-        text: textMessage,
       };
+      if (textMessage && textMessage !== "") {
+        payload.text = textMessage;
+      }
+
+      if (image) {
+        payload.image = image;
+      }
       try {
         setKey(true);
         const response = await createMessageUserChat(payload);
@@ -178,6 +185,9 @@ export const ChatContextProvider = ({ children, user }) => {
           setMessages((prev) => [...prev, response.result]);
           setTextMessage("");
           setKey(false);
+          setImage(null)
+          setPreview(null)
+          setSelectedFile(null)
         } else {
           setSendTextMessageError(response.message);
         }
@@ -188,7 +198,6 @@ export const ChatContextProvider = ({ children, user }) => {
     },
     []
   );
-
   const updateCurrentChat = useCallback(async (chat) => {
     setCurrentChat(chat);
   }, []);

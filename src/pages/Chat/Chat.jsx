@@ -2,6 +2,16 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import { FiX, FiImage, FiSend } from "react-icons/fi";
 import { ChatContext } from "../../context/ChatContext";
 import DateTimeComponent from "../../utils/DateTimeComponent";
+import { Image } from "antd";
+
+const fileToBase64 = (file) => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = (error) => reject(error);
+  });
+};
 
 const Chat = ({ toggleChat }) => {
   const user = JSON.parse(localStorage.getItem("userData"));
@@ -17,16 +27,38 @@ const Chat = ({ toggleChat }) => {
   } = useContext(ChatContext);
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
+  const [image, setImage] = useState(null);
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [preview, setPreview] = useState(null);
   useEffect(() => {
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [messages]);
 
+  useEffect(() => {
+    if (!selectedFile) {
+      setPreview(undefined);
+      setImage(null);
+      return;
+    }
+
+    const objectUrl = URL.createObjectURL(selectedFile);
+    setPreview(objectUrl);
+
+    const convertFileToBase64 = async () => {
+      const base64Image = await fileToBase64(selectedFile);
+      setImage(base64Image);
+    };
+
+    convertFileToBase64();
+
+    return () => URL.revokeObjectURL(objectUrl);
+  }, [selectedFile]);
+
   const handleInputChange = (e) => {
     setMessage(e.target.value);
   };
-
   const handleSendMessage = async (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -35,7 +67,11 @@ const Chat = ({ toggleChat }) => {
       user._id,
       currentChat?._id,
       setMessage,
-      setKey
+      setKey,
+      image,
+      setImage,
+      setPreview,
+      setSelectedFile
     );
   };
   const handleKeyPress = (e) => {
@@ -66,11 +102,20 @@ const Chat = ({ toggleChat }) => {
           messages.map((message, index) => (
             <div
               key={index}
-              className={`message-item ${
-                message.senderId === user._id ? "own" : "recipient"
-              }`}
+              className={`message-item ${message.senderId === user._id ? "own" : "recipient"
+                }`}
             >
-              <div className="message-content">{message.text}</div>
+              <div className="message-content-image">
+
+                {message?.images?.url && (
+                  <Image src={message?.images.url} alt="Image" />
+                )}
+              </div>
+
+              {message?.text && (
+                <div className="message-content">{message?.text}</div>
+              )}
+
               <div className="message-timestamp">
                 <DateTimeComponent dateString={message.createdAt} />
               </div>
@@ -78,6 +123,11 @@ const Chat = ({ toggleChat }) => {
           ))}
         <div ref={messagesEndRef} />
       </div>
+      {preview && (
+        <div className="image-preview">
+          <Image src={preview} alt="Preview" />
+        </div>
+      )}
       <div className="chat-input-container">
         <input
           type="file"
