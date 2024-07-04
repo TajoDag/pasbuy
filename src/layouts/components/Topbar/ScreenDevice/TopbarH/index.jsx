@@ -4,6 +4,7 @@ import { DownOutlined } from "@ant-design/icons";
 import flagEn from "@assets/images/flags/en.png";
 import flagCn from "@assets/images/flags/cn.png";
 import flagVn from "@assets/images/flags/vn.png";
+import flagPt from "@assets/images/flags/pt.png";
 import { useLocalization } from "./../../../../../context/LocalizationWrapper";
 import TranslateTing from "../../../../../components/Common/TranslateTing";
 import { useNavigate } from "react-router-dom";
@@ -31,6 +32,11 @@ const TopbarH = () => {
       key: "vi",
       label: "Tiếng Việt",
       icon: <img style={{ marginRight: 8 }} src={flagVn} />,
+    },
+    {
+      key: "pt",
+      label: "Portugal",
+      icon: <img style={{ marginRight: 8 }} src={flagPt} />,
     },
   ];
 

@@ -3,6 +3,7 @@ import { IntlProvider } from 'react-intl';
 import enLocale from '../locales/en.json';
 import viLocale from '../locales/vi.json';
 import zhLocale from '../locales/zh.json';
+import ptLocale from '../locales/pt.json';
 
 const LocalizationContext = createContext();
 
@@ -22,6 +23,7 @@ export const LocalizationProvider = ({ children }) => {
         en: enLocale,
         vi: viLocale,
         zh: zhLocale,
+        pt: ptLocale,
     };
 
     const switchLocale = (newLocale) => {

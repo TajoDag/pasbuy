@@ -6,7 +6,7 @@ import { useIntl } from "react-intl";
 const HeaderL = ({ img }) => {
   const [showInput, setShowInput] = useState(false);
   const navigate = useNavigate();
-  const [search, setSearch] = useState()
+  const [search, setSearch] = useState();
 
   const handleInputChange = (e) => {
     setSearch(e.target.value);
@@ -15,13 +15,13 @@ const HeaderL = ({ img }) => {
   const onSearch = () => {
     if (search.trim() !== "") {
       navigate("/products", {
-        state: { query: search }
+        state: { query: search },
       });
     }
   };
 
   const handleKeyDown = (e) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       onSearch();
     }
   };
@@ -43,8 +43,12 @@ const HeaderL = ({ img }) => {
                 type="text"
                 placeholder={placeholderText}
                 className="search-input"
-
+                onChange={handleInputChange}
+                onKeyDown={handleKeyDown}
               />
+              <button className="search-button" onClick={onSearch}>
+                <SearchOutlined />
+              </button>
             </div>
           </div>
         </div>

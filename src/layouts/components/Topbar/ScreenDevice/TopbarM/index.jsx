@@ -2,6 +2,7 @@ import { Button, Dropdown, Menu, Space } from "antd";
 import flagEn from "@assets/images/flags/en.png";
 import flagCn from "@assets/images/flags/cn.png";
 import flagVn from "@assets/images/flags/vn.png";
+import flagPt from "@assets/images/flags/pt.png";
 import { useLocalization } from "../../../../../context/LocalizationWrapper";
 import { useState } from "react";
 import { DownOutlined } from "@ant-design/icons";
@@ -31,6 +32,11 @@ const TopbarM = () => {
       key: "vi",
       label: "Tiếng Việt",
       icon: <img style={{ marginRight: 8 }} src={flagVn} />,
+    },
+    {
+      key: "pt",
+      label: "Portugal",
+      icon: <img style={{ marginRight: 8 }} src={flagPt} />,
     },
   ];
   const currencys = [
