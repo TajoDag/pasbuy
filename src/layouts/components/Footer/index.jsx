@@ -59,15 +59,15 @@ const Footer = () => {
             <TranslateTing text="Subscribe" />
           </button>
           <div className="app-links">
-            {/* <a href="/detail">
-              <img src={chplay} alt="Google Play" />
-            </a> */}
-            {/* <a href="#">
-              <img
+            <a href="#">
+              {/* <img src={chplay} alt="Google Play" /> */}
+            </a>
+            <a href="#">
+              {/* <img
                 src="https://www.pasbuy.cyou/public/assets/img/app.png"
                 alt="App Store"
-              />
-            </a> */}
+              /> */}
+            </a>
           </div>
         </div>
         <div className="footer-section">
