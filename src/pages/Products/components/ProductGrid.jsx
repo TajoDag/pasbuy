@@ -76,7 +76,7 @@ export default ({ setBodyFilter, total, products, bodyFilter }) => {
                 },
                 {
                   value: "3",
-                  label:  <TranslateTing text="Price Low to High" />,
+                  label: <TranslateTing text="Price Low to High" />,
                 },
                 {
                   value: "4",
@@ -94,17 +94,26 @@ export default ({ setBodyFilter, total, products, bodyFilter }) => {
         {products.map((item) => (
           <div key={item.key} className="grid_item">
             <div className="fast_button">
-              <Tooltip title={<TranslateTing text="Add to Wishlist" />} placement="left">
+              <Tooltip
+                title={<TranslateTing text="Add to Wishlist" />}
+                placement="left"
+              >
                 <button>
                   <CiHeart />
                 </button>
               </Tooltip>
-              <Tooltip title={<TranslateTing text="Add to Compare" />} placement="left">
+              <Tooltip
+                title={<TranslateTing text="Add to Compare" />}
+                placement="left"
+              >
                 <button>
                   <IoMdSync />
                 </button>
               </Tooltip>
-              <Tooltip title={<TranslateTing text="Add to Cart" />} placement="left">
+              <Tooltip
+                title={<TranslateTing text="Add to Cart" />}
+                placement="left"
+              >
                 <button>
                   <MdOutlineShoppingCart />
                 </button>
@@ -140,7 +149,7 @@ export default ({ setBodyFilter, total, products, bodyFilter }) => {
         onClose={() => setOpen(false)}
         open={open}
       >
-        <FilterSide />
+        <FilterSide setBodyFilter={setBodyFilter} bodyFilter={bodyFilter} />
       </Drawer>
     </div>
   );

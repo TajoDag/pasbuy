@@ -12,6 +12,8 @@ export default ({ setBodyFilter, bodyFilter }) => {
   const { categories } = Categories();
   // const { size } = Sizes();
 
+  console.log(bodyFilter, "bodyFilter");
+
   return (
     <div className="menu">
       <div className="background_white">
@@ -29,28 +31,29 @@ export default ({ setBodyFilter, bodyFilter }) => {
           </h2>
         </div>
         <div className="menu_detail">
-          {categories.map((item) => (
-            <div
-              key={item.key}
-              onClick={() =>
-                setBodyFilter({
-                  page: 1,
-                  size: 12,
-                  category: item.key,
-                })
-              }
-              style={
-                item.key === bodyFilter.category
-                  ? {
-                      color: "blue",
-                      textDecoration: "underline",
-                    }
-                  : {}
-              }
-            >
-              <TranslateTing text={item.name} />
-            </div>
-          ))}
+          {categories &&
+            categories.map((item) => (
+              <div
+                key={item.key}
+                onClick={() => {
+                  setBodyFilter({
+                    page: 1,
+                    size: 12,
+                    category: item.key,
+                  });
+                }}
+                style={
+                  item.key === bodyFilter?.category
+                    ? {
+                        color: "blue",
+                        textDecoration: "underline",
+                      }
+                    : {}
+                }
+              >
+                <TranslateTing text={item.name} />
+              </div>
+            ))}
         </div>
       </div>
       {/* <div className="filter_price background_white">

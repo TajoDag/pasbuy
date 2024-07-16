@@ -8,14 +8,14 @@ const HeaderNav = () => {
       title: "homepage",
       path: "/",
     },
-    {
-      title: "flashSales",
-      path: "#",
-    },
-    {
-      title: "blogs",
-      path: "#",
-    },
+    // {
+    //   title: "flashSales",
+    //   path: "#",
+    // },
+    // {
+    //   title: "blogs",
+    //   path: "#",
+    // },
     {
       title: "allBrands",
       path: "/all-brands",

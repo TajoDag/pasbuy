@@ -15,7 +15,6 @@ export default () => {
     name: searchQuery
   });
   const { products } = Products({ bodyFilter, setTotal });
-
   return (
     <div className="categories_container">
       <FilterSide setBodyFilter={setBodyFilter} bodyFilter={bodyFilter} />

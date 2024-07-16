@@ -3,7 +3,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
-import {  formatPrice, splitText } from "../../../../utils";
+import { formatPrice, splitText } from "../../../../utils";
 import {
   getProductByIdC,
   getProductFeatured,
@@ -108,35 +108,41 @@ const ListProductForType = ({ title, typeUrl, typeFil, idC }) => {
   };
 
   return (
-    <section className="list_product_for_type">
-      <div className="div_title">
-        <h3>
-          <span>
-            <TranslateTing text={title} />
-          </span>
-        </h3>
-        <div className="div_btn" onClick={() => navigate("/products")}>
-          <span>
-            <TranslateTing text="View more" onClick={() => navigate("/products")}/>
-          </span>
-        </div>
-      </div>
-      <Slider {...settings} className="list_product_slider">
-        {data.map((item, index) => (
-          <div
-            key={index}
-            className="product_card"
-            onClick={() => navigate(`/detail/${item._id}`)}
-          >
-            <img src={item.images[0].url} alt={item.name} />
-            <div className="product_info">
-              <span>{formatPrice(item.price, currency)}</span>
-              <h4>{splitText(item.name, 40)}</h4>
-            </div>
+    data &&
+    data.length > 6 && (
+      <section className="list_product_for_type">
+        <div className="div_title">
+          <h3>
+            <span>
+              <TranslateTing text={title} />
+            </span>
+          </h3>
+          <div className="div_btn" onClick={() => navigate("/products")}>
+            <span>
+              <TranslateTing
+                text="View more"
+                onClick={() => navigate("/products")}
+              />
+            </span>
           </div>
-        ))}
-      </Slider>
-    </section>
+        </div>
+        <Slider {...settings} className="list_product_slider">
+          {data.map((item, index) => (
+            <div
+              key={index}
+              className="product_card"
+              onClick={() => navigate(`/detail/${item._id}`)}
+            >
+              <img src={item.images[0].url} alt={item.name} />
+              <div className="product_info">
+                <span>{formatPrice(item.price, currency)}</span>
+                <h4>{splitText(item.name, 40)}</h4>
+              </div>
+            </div>
+          ))}
+        </Slider>
+      </section>
+    )
   );
 };
 

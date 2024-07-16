@@ -68,6 +68,7 @@ export default function Home() {
       name: "Women's Fashing Bag",
     },
   ]);
+  const [cate, setCate] = useState([])
   const [brands, setBrands] = useState([]);
 
   const listShow = [
@@ -105,6 +106,8 @@ export default function Home() {
     const getCategories = async () => {
       try {
         const rp = await getCateSidebarBanner();
+        // console.log(rp,'categories')
+        setCate(rp.result)
         const updatedCategories = categories.map((category) => {
           const matchedItem = rp.result.find(
             (item) => item.name === category.name
@@ -128,6 +131,7 @@ export default function Home() {
     };
     getCategories();
   }, []);
+ 
   return (
     <div className="homepage">
       <HomeBannerArea />
@@ -139,7 +143,12 @@ export default function Home() {
         typeFil="ul"
       />
       <BannerAds anh1={anh7} anh2={anh8} anh3={anh9} />
-      <ListProductForType
+      {cate && cate.map((item, i) =>  <ListProductForType
+        title={item.name}
+        typeFil="filById"
+        idC={item._id}
+      />)}
+      {/* <ListProductForType
         title="Women's Clothing & Fashion"
         typeFil="filById"
         idC="664cfca9b799a395844a958c"
@@ -148,7 +157,7 @@ export default function Home() {
         title="Phone Accessories"
         typeFil="filById"
         idC="664cfcdab799a395844a95af"
-      />
+      /> */}
       <BannerAds anh1={anh4} anh2={anh5} anh3={anh6} />
       <section className="dw_top10">
         <Top10Grid
