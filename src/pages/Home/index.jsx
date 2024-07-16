@@ -131,7 +131,8 @@ export default function Home() {
     };
     getCategories();
   }, []);
- 
+
+
   return (
     <div className="homepage">
       <HomeBannerArea />

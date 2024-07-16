@@ -94,11 +94,29 @@ import { checkNull } from "../../../utils/checkNull";
 export const Products = ({ bodyFilter, setTotal }) => {
   const dispatch = useDispatch();
   const [products, setProducts] = React.useState([]);
-  const body = checkNull(bodyFilter);
+  // const body = checkNull(bodyFilter);
+  // useEffect(() => {
+  //   dispatch(startLoading());
+  //   getAllProducts({ ...body, page: body.page - 1 })
+  //     .then((res) => {
+  //       setProducts(
+  //         res.result.products.map((item) => ({
+  //           ...item,
+  //           key: item._id,
+  //         }))
+  //       );
+  //       setTotal(res.result.pagination.total);
+  //     })
+  //     .finally(() => {
+  //       dispatch(stopLoading());
+  //     });
+  // }, [bodyFilter]);
   useEffect(() => {
-    dispatch(startLoading());
-    getAllProducts({ ...body, page: body.page - 1 })
-      .then((res) => {
+    const fetchProducts = async () => {
+      dispatch(startLoading());
+      try {
+        const body = checkNull(bodyFilter);
+        const res = await getAllProducts({ ...body, page: body.page - 1 });
         setProducts(
           res.result.products.map((item) => ({
             ...item,
@@ -106,10 +124,12 @@ export const Products = ({ bodyFilter, setTotal }) => {
           }))
         );
         setTotal(res.result.pagination.total);
-      })
-      .finally(() => {
+      } finally {
         dispatch(stopLoading());
-      });
-  }, [bodyFilter]);
+      }
+    };
+
+    fetchProducts();
+  }, [bodyFilter, dispatch, setTotal]);
   return { products };
 };

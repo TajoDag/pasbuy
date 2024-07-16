@@ -81,6 +81,7 @@ const SidebarLeft = () => {
     };
     getCategories();
   }, []);
+
   const handleNavigate = () => {};
   return (
     <div className="sidebarLeft">
@@ -94,7 +95,7 @@ const SidebarLeft = () => {
           <div
             key={index}
             className="category"
-            onClick={() => navigate("/products")}
+            onClick={() => navigate("/products", { state: { id: item.id } })}
           >
             <div className="img">
               <img src={item.img} />

@@ -1,5 +1,5 @@
 import { Button, Select, Tooltip } from "antd";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ToolTipLongText from "../../../utils/Longtext";
 import { RenderRate } from "../../../utils/renderRate";
 import { IoMdStar } from "react-icons/io";
@@ -11,7 +11,7 @@ import { Drawer } from "antd";
 import FilterSide from "./FilterSide";
 import { Pagination } from "antd";
 import { Brands } from "../utils/brand";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import TranslateTing from "../../../components/Common/TranslateTing";
 import { useCurrency } from "../../../context/CurrencyContext";
 import { formatPrice } from "../../../utils";
@@ -21,7 +21,18 @@ export default ({ setBodyFilter, total, products, bodyFilter }) => {
   const [open, setOpen] = React.useState(false);
   const { currency } = useCurrency();
   const { brands } = Brands();
+  const location = useLocation();
+  const { id } = location.state || {};
 
+  // useEffect(() => {
+  //   if (id) {
+  //     setBodyFilter({
+  //       page: 1,
+  //       size: 12,
+  //       category: id,
+  //     });
+  //   }
+  // }, [id]);
   return (
     <div className="product_wrap">
       <div className="header_filter">
