@@ -15,6 +15,7 @@ import TranslateTing from "../Common/TranslateTing";
 import { useEffect, useState } from "react";
 import { getBanner } from "../../api/utils/banner";
 import { useNavigate } from "react-router-dom";
+import { getCateSidebarBanner } from "../../api/utils/category";
 
 const contentStyle = {
   height: "315px",
@@ -23,8 +24,8 @@ const contentStyle = {
 };
 
 const HomeBannerArea = () => {
-  const navigate = useNavigate()
-  const categoriesR = [
+  const navigate = useNavigate();
+  const [categoriesR, setCategories] = useState([
     {
       img: anh1,
       name: "Women's Clothing & Fashion",
@@ -61,8 +62,25 @@ const HomeBannerArea = () => {
       img: anh9,
       name: "Home Decoration & Appliance",
     },
-  ];
-
+  ]);
+  useEffect(() => {
+    const getCategories = async () => {
+      try {
+        const rp = await getCateSidebarBanner();
+        const updatedCategories = categoriesR.map((category) => {
+          const matchedItem = rp.result.find(
+            (item) => item.name === category.name
+          );
+          if (matchedItem) {
+            return { ...category, id: matchedItem._id };
+          }
+          return category;
+        });
+        setCategories(updatedCategories);
+      } catch (error) {}
+    };
+    getCategories();
+  }, []);
   const CustomPrevArrow = (props) => {
     const { className, style, onClick } = props;
     return (
@@ -109,6 +127,7 @@ const HomeBannerArea = () => {
     getAllBanner();
   }, []);
 
+  console.log(categoriesR, "categoriesR");
   return (
     <div className="home_banner_area">
       <SidebarLeft />
@@ -133,7 +152,11 @@ const HomeBannerArea = () => {
         </Carousel>
         <div className="categories">
           {categoriesR.map((item, index) => (
-            <div key={index} className="card" onClick={() => navigate('/products')}>
+            <div
+              key={index}
+              className="card"
+              onClick={() => navigate("/products", { state: { id: item.id } })}
+            >
               <div className="img_cate">
                 <img src={item.img} alt="" />
               </div>
