@@ -92,7 +92,13 @@ export default ({ setBodyFilter, total, products, bodyFilter }) => {
       </div>
       <div className="product_grid">
         {products.map((item) => (
-          <div key={item.key} className="grid_item">
+          <div
+            key={item.key}
+            className="grid_item"
+            onClick={() => {
+              navigate(`/detail/${item._id}`);
+            }}
+          >
             <div className="fast_button">
               <Tooltip
                 title={<TranslateTing text="Add to Wishlist" />}

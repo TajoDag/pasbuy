@@ -12,8 +12,6 @@ export default ({ setBodyFilter, bodyFilter }) => {
   const { categories } = Categories();
   // const { size } = Sizes();
 
-  console.log(bodyFilter, "bodyFilter");
-
   return (
     <div className="menu">
       <div className="background_white">
