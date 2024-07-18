@@ -5,6 +5,14 @@
   justify-content: center;
   gap: 15px;
   margin-bottom: 25px;
+
+  @media (max-width: 767px) {
+    grid-template-columns: 100%;
+    gap: 10px;
+    row-gap: 10px;
+    padding: 20px 20px;
+  }
+
   .brand_grid {
     padding: 20px;
     width: 100%;
@@ -23,6 +31,7 @@
       row-gap: 10px;
     }
     .item {
+      cursor: pointer;
       display: flex;
       align-items: center;
       border: 1px solid #f3eaea;

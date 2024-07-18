@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { PiCurrencyDollar } from "react-icons/pi";
 import { HiPlus } from "react-icons/hi2";
 import TranslateTing from "../../../../components/Common/TranslateTing";
@@ -8,10 +8,19 @@ import { formatPrice } from "../../../../utils";
 import DateTimeComponent from "../../../../utils/DateTimeComponent";
 import { TagsOrder } from "../../../../utils/TagsOrder";
 import ModalWithdraw from "../Modal/ModalWithdraw";
+import { ChatContext } from "../../../../context/ChatContext";
 
 export const Wallet = ({ user, dataDeposit, refecth, dataWithdraw }) => {
   const { currency } = useCurrency();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const {
+    openChatWithMessage,
+    userChats,
+    updateCurrentChat,
+    isChatOpen,
+    setIsChatOpen,
+    createChat,
+  } = useContext(ChatContext);
   const showModal = () => {
     setIsModalOpen(true);
   };
@@ -21,9 +30,24 @@ export const Wallet = ({ user, dataDeposit, refecth, dataWithdraw }) => {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
+  const handleMessageSeller = () => {
+    // openChatWithMessage();
+    console.log("ddd");
+    if (userChats && userChats.length < 1) {
+      createChat();
+      openChatWithMessage();
+    } else {
+      updateCurrentChat(userChats[0]);
+      openChatWithMessage();
+    }
+  };
   const columnsRecharge = [
     // { title: "#", align: "center" },
-    { title: <TranslateTing text="Trading code" />, align: "center", dataIndex: "code" },
+    {
+      title: <TranslateTing text="Trading code" />,
+      align: "center",
+      dataIndex: "code",
+    },
     {
       title: <TranslateTing text="Date" />,
       align: "center",
@@ -36,10 +60,19 @@ export const Wallet = ({ user, dataDeposit, refecth, dataWithdraw }) => {
       render: (text) => <>{formatPrice(text, currency)}</>,
     },
 
-    { title: <TranslateTing text="Status" />, align: "center", dataIndex: "status", render: (value) => TagsOrder(value), },
+    {
+      title: <TranslateTing text="Status" />,
+      align: "center",
+      dataIndex: "status",
+      render: (value) => TagsOrder(value),
+    },
   ];
   const columnsRequest = [
-    { title: <TranslateTing text="Trading code" />, align: "center", dataIndex: "code" },
+    {
+      title: <TranslateTing text="Trading code" />,
+      align: "center",
+      dataIndex: "code",
+    },
     {
       title: <TranslateTing text="Date" />,
       align: "center",
@@ -51,9 +84,22 @@ export const Wallet = ({ user, dataDeposit, refecth, dataWithdraw }) => {
       dataIndex: "amount",
       render: (text) => <>{formatPrice(text, currency)}</>,
     },
-    { title: <TranslateTing text="Status" />, align: "center", dataIndex: "status", render: (value) => TagsOrder(value) },
-    { title: <TranslateTing text="Remark" />, align: "center", dataIndex: "note" },
-    { title: <TranslateTing text="Message" />, align: "center", dataIndex: "message" },
+    {
+      title: <TranslateTing text="Status" />,
+      align: "center",
+      dataIndex: "status",
+      render: (value) => TagsOrder(value),
+    },
+    {
+      title: <TranslateTing text="Remark" />,
+      align: "center",
+      dataIndex: "note",
+    },
+    {
+      title: <TranslateTing text="Message" />,
+      align: "center",
+      dataIndex: "message",
+    },
   ];
   return (
     <div className="wallet_container">
@@ -73,17 +119,20 @@ export const Wallet = ({ user, dataDeposit, refecth, dataWithdraw }) => {
             <TranslateTing text="Wallet Balance" />
           </p>
         </div>
-        {/* <div className="card_item">
+        <div className="card_item" onClick={() => handleMessageSeller()}>
           <p style={{ fontSize: "60px" }}>
             <HiPlus />
           </p>
           <p style={{ color: "red", fontSize: "18px" }}>
             <TranslateTing text="Offline Recharge Wallet" />
           </p>
-        </div> */}
-        <div className="bg_2 card_item" onClick={() => {
-          showModal(true);
-        }}>
+        </div>
+        <div
+          className="bg_2 card_item"
+          onClick={() => {
+            showModal(true);
+          }}
+        >
           <p style={{ fontSize: "60px" }}>
             <HiPlus />
           </p>
@@ -109,11 +158,19 @@ export const Wallet = ({ user, dataDeposit, refecth, dataWithdraw }) => {
           <h3>
             <TranslateTing text="Withdraw Request History" />
           </h3>
-
         </div>
-        <Table columns={columnsRequest} scroll={{ x: "max-content" }} dataSource={dataWithdraw} />
+        <Table
+          columns={columnsRequest}
+          scroll={{ x: "max-content" }}
+          dataSource={dataWithdraw}
+        />
       </div>
-      <ModalWithdraw onClose={handleCancel} open={isModalOpen} point={user.point} refecth={refecth} />
+      <ModalWithdraw
+        onClose={handleCancel}
+        open={isModalOpen}
+        point={user.point}
+        refecth={refecth}
+      />
     </div>
   );
 };

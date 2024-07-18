@@ -23,7 +23,7 @@ export default ({ setBodyFilter, total, products, bodyFilter }) => {
   const { brands } = Brands();
   const location = useLocation();
   const { id } = location.state || {};
-
+  const [selectedBrand, setSelectedBrand] = useState(null);
   // useEffect(() => {
   //   if (id) {
   //     setBodyFilter({
@@ -33,6 +33,7 @@ export default ({ setBodyFilter, total, products, bodyFilter }) => {
   //     });
   //   }
   // }, [id]);
+  console.log(selectedBrand);
   return (
     <div className="product_wrap">
       <div className="header_filter">
@@ -60,8 +61,10 @@ export default ({ setBodyFilter, total, products, bodyFilter }) => {
             <Select
               placeholder={"All Brands"}
               options={brands}
-              defaultValue={"1"}
+              value={selectedBrand}
               onChange={(v) => {
+                console.log(v, 'dđ')
+                setSelectedBrand(v);
                 setBodyFilter({
                   ...bodyFilter,
                   brand: v,

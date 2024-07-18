@@ -8,11 +8,11 @@ export default () => {
   const [total, setTotal] = React.useState(0);
   const location = useLocation();
   const searchQuery = (location.state?.query && location.state?.query) || "";
-  const { id } = location.state || {};
+  const { id, idBrand } = location.state || {};
   const [bodyFilter, setBodyFilter] = useState({
     page: 1,
     size: 12,
-    brand: "",
+    brand: idBrand || "",
     name: searchQuery,
     category: id || "",
   });
@@ -21,9 +21,10 @@ export default () => {
       setBodyFilter((prevFilter) => ({
         ...prevFilter,
         category: id,
+        brand: idBrand,
       }));
     }
-  }, [id]);
+  }, [id, idBrand]);
 
   useEffect(() => {
     if (searchQuery) {

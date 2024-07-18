@@ -22,7 +22,14 @@ const Top10Grid = ({ title, btn, data, type }) => {
           <div
             key={index}
             className="category"
-            onClick={() => navigate(`/products`, { state: { id: item.id } })}
+            onClick={() =>
+              navigate(`/products`, {
+                state:
+                  type === "categories"
+                    ? { id: item.id }
+                    : { idBrand: item._id },
+              })
+            }
           >
             <div className="img_cate">
               <img src={item.img} alt={item.name} />
