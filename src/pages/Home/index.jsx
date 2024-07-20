@@ -126,6 +126,7 @@ export default function Home() {
     const getCategories = async () => {
       try {
         const rp = await getBrandSidebarBanner();
+        
         setBrands(rp.result);
       } catch (error) { }
     };
