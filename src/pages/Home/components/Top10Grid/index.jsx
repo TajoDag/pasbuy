@@ -18,7 +18,7 @@ const Top10Grid = ({ title, btn, data, type }) => {
         </div>
       </div>
       <div className="list_categories_top10">
-        {data.map((item, index) => (
+        {data && data?.map((item, index) => (
           <div
             key={index}
             className="category"
