@@ -241,8 +241,8 @@ const ChatIcon = () => {
     <>
       <div
         className="chat-icon"
-        ref={chatIconRef}
-        style={{ ...position }}
+        // ref={chatIconRef}
+        // style={{ ...position }}
         onClick={toggleChat}
       >
         <FiMessageCircle size={30} color="#fff" />
