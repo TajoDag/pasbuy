@@ -145,13 +145,13 @@ const ChatIcon = () => {
     }
   };
 
-  const onMouseDown = (e: MouseEvent) => {
+  const onMouseDown = (e) => {
     e.preventDefault();
     document.addEventListener("mousemove", onMouseMove);
     document.addEventListener("mouseup", onMouseUp);
   };
 
-  const onMouseMove = (e: MouseEvent) => {
+  const onMouseMove = (e) => {
     const { clientX, clientY } = e;
     const { innerWidth, innerHeight } = window;
     const iconSize = 60; // Assuming icon size is 60px
