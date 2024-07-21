@@ -10,6 +10,7 @@ import ChatIcon from "../pages/Chat/ChatIcon";
 import { ChatContextProvider } from "../context/ChatContext";
 import { getUser } from "../api/utils/auth";
 import { SOCKET_URL } from "../api/endpoint";
+import { useIsMobile } from "../utils/responsive";
 
 const getLicenseIdFromUrl = (url) => {
   const parts = url.split("/");
@@ -20,6 +21,7 @@ export default function AppRoutes() {
   const notificationProps = useSelector((state) => state.notification);
   const isAuthenticated = JSON.parse(localStorage.getItem("isLogin"));
   const [dataUser, setDataUser] = useState({});
+  const isMobile = useIsMobile();
   useEffect(() => {
     if (isAuthenticated && isAuthenticated !== null) {
       const getUserDt = async () => {
@@ -60,9 +62,9 @@ export default function AppRoutes() {
             />
           ))}
         </Routes>
-        {/* {isAuthenticated === true && (
+        {isAuthenticated === true && !isMobile && (
           <ChatIcon initialMessage={`Product link: ${window.location.href}`} />
-        )} */}
+        )}
       </ChatContextProvider>
     </Suspense>
   );
