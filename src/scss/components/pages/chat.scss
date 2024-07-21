@@ -162,11 +162,11 @@
 }
 
 .chat-icon {
-  position: fixed;
-  bottom: 10px;
-  right: 38px;
-  width: 60px;
-  height: 60px;
+  // position: fixed;
+  // bottom: 10px;
+  // right: 38px;
+  width: 40px;
+  height: 40px;
   background-color: #007bff;
   color: #fff;
   border-radius: 50%;
@@ -184,6 +184,6 @@
   cursor: grabbing; /* Add this line */
 }
 .chat-icon svg {
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 25px;
 }
