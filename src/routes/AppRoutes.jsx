@@ -28,12 +28,12 @@ export default function AppRoutes() {
           if (rp.status) {
             setDataUser(rp.result);
           }
-        } catch (err) {}
+        } catch (err) { }
       };
       getUserDt();
     }
   }, [isAuthenticated, SOCKET_URL]);
- 
+
   const renderRoute = (route, isAuthenticated) => {
     if (route.isPrivate || isAuthenticated) {
       return route.element;
@@ -60,9 +60,9 @@ export default function AppRoutes() {
             />
           ))}
         </Routes>
-        {isAuthenticated === true && (
+        {/* {isAuthenticated === true && (
           <ChatIcon initialMessage={`Product link: ${window.location.href}`} />
-        )}
+        )} */}
       </ChatContextProvider>
     </Suspense>
   );

@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 import TranslateTing from "../../../components/Common/TranslateTing";
 import { useActiveMenu } from "../../../context/ActiveMenu";
 import { useCart } from "../../../context/CartContext";
-
+import ChatIcon from "../../../pages/Chat/ChatIcon"
 const BottomNav = () => {
   const { openMenu, setOpenMenu } = useActiveMenu();
   const navigate = useNavigate();
@@ -48,9 +48,12 @@ const BottomNav = () => {
         </span>
       </div>
       <div className="nav-item">
-        <BellOutlined />
-        <span>
-        </span>
+        {/* <BellOutlined /> */}
+        {/* <span>
+        </span> */}
+        {isAuthenticated === true && (
+          <ChatIcon initialMessage={`Product link: ${window.location.href}`} />
+        )}
       </div>
 
       <Drawer onClose={() => setOpenMenu(false)} open={openMenu}>
