@@ -50,7 +50,6 @@ const BottomNav = () => {
       <div className="nav-item">
         <BellOutlined />
         <span>
-          <TranslateTing text="Notifications" />
         </span>
       </div>
 

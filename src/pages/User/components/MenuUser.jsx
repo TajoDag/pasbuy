@@ -51,6 +51,12 @@ export const MenuUser = () => {
         const rp = await getUser();
         if (rp.status) {
           setDataUser(rp.result);
+          if (rp.result.role === "agency") {
+            setActiveMenu("1")
+          } else {
+            setActiveMenu("2")
+          }
+
         }
       } catch (err) {
         dispatch(showNotification({ message: Error, type: "error" }));
@@ -58,6 +64,9 @@ export const MenuUser = () => {
     };
     getUserDt();
   }, [refresh]);
+
+
+
   const filteredMenu = dataUser.isShop
     ? menu
     : menu.filter((item) => item.key !== "1" && item.key !== "13" && item.key !== "21");

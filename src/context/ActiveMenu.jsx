@@ -1,4 +1,6 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
+import { getUser } from "../api/utils/auth";
+import useRefresh from "../hooks/useRefresh";
 
 const ActiveMenuContext = createContext();
 
@@ -11,8 +13,22 @@ export const useActiveMenu = () => {
 };
 
 export const MenuProvider = ({ children }) => {
-  const user = JSON.parse(localStorage.getItem("userData"));
-  const [activeMenu, setActiveMenu] = useState(user && user?.role === "agency" ? "1" : "2");
+  const [dataUser, setDataUser] = useState({});
+  const [refresh, refecth] = useRefresh();
+  // useEffect(() => {
+  //   const getUserDt = async () => {
+  //     try {
+  //       const rp = await getUser();
+  //       if (rp.status) {
+  //         setDataUser(rp.result);
+  //       }
+  //     } catch (err) {
+
+  //     }
+  //   };
+  //   getUserDt();
+  // }, [])
+  const [activeMenu, setActiveMenu] = useState(dataUser && dataUser?.role === "agency" ? "1" : "2");
   const [openMenu, setOpenMenu] = React.useState(false);
 
   return (
